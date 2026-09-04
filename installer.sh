@@ -75,69 +75,7 @@ else
 fi
 
 DEFAULT_SRC="$SCRIPT_DIR"
-echo ""
-info "How should I get your website files onto this server?"
-echo "   1) Clone them from a GitHub repo (recommended)"
-echo "   2) Use a folder that's already on this server"
-SRC_MODE="$(ask "Choice (1/2)" "1")"
-
-CLONE_DIR=""
-if [[ "$SRC_MODE" == "1" ]]; then
-  REPO_URL="$(ask "GitHub repo URL (e.g. https://github.com/youruser/yourrepo.git)" "")"
-  [[ -n "$REPO_URL" ]] || fail "A repo URL is required."
-  BRANCH="$(ask "Branch to deploy" "main")"
-
-  GIT_CLONE_URL="$REPO_URL"
-  if ask_yn "Is this a private repo?" "n"; then
-    read -r -s -p "$(echo -e "${C_BOLD}?${C_RESET} GitHub Personal Access Token (input hidden): ")" GH_TOKEN
-    echo ""
-    [[ -n "$GH_TOKEN" ]] || fail "A token is required for a private repo."
-    # Embed the token only in the URL used for this clone/pull — never printed or logged,
-    # and the origin remote is reset back to the plain URL right after.
-    GIT_CLONE_URL="$(echo "$REPO_URL" | sed -E "s#https://#https://${GH_TOKEN}@#")"
-  fi
-
-  REPO_NAME="$(basename "$REPO_URL" .git)"
-  CLONE_DIR="$(ask "Local folder to clone into" "/opt/${REPO_NAME}")"
-
-  # git is needed for this path specifically
-  command -v git >/dev/null 2>&1 || { apt-get update -y >/dev/null 2>&1 || true; apt-get install -y git; }
-
-  if [[ -d "$CLONE_DIR/.git" ]]; then
-    info "That folder already looks like a git checkout."
-    if ask_yn "Pull the latest changes instead of re-cloning?" "y"; then
-      git -C "$CLONE_DIR" remote set-url origin "$GIT_CLONE_URL"
-      git -C "$CLONE_DIR" fetch --all --quiet
-      git -C "$CLONE_DIR" checkout "$BRANCH" --quiet
-      git -C "$CLONE_DIR" pull --quiet origin "$BRANCH"
-      git -C "$CLONE_DIR" remote set-url origin "$REPO_URL"
-      ok "Repo updated to the latest $BRANCH."
-    else
-      ask_yn "Delete it and re-clone fresh?" "n" || fail "Pick a different folder and re-run."
-      rm -rf "$CLONE_DIR"
-      git clone --branch "$BRANCH" --single-branch "$GIT_CLONE_URL" "$CLONE_DIR" --quiet
-      git -C "$CLONE_DIR" remote set-url origin "$REPO_URL"
-      ok "Repo cloned."
-    fi
-  elif [[ -d "$CLONE_DIR" ]]; then
-    fail "$CLONE_DIR exists and isn't a git checkout — pick another path."
-  else
-    info "Cloning ${REPO_URL} (branch: ${BRANCH})..."
-    git clone --branch "$BRANCH" --single-branch "$GIT_CLONE_URL" "$CLONE_DIR" --quiet
-    git -C "$CLONE_DIR" remote set-url origin "$REPO_URL"
-    ok "Repo cloned to $CLONE_DIR."
-  fi
-  unset GH_TOKEN GIT_CLONE_URL
-
-  SUBDIR="$(ask "Subfolder inside the repo containing the site files (blank = repo root)" "")"
-  if [[ -n "$SUBDIR" ]]; then
-    SRC_DIR="${CLONE_DIR}/${SUBDIR}"
-  else
-    SRC_DIR="$CLONE_DIR"
-  fi
-else
-  SRC_DIR="$(ask "Folder containing your site files (index/viewer/pdfs/images)" "$DEFAULT_SRC")"
-fi
+SRC_DIR="$(ask "Folder where you already cloned the repo (index/viewer/pdfs/images live here)" "$DEFAULT_SRC")"
 [[ -d "$SRC_DIR" ]] || fail "That folder doesn't exist: $SRC_DIR"
 
 # Figure out the homepage file
@@ -202,7 +140,7 @@ echo ""
 info "Updating package lists and installing base packages (nginx, curl, rsync, openssl)..."
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -y || warn "apt-get update reported errors from one or more repos — continuing, since the packages we need may still be available."
-apt-get install -y nginx curl rsync openssl ca-certificates git
+apt-get install -y nginx curl rsync openssl ca-certificates
 ok "Base packages installed."
 
 # ---------------------------------------------------------------------------
