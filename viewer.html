@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meme Bull — Document Viewer</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<meta name="robots" content="noindex">
+<style>
+  :root{
+    --blue:#2b6bff;
+    --neon:#5eb3ff;
+    --purple:#a855f7;
+    --bg:#060a17;
+    --line:rgba(43,107,255,.24);
+    --text:#e6ecf8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    background:var(--bg);color:var(--text);
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    display:flex;flex-direction:column;
+  }
+  .ambient{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .ambient::before{
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(43,107,255,.06) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(43,107,255,.06) 1px,transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 30%,transparent 75%);
+  }
+  header{
+    position:relative;z-index:1;
+    display:flex;align-items:center;gap:14px;
+    padding:14px 20px;border-bottom:1px solid var(--line);
+    background:rgba(4,6,12,.85);backdrop-filter:blur(10px);flex-wrap:wrap;
+  }
+  .back{
+    display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+    color:#c3d0ea;font-size:13.5px;font-weight:700;padding:8px 14px;border-radius:10px;
+    border:1px solid var(--line);transition:.2s;flex:none;
+  }
+  .back:hover{background:rgba(43,107,255,.12);color:#fff;border-color:rgba(43,107,255,.55)}
+  .back svg{width:15px;height:15px}
+  .doc-title{display:flex;align-items:center;gap:10px;flex:1;min-width:180px}
+  .doc-title img{height:26px;width:auto;filter:drop-shadow(0 0 8px rgba(43,107,255,.4))}
+  .doc-title div{line-height:1.25}
+  .doc-title b{color:#fff;font-size:14.5px;display:block}
+  .doc-title span{color:var(--neon);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+  .badge-ro{
+    flex:none;font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+    color:#fff;background:rgba(168,85,247,.22);border:1px solid rgba(168,85,247,.5);
+    border-radius:999px;padding:5px 11px;
+  }
+  .frame-wrap{flex:1;position:relative;z-index:1;background:#0b0f1c}
+  iframe{width:100%;height:100%;border:0;display:block;background:#1b1f2b}
+  .fallback{
+    position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;
+    gap:14px;text-align:center;padding:30px;
+  }
+  .fallback.show{display:flex}
+  .fallback p{color:#9fb0d6;font-size:14px;max-width:420px;line-height:1.6}
+  .fallback a{
+    color:#fff;text-decoration:none;font-weight:800;font-size:14px;
+    background:linear-gradient(180deg,#4d86ff,#2b6bff);border-radius:12px;padding:11px 22px;
+    box-shadow:0 0 20px rgba(43,107,255,.45);
+  }
+  .note{
+    position:relative;z-index:1;padding:9px 20px;font-size:11.5px;color:#7f8fb8;
+    border-top:1px solid var(--line);background:rgba(4,6,12,.85);text-align:center;
+  }
+  .note b{color:#b9c6e6}
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+
+<header>
+  <a class="back" href="index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+    Back to Meme Bull
+  </a>
+  <div class="doc-title">
+    <img src="logo.png" alt="Meme Bull">
+    <div>
+      <b id="docName">Document</b>
+      <span>Meme Bull · Official Docs</span>
+    </div>
+  </div>
+  <span class="badge-ro">Read only · in-browser</span>
+</header>
+
+<div class="frame-wrap">
+  <iframe id="pdfFrame" title="Meme Bull document viewer"></iframe>
+  <div class="fallback" id="fallback">
+    <p>Your browser blocked the inline preview. You can still view the document by opening it directly.</p>
+    <a id="fallbackLink" href="#" target="_blank" rel="noopener">Open Document</a>
+  </div>
+</div>
+
+<div class="note">Viewing <b id="noteDoc">this document</b> in read-only mode. Use your browser's zoom and page controls inside the frame above to navigate.</div>
+
+<script>
+  (function(){
+    var params = new URLSearchParams(window.location.search);
+    var src = params.get('src') || 'whitepaper.pdf';
+    var title = params.get('title') || 'Whitepaper';
+
+    document.title = 'Meme Bull — ' + title;
+    document.getElementById('docName').textContent = title;
+    document.getElementById('noteDoc').textContent = title;
+
+    // #toolbar=0&navpanes=0 tells the browser's native PDF viewer (Chrome/Firefox)
+    // to hide its own toolbar/download controls where supported.
+    var viewerSrc = src + '#toolbar=0&navpanes=0&scrollbar=1&view=FitH';
+    var frame = document.getElementById('pdfFrame');
+    frame.src = viewerSrc;
+
+    document.getElementById('fallbackLink').href = src;
+
+    // If the iframe fails to load a PDF (e.g. blocked), show a graceful fallback link.
+    var loaded = false;
+    frame.addEventListener('load', function(){ loaded = true; });
+    setTimeout(function(){
+      if(!loaded){ document.getElementById('fallback').classList.add('show'); }
+    }, 2500);
+  })();
+</script>
+</body>
+</html>
