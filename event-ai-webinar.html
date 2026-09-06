@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meme Bull AI Engine — Live Walkthrough — Meme Bull Events</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<meta name="description" content="A live walkthrough of the Meme Bull AI engine alpha, including the sentiment dashboard and narrative tracker.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#2b6bff; --neon:#5eb3ff; --purple:#a855f7; --bg:#060a17;
+    --card:#08101e; --line:rgba(43,107,255,.24); --text:#e6ecf8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:"Inter","Segoe UI",system-ui,sans-serif;line-height:1.6}
+  .wrap{max-width:920px;margin:0 auto;padding:0 22px}
+  a{color:inherit}
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(4,6,12,.85);border-bottom:1px solid var(--line)}
+  .nav-in{max-width:1120px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:14px}
+  .logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+  .logo img{height:30px;width:auto}
+  .logo b{color:#fff;font-size:16px}
+  .logo b span{color:var(--neon)}
+  .back-link{margin-left:auto;display:flex;align-items:center;gap:7px;text-decoration:none;color:#c3d0ea;font-size:14px;font-weight:600;padding:8px 14px;border-radius:10px;border:1px solid var(--line);transition:.2s}
+  .back-link:hover{background:rgba(43,107,255,.1);color:#fff}
+  .back-link svg{width:15px;height:15px}
+
+  .ev-hero{position:relative;padding:90px 0 60px;overflow:hidden}
+  .ev-hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(circle at 25% 15%, rgba(94,55,225,.55), transparent 55%), radial-gradient(circle at 85% 85%, rgba(43,107,255,.4), transparent 50%), #0b0f1f}
+  .ev-hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(4,6,12,.35) 0%,rgba(4,6,12,.85) 85%,#060a17 100%)}
+  .ev-hero-in{position:relative;z-index:2}
+  
+  /* Added Banner Styles */
+  .hero-banner {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    margin-bottom: 24px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  }
+  .content-banner {
+    width: 100%;
+    border-radius: 16px;
+    margin: 24px 0;
+    border: 1px solid var(--line);
+  }
+
+  .ev-tag{display:inline-block;font-size:11px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;color:#fff;background:var(--purple);border-radius:999px;padding:5px 13px;margin-bottom:16px}
+  .ev-title{font-size:clamp(30px,5vw,46px);font-weight:900;color:#fff;line-height:1.15;letter-spacing:-.5px;max-width:760px}
+  .ev-meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:22px}
+  .ev-meta-item{display:flex;align-items:center;gap:9px;color:#c3d0ea;font-size:14px;font-weight:600}
+  .ev-meta-item svg{width:17px;height:17px;color:var(--neon);flex:none}
+
+  section{padding:50px 0}
+  h2{font-size:22px;font-weight:800;color:#fff;margin-bottom:16px}
+  p{color:#b7c4e0;font-size:15px;margin-bottom:14px}
+  .agenda-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:6px}
+  .agenda-list li{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+  .ag-n{flex:none;width:26px;height:26px;border-radius:8px;background:rgba(43,107,255,.14);border:1px solid rgba(43,107,255,.35);color:var(--neon);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .agenda-list li span:last-child{color:#dbe6ff;font-size:14px;padding-top:3px}
+
+  .cta-box{background:linear-gradient(135deg,rgba(43,107,255,.12),rgba(168,85,247,.1));border:1px solid rgba(43,107,255,.32);border-radius:20px;padding:30px;text-align:center;margin-top:10px}
+  .cta-box p{color:#c3d0ea;margin-bottom:18px}
+  .btn-cta{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-weight:800;border-radius:14px;padding:13px 26px;font-size:15px;background:linear-gradient(180deg,#4d86ff,#2b6bff);color:#fff;box-shadow:0 2px 14px rgba(43,107,255,.3)}
+  .btn-cta svg{width:17px;height:17px}
+
+  .ev-nav{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:30px;margin-top:10px;flex-wrap:wrap}
+  .ev-nav a{text-decoration:none;color:#8fa0c2;font-size:13px;max-width:45%}
+  .ev-nav a b{display:block;color:#dbe6ff;font-size:14.5px;margin-top:4px}
+  .ev-nav a:hover b{color:var(--neon)}
+  .ev-nav .next{text-align:right;margin-left:auto}
+
+  footer{border-top:1px solid var(--line);padding:34px 22px 44px;text-align:center;background:rgba(4,6,12,.7)}
+  footer p{color:#6c7ba3;font-size:12px;max-width:620px;margin:0 auto}
+
+  @media(max-width:640px){.ev-meta{flex-direction:column;gap:10px}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-in">
+    <a class="logo" href="index.html">
+      <img src="logo.png" alt="Meme Bull logo">
+      <b>MEME <span>BULL</span></b>
+    </a>
+    <a class="back-link" href="index.html#events">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      All Events
+    </a>
+  </div>
+</nav>
+
+<div class="ev-hero">
+  <div class="ev-hero-bg"></div>
+  <div class="ev-hero-overlay"></div>
+  <div class="wrap ev-hero-in">
+    <img class="hero-banner" src="image_agent_tag_3023099421947903409.jpg" alt="Futuristic AI Technology Overview Banner">
+    <span class="ev-tag">Webinar</span>
+    <div class="ev-title">Meme Bull AI Engine — Live Walkthrough</div>
+    <div class="ev-meta">
+      <div class="ev-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Thursday, October 22 · 5:00 PM UTC</div>
+      <div class="ev-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Virtual — Discord Stage</div>
+    </div>
+  </div>
+</div>
+
+<section class="wrap">
+  <h2>About This Event</h2>
+  <p>This session is a full, live walkthrough of the Meme Bull AI engine alpha described in Phase 2 of the roadmap. Rather than a slide deck, the team will screen-share the actual sentiment dashboard and narrative tracker beta running against live market data.</p>
+  
+  <img class="content-banner" src="image_agent_tag_3023099421947900632.jpg" alt="Live Crypto Trading Sentiment Dashboard Visualization">
+  
+  <p>Expect an honest look at what is working today, what is still rough around the edges, and how the engine's five-stage pipeline, ingestion, processing, the intelligence layer, delivery, and the feedback loop, actually behaves in practice.</p>
+
+  <div style="height:16px;"></div>
+  <h2>Agenda</h2>
+  <ul class="agenda-list">
+    <li><span class="ag-n">01</span><span>Welcome and a short project update</span></li>
+    <li><span class="ag-n">02</span><span>Live demo: the sentiment dashboard, end to end</span></li>
+    <li><span class="ag-n">03</span><span>Live demo: the narrative tracker beta</span></li>
+    <li><span class="ag-n">04</span><span>Open floor for live questions</span></li>
+  </ul>
+
+  <div style="height:16px;"></div>
+  <h2>Who Should Attend</h2>
+  <p>Current and prospective $MEMEBULL holders, and anyone curious about how the AI engine actually works under the hood.</p>
+
+  <div class="cta-box">
+    <p>No ticket needed — just show up in the community channel a few minutes early.</p>
+    <a class="btn-cta" href="https://t.me/MemeBullSol" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.04 15.51l-.38 5.34c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.65.25 1.91-.9L22.9 3.8c.31-1.43-.52-1.99-1.46-1.64L2.7 9.38c-1.4.54-1.38 1.32-.24 1.67l4.8 1.5 11.13-7.02c.52-.34 1-.15.6.19L9.04 15.51z"/></svg>
+      Join on Telegram
+    </a>
+  </div>
+
+  <div class="ev-nav">
+    <a href="event-staking-party.html"><span>← Previous event</span><b>Staking Launch Countdown Party</b></a>
+    <a class="next" href="event-tokenomics-ama.html"><span>Next event →</span><b>AMA: Tokenomics & Fair Launch Mechanics</b></a>
+  </div>
+</section>
+
+<footer>
+  <p>Meme Bull ($MEMEBULL) events are community and educational sessions. They do not constitute financial advice, and attendance or participation does not guarantee any airdrop, allocation, or return. Always verify event links through official Meme Bull channels.</p>
+</footer>
+</body>
+</html>
