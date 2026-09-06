@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
 <meta charset="UTF-8">
@@ -13,7 +12,6 @@
 <meta name="author" content="Meme Bull Protocol">
 <link rel="canonical" href="https://memebull.com/">
 
-<!-- Open Graph / Facebook / Telegram -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://memebull.com/">
 <meta property="og:site_name" content="Meme Bull">
@@ -25,13 +23,15 @@
 <meta property="og:image:alt" content="Meme Bull — $MEMEBULL, AI-powered crypto intelligence platform on Solana">
 <meta property="og:locale" content="en_US">
 
-<!-- Twitter / X Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@memebullsol">
 <meta name="twitter:title" content="Meme Bull ($MEMEBULL) — AI Crypto Intelligence Platform">
 <meta name="twitter:description" content="Real utility. Real roadmap. Real whitepaper. AI-driven market and social intelligence on Solana. Launching on Pump.fun, Jupiter, and Raydium.">
 <meta name="twitter:image" content="https://memebull.com/bull.jpeg">
 <meta name="twitter:image:alt" content="Meme Bull — $MEMEBULL, AI crypto intelligence platform mascot on Solana">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
     --blue:#2b6bff;
@@ -54,47 +54,32 @@
   body{
     background:var(--bg);
     color:var(--text);
-    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
     overflow-x:hidden;
   }
   ::selection{background:var(--blue);color:#fff}
 
-  /* ambient grid + glow */
   .ambient{position:fixed;inset:0;pointer-events:none;z-index:0}
   .ambient::before{
     content:"";position:absolute;inset:0;
-    background-image:linear-gradient(rgba(43,107,255,.07) 1px,transparent 1px),
-                     linear-gradient(90deg,rgba(43,107,255,.07) 1px,transparent 1px);
+    background-image:linear-gradient(rgba(43,107,255,.045) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(43,107,255,.045) 1px,transparent 1px);
     background-size:44px 44px;
-    mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 30%,transparent 75%);
+    mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 25%,transparent 70%);
   }
-  .ambient::after{
-    content:"";position:absolute;top:-30vh;left:50%;transform:translateX(-50%);
-    width:120vw;height:80vh;border-radius:50%;
-    background:radial-gradient(closest-side,rgba(43,107,255,.22),transparent 70%);
-    filter:blur(20px);
-  }
-  /* rain */
-  .rain{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5}
-  .drop{position:absolute;top:-12%;width:1px;height:70px;
-    background:linear-gradient(to bottom,transparent,rgba(94,179,255,.30));
-    animation:fall linear infinite;
-  }
-  @keyframes fall{to{transform:translateY(120vh)}}
 
   .wrap{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:0 22px}
 
-  /* nav */
   nav{
     position:sticky;top:0;z-index:50;
     backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
     background:rgba(4,6,12,.78);
     border-bottom:1px solid var(--line);
   }
-  .nav-in{max-width:1120px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:14px}
+  .nav-in{max-width:1120px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
   .logo{display:flex;align-items:center;gap:11px;text-decoration:none}
   .logo img{height:34px;width:auto;display:block;object-fit:contain;
-    filter:drop-shadow(0 0 10px rgba(43,107,255,.45))}
+    filter:drop-shadow(0 0 4px rgba(43,107,255,.25))}
   .logo b{color:#fff;font-size:17px;letter-spacing:.4px}
   .logo b span{color:var(--neon)}
   .chip{
@@ -102,7 +87,17 @@
     border-radius:999px;padding:4px 10px;letter-spacing:.6px;
     box-shadow:0 0 12px rgba(168,85,247,.5);
   }
-  .nav-links{margin-left:auto;display:flex;gap:8px;align-items:center}
+  .nav-toggle{
+    display:none;background:none;border:1px solid var(--line);
+    color:#fff;border-radius:8px;padding:8px 10px;cursor:pointer;
+    transition:.2s;align-items:center;justify-content:center;
+  }
+  .nav-toggle:hover{background:rgba(43,107,255,.1)}
+  .nav-toggle svg{width:24px;height:24px}
+  .nav-links{
+    margin-left:auto;display:flex;gap:8px;align-items:center;
+    transition:max-height .3s ease, opacity .3s ease;
+  }
   .nav-links a{
     color:#c3d0ea;text-decoration:none;font-size:14px;font-weight:600;
     padding:8px 14px;border-radius:10px;border:1px solid transparent;transition:.2s;
@@ -117,9 +112,9 @@
   }
   .btn-green{
     background:linear-gradient(180deg,#4d86ff,#2b6bff);color:#fff;
-    box-shadow:0 0 22px rgba(43,107,255,.5),inset 0 1px 0 rgba(255,255,255,.35);
+    box-shadow:0 2px 14px rgba(43,107,255,.28),inset 0 1px 0 rgba(255,255,255,.25);
   }
-  .btn-green:hover{transform:translateY(-2px);box-shadow:0 0 34px rgba(43,107,255,.75)}
+  .btn-green:hover{transform:translateY(-2px);box-shadow:0 4px 18px rgba(43,107,255,.4)}
   .btn-ghost{
     color:#eaf1ff;border:1px solid rgba(43,107,255,.42);background:rgba(43,107,255,.08);
   }
@@ -132,14 +127,83 @@
   .btn svg{width:17px;height:17px;flex:none}
   .btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
 
-  /* hero */
-  header{padding:76px 0 40px;text-align:center;position:relative}
+  /* Mobile responsive nav */
+  @media(max-width:860px){
+    .nav-toggle{
+      display:flex;
+      margin-left:auto; /* push hamburger to the right */
+    }
+    .nav-links{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      background:rgba(4,6,12,.98);
+      border-bottom:1px solid var(--line);
+      padding:16px 22px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:4px;
+      margin-left:0;
+      box-shadow:0 12px 24px rgba(0,0,0,.4);
+      z-index:55;
+    }
+    .nav-links.open{display:flex}
+    .nav-links a{
+      padding:12px 16px;
+      font-size:15px;
+      border-radius:8px;
+      width:100%;
+    }
+    .nav-links .btn{
+      margin-top:8px;
+      justify-content:center;
+      width:100%;
+    }
+    .nav-in{position:relative}
+    .nav-in .chip{display:none}
+  }
+
+  header{
+    position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
+    text-align:center;overflow:hidden;padding:130px 0 90px;
+  }
+  .hero-media{position:absolute;inset:0;overflow:hidden;z-index:0;background:#04060c}
+  .hero-media video{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:100%;height:100%;min-width:100%;min-height:100%;
+    object-fit:cover;object-position:center 35%;
+  }
+  .hero-overlay{
+    position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg, rgba(4,6,12,.5) 0%, rgba(4,6,12,.52) 40%, rgba(4,6,12,.9) 80%, #04060c 100%);
+  }
+  .hero-inner{position:relative;z-index:2;width:100%}
+  .hero-scroll-cue{
+    position:absolute;left:50%;bottom:28px;transform:translateX(-50%);z-index:2;
+    color:#8fa0c2;opacity:.7;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:6px;
+    font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;
+  }
+  .hero-scroll-cue svg{width:16px;height:16px;animation:bob 2s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+  .intro-cover{position:relative;overflow:hidden;padding:100px 0;text-align:center}
+  .intro-cover .ic-bg{
+    position:absolute;inset:0;z-index:0;
+    background-image:url('bull.jpeg');background-size:cover;background-position:center 32%;
+  }
+  .intro-cover .ic-overlay{
+    position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg, rgba(4,6,12,.65) 0%, rgba(4,6,12,.8) 60%, rgba(4,6,12,.94) 100%);
+  }
+  .intro-cover .wrap{position:relative;z-index:2}
   .mascot-tag{
     display:inline-flex;align-items:center;gap:8px;
     border:1px solid rgba(43,107,255,.48);background:rgba(43,107,255,.10);
     color:var(--neon);border-radius:999px;padding:7px 16px;
     font-size:13px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
-    box-shadow:0 0 18px rgba(43,107,255,.25) inset,0 0 14px rgba(43,107,255,.2);
+    box-shadow:0 0 10px rgba(43,107,255,.14) inset;
   }
   .mascot-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--purple);
     box-shadow:0 0 8px var(--purple);animation:pulse 1.6s infinite}
@@ -149,27 +213,26 @@
     letter-spacing:-1px;text-transform:uppercase;
     background:linear-gradient(180deg,#ffffff 0%,#eaf1ff 35%,#8ba3d6 55%,#eef3fc 72%,#3a4a70 100%);
     -webkit-background-clip:text;background-clip:text;color:transparent;
-    filter:drop-shadow(0 4px 24px rgba(43,107,255,.32));
+    filter:drop-shadow(0 2px 10px rgba(43,107,255,.16));
   }
   .ticker-line{
     font-size:clamp(22px,4vw,36px);font-weight:900;color:var(--neon);
-    text-shadow:0 0 18px rgba(94,179,255,.65),0 0 42px rgba(43,107,255,.4);
+    text-shadow:0 0 8px rgba(94,179,255,.28);
     letter-spacing:2px;
   }
   .ticker-line .purple-bit{color:var(--purple);text-shadow:0 0 14px rgba(168,85,247,.6)}
-  /* contract address */
   .ca-box{
     display:inline-flex;align-items:center;gap:10px;margin-top:18px;
     border:1px solid rgba(43,107,255,.42);background:rgba(4,6,12,.6);
     border-radius:999px;padding:10px 18px;cursor:pointer;transition:.2s;
     max-width:94%;position:relative;
-    box-shadow:0 0 16px rgba(43,107,255,.16);
+    box-shadow:0 1px 8px rgba(43,107,255,.10);
   }
   .ca-box:hover{background:rgba(43,107,255,.15);border-color:rgba(43,107,255,.7);transform:translateY(-1px)}
   .ca-label{
     font-size:11px;font-weight:900;letter-spacing:1.5px;color:#fff;
     background:var(--blue);border-radius:999px;padding:3px 9px;flex:none;
-    box-shadow:0 0 10px rgba(43,107,255,.5);
+    box-shadow:0 0 6px rgba(43,107,255,.3);
   }
   .ca-addr{
     font-family:"Cascadia Code",Consolas,Menlo,monospace;font-size:13.5px;color:#dbe6ff;
@@ -180,7 +243,7 @@
     position:absolute;top:-30px;left:50%;transform:translateX(-50%) translateY(4px);
     background:var(--blue);color:#fff;font-size:12px;font-weight:800;
     border-radius:8px;padding:4px 10px;opacity:0;pointer-events:none;transition:.25s;
-    box-shadow:0 0 14px rgba(43,107,255,.5);
+    box-shadow:0 0 8px rgba(43,107,255,.3);
   }
   .ca-box.copied .ca-copied{opacity:1;transform:translateX(-50%) translateY(0)}
   @media(max-width:560px){.ca-addr{font-size:11px;max-width:180px}}
@@ -192,26 +255,6 @@
   .sub .purple{color:var(--purple)}
   .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:30px}
 
-  .hero-art{margin:52px auto 0;max-width:860px;position:relative}
-  .hero-art::before{
-    content:"";position:absolute;inset:-3px;border-radius:26px;
-    background:linear-gradient(135deg,rgba(43,107,255,.88),rgba(168,85,247,.22),rgba(4,6,12,.6),rgba(43,107,255,.88));
-    filter:blur(10px);opacity:.55;
-  }
-  .hero-art img{
-    position:relative;width:100%;display:block;border-radius:22px;
-    border:1px solid rgba(43,107,255,.38);
-    box-shadow:0 24px 70px rgba(0,0,0,.65);
-  }
-  .hero-caption{
-    position:absolute;left:50%;bottom:-18px;transform:translateX(-50%);
-    background:rgba(4,6,12,.94);border:1px solid var(--line);border-radius:999px;
-    padding:9px 20px;font-size:13px;font-weight:700;color:#dbe6ff;white-space:nowrap;
-    box-shadow:0 0 20px rgba(43,107,255,.25);
-  }
-  .hero-caption span{color:var(--neon)}
-
-  /* countdown */
   .countdown-section{padding:56px 0 44px;position:relative;z-index:1}
   .cd-shell{
     max-width:920px;margin:0 auto;border-radius:26px;position:relative;
@@ -227,7 +270,7 @@
   }
   .cd-kicker{
     position:relative;color:var(--neon);font-weight:800;letter-spacing:2.4px;font-size:12.5px;
-    text-transform:uppercase;text-shadow:0 0 12px rgba(94,179,255,.5);
+    text-transform:uppercase;
   }
   .cd-title{
     position:relative;margin:10px 0 26px;font-size:clamp(22px,3.4vw,32px);font-weight:900;color:#fff;
@@ -236,11 +279,11 @@
   .cd-grid{position:relative;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
   .cd-box{
     min-width:92px;background:rgba(4,6,12,.72);border:1px solid rgba(43,107,255,.4);
-    border-radius:16px;padding:16px 10px;box-shadow:0 0 22px rgba(43,107,255,.14) inset;
+    border-radius:16px;padding:16px 10px;box-shadow:0 0 10px rgba(43,107,255,.08) inset;
   }
   .cd-num{
     font-size:clamp(30px,5vw,44px);font-weight:900;line-height:1;color:#fff;
-    text-shadow:0 0 18px rgba(94,179,255,.55);font-variant-numeric:tabular-nums;
+    text-shadow:0 0 6px rgba(94,179,255,.22);font-variant-numeric:tabular-nums;
   }
   .cd-label{margin-top:8px;font-size:11px;letter-spacing:1.6px;color:#8fa0c2;text-transform:uppercase;font-weight:700}
   .cd-note{position:relative;margin-top:22px;color:#9fb0d6;font-size:13.5px}
@@ -253,11 +296,10 @@
     border-radius:999px;padding:14px 28px;margin-bottom:18px;
   }
   .live-dot{width:12px;height:12px;border-radius:50%;background:var(--green);
-    box-shadow:0 0 12px var(--green);animation:pulse 1.2s infinite}
+    box-shadow:0 0 6px var(--green);animation:pulse 1.2s infinite}
   .live-badge b{color:var(--green);font-size:16px;letter-spacing:1.2px;text-transform:uppercase}
   .cd-grid.hide, .cd-title.hide, .cd-note.hide{display:none}
 
-  /* marquee */
   .marquee{
     margin-top:16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
     background:rgba(43,107,255,.06);overflow:hidden;white-space:nowrap;position:relative;z-index:1;
@@ -266,15 +308,13 @@
   .marquee span{
     font-weight:800;letter-spacing:2px;font-size:14px;color:#b9caeb;margin:0 26px;text-transform:uppercase;
   }
-  .marquee span b{color:var(--neon);text-shadow:0 0 10px rgba(94,179,255,.6)}
-  .marquee span i{color:var(--purple);font-style:normal;text-shadow:0 0 10px rgba(168,85,247,.5)}
+  .marquee span b{color:var(--neon)}
+  .marquee span i{color:var(--purple);font-style:normal}
   @keyframes scroll{to{transform:translateX(-50%)}}
 
-  /* sections */
-  section{padding:88px 0;position:relative}
+  section{padding:112px 0;position:relative}
   .kicker{
     color:var(--neon);font-weight:800;letter-spacing:2.4px;font-size:13px;text-transform:uppercase;
-    text-shadow:0 0 12px rgba(94,179,255,.5);
   }
   h2{
     margin:12px 0 18px;font-size:clamp(30px,5vw,48px);font-weight:900;letter-spacing:-.5px;text-transform:uppercase;
@@ -301,7 +341,7 @@
     position:absolute;top:14px;right:14px;z-index:2;
     background:var(--purple);color:#fff;font-weight:800;font-size:12px;
     border-radius:999px;padding:6px 13px;letter-spacing:.8px;
-    box-shadow:0 0 16px rgba(168,85,247,.55);
+    box-shadow:0 1px 8px rgba(168,85,247,.3);
   }
 
   .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:44px}
@@ -314,7 +354,7 @@
     content:"";position:absolute;top:0;left:0;right:0;height:2px;
     background:linear-gradient(90deg,transparent,var(--blue),transparent);opacity:.65;
   }
-  .card:hover{transform:translateY(-5px);border-color:rgba(43,107,255,.55);box-shadow:0 18px 44px rgba(0,0,0,.55),0 0 24px rgba(43,107,255,.15)}
+  .card:hover{transform:translateY(-5px);border-color:rgba(43,107,255,.55);box-shadow:0 14px 32px rgba(0,0,0,.35)}
   .card .num{
     font-size:13px;font-weight:800;color:var(--purple);letter-spacing:2px;
   }
@@ -327,7 +367,6 @@
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
 
-  /* treasury strip */
   .ozzy{
     margin-top:26px;border:1px solid rgba(168,85,247,.32);border-radius:20px;
     background:linear-gradient(120deg,rgba(168,85,247,.07),rgba(43,107,255,.10));
@@ -335,13 +374,37 @@
   }
   .ozzy .pct{
     font-size:52px;font-weight:900;color:#fff;
-    text-shadow:0 0 22px rgba(168,85,247,.55);flex:none;
+    flex:none;
   }
   .ozzy p{color:#b9c6e6;font-size:15px;line-height:1.65;flex:1;min-width:240px}
   .ozzy a{color:var(--purple);font-weight:700;text-decoration:none}
   .ozzy a:hover{text-decoration:underline}
 
-  /* how to buy */
+  .events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+  .event-card{
+    position:relative;border-radius:18px;overflow:hidden;aspect-ratio:3/4;
+    text-decoration:none;display:block;border:1px solid var(--line);transition:.25s;
+  }
+  .event-card:hover{transform:translateY(-5px);border-color:rgba(43,107,255,.5);box-shadow:0 14px 32px rgba(0,0,0,.35)}
+  .event-card .ev-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center}
+  .event-card .ev-overlay{
+    position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,rgba(4,6,12,.1) 0%,rgba(4,6,12,.55) 55%,rgba(4,6,12,.95) 100%);
+  }
+  .event-card .ev-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;padding:18px}
+  .event-tag{
+    align-self:flex-start;font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase;
+    color:#fff;background:var(--purple);border-radius:999px;padding:4px 10px;
+  }
+  .event-body{margin-top:auto}
+  .event-date{font-size:11px;color:var(--neon);font-weight:700;letter-spacing:.4px;margin-bottom:6px}
+  .event-title{font-size:15.5px;font-weight:800;color:#fff;line-height:1.32;margin-bottom:8px}
+  .event-summary{font-size:12px;color:#c3d0ea;line-height:1.55;margin-bottom:10px}
+  .event-link{font-size:11.5px;font-weight:700;color:var(--neon);display:flex;align-items:center;gap:5px}
+  .event-link svg{width:13px;height:13px}
+  @media(max-width:860px){.events-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.events-grid{grid-template-columns:1fr}.event-card{aspect-ratio:16/10}}
+
   .buy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
   .buy-col{
     background:linear-gradient(180deg,rgba(8,16,31,.97),rgba(4,6,12,.97));
@@ -352,14 +415,14 @@
     content:"";position:absolute;top:0;left:0;right:0;height:2px;
     background:linear-gradient(90deg,transparent,var(--blue),transparent);opacity:.65;
   }
-  .buy-col:hover{transform:translateY(-5px);border-color:rgba(43,107,255,.55);box-shadow:0 18px 44px rgba(0,0,0,.55),0 0 24px rgba(43,107,255,.15)}
+  .buy-col:hover{transform:translateY(-5px);border-color:rgba(43,107,255,.55);box-shadow:0 14px 32px rgba(0,0,0,.35)}
   .buy-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
   .buy-tag{
     font-size:10.5px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;
     color:#fff;background:var(--purple);border-radius:999px;padding:3px 9px;flex:none;
-    box-shadow:0 0 10px rgba(168,85,247,.45);
+    box-shadow:0 1px 6px rgba(168,85,247,.28);
   }
-  .buy-tag.net-sol{background:var(--blue);box-shadow:0 0 10px rgba(43,107,255,.5)}
+  .buy-tag.net-sol{background:var(--blue);box-shadow:0 1px 6px rgba(43,107,255,.3)}
   .buy-col h3{color:#fff;font-size:19px;letter-spacing:.2px}
   .buy-sub{color:#8fa0c2;font-size:13px;margin:6px 0 18px}
   .buy-steps{list-style:none;display:flex;flex-direction:column;gap:14px}
@@ -378,7 +441,6 @@
   }
   .buy-note b{color:#fff}
 
-  /* polls */
   .poll-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:44px}
   .poll-card{
     background:linear-gradient(180deg,rgba(8,16,31,.97),rgba(4,6,12,.97));
@@ -395,7 +457,7 @@
   .poll-q{color:#fff;font-size:16px;font-weight:800;line-height:1.4;margin-bottom:16px}
   .poll-opts{display:flex;flex-direction:column;gap:9px}
   .poll-opt{
-    position:relative;display:block;width:100%;text-align:left;
+    position:relative;display:flex;align-items:center;gap:10px;width:100%;text-align:left;
     background:rgba(43,107,255,.07);border:1px solid rgba(43,107,255,.28);
     border-radius:12px;padding:10px 14px;cursor:pointer;font-family:inherit;
     color:#dbe6ff;font-size:13.5px;font-weight:700;transition:.18s;overflow:hidden;
@@ -408,33 +470,143 @@
   }
   .poll-opt.chosen{border-color:var(--purple)}
   .poll-opt.chosen .poll-fill{background:linear-gradient(90deg,rgba(168,85,247,.5),rgba(43,107,255,.35))}
-  .poll-opt .poll-row{position:relative;z-index:1;display:flex;justify-content:space-between;gap:10px}
-  .poll-opt .poll-pct{color:#8fa0c2;font-weight:800;font-variant-numeric:tabular-nums}
+  .poll-opt .poll-row{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:10px;flex:1}
+  .poll-opt .poll-img{width:32px;height:32px;border-radius:50%;object-fit:cover;flex:none;border:1px solid rgba(255,255,255,.2)}
+  .poll-opt .poll-pct{color:#8fa0c2;font-weight:800;font-variant-numeric:tabular-nums;margin-left:auto}
   .poll-opt.chosen .poll-pct{color:#fff}
   .poll-meta{margin-top:12px;color:#7f8fb8;font-size:12px;display:flex;justify-content:space-between}
   .poll-vote-tag{color:var(--green);font-weight:800}
   @media(max-width:860px){.poll-grid{grid-template-columns:1fr}}
 
-  /* community */
+  /* LIVE TRANSACTIONS SECTION */
+  .live-tx-cover{position:relative;overflow:hidden;padding:100px 0}
+  .live-tx-cover .ltx-bg-media{position:absolute;inset:0;z-index:0;background:#060a17}
+  .live-tx-cover .ltx-bg-media video{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:100%;height:100%;min-width:100%;min-height:100%;object-fit:cover;
+  }
+  .live-tx-cover .ltx-overlay{
+    position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg, rgba(4,6,12,.78) 0%, rgba(4,6,12,.84) 40%, rgba(4,6,12,.95) 100%),
+               radial-gradient(circle at 50% 50%, rgba(43,107,255,.1), transparent 70%);
+  }
+  .live-tx-cover .wrap{position:relative;z-index:2}
+  .ltx-shell{
+    max-width:680px;margin:40px auto 0;border-radius:22px;overflow:hidden;
+    border:1px solid rgba(43,107,255,.4);
+    background:rgba(4,6,12,.82);
+    box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 24px rgba(43,107,255,.12);
+  }
+  .ltx-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 22px;border-bottom:1px solid var(--line);
+    background:rgba(43,107,255,.06);
+  }
+  .ltx-header-left{display:flex;align-items:center;gap:10px}
+  .ltx-live-dot{width:10px;height:10px;border-radius:50%;background:var(--green);
+    box-shadow:0 0 8px var(--green);animation:pulse 1.2s infinite;flex:none}
+  .ltx-header-left b{color:var(--green);font-size:14px;letter-spacing:1px;text-transform:uppercase}
+  .ltx-header-left span{color:#8fa0c2;font-size:12px;font-weight:600}
+  .ltx-totals{display:flex;gap:18px;align-items:center}
+  .ltx-total-item{text-align:right}
+  .ltx-total-item .ltx-total-label{font-size:10px;color:#8fa0c2;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+  .ltx-total-item .ltx-total-val{font-size:15px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+  .ltx-total-item .ltx-total-val.green{color:var(--green)}
+  .ltx-feed{
+    position:relative;height:288px;overflow:hidden;
+    background:rgba(4,6,12,.6);
+  }
+  .ltx-feed-inner{
+    transition:transform .6s cubic-bezier(.4,0,.2,1);
+    will-change:transform;
+  }
+  .ltx-row{
+    display:flex;align-items:center;gap:14px;
+    padding:12px 22px;height:48px;border-bottom:1px solid rgba(43,107,255,.1);
+    animation:ltxRowIn .5s ease;
+  }
+  @keyframes ltxRowIn{
+    from{opacity:0;transform:translateY(12px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  .ltx-row .ltx-avatar{
+    width:28px;height:28px;border-radius:50%;flex:none;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:800;color:#fff;
+    box-shadow:0 0 8px rgba(43,107,255,.3);
+  }
+  .ltx-row .ltx-info{flex:1;min-width:0}
+  .ltx-row .ltx-wallet{
+    font-family:"Cascadia Code",Consolas,Menlo,monospace;font-size:13px;color:#eaf1ff;font-weight:600;
+    letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .ltx-row .ltx-time{font-size:11px;color:#7f8fb8;margin-top:1px}
+  .ltx-row .ltx-amount{text-align:right;flex:none}
+  .ltx-row .ltx-amount-bull{font-size:14px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+  .ltx-row .ltx-amount-sol{font-size:11.5px;color:var(--neon);font-weight:700;font-variant-numeric:tabular-nums}
+  .ltx-row.new{animation:ltxRowIn .5s ease}
+  @media(max-width:560px){
+    .ltx-totals{display:none}
+    .ltx-row{padding:12px 14px;gap:10px}
+    .ltx-feed{height:264px}
+  }
+
+  .community-cover{position:relative;overflow:hidden}
+  .community-cover .cc-bg{
+    position:absolute;inset:0;z-index:0;
+    background-image:url('radio.jpg');background-size:cover;background-position:left center;
+  }
+  .community-cover .cc-overlay{
+    position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg, rgba(4,6,12,.72) 80%, rgba(4,6,12,.85) 90%, rgba(4,6,12,.95) 70%);
+  }
+  .community-cover .wrap{position:relative;z-index:2}
+
+  .polls-cover{position:relative;overflow:hidden}
+  .polls-cover .pv-media{position:absolute;inset:0;z-index:0;background:#04060c}
+  .polls-cover .pv-media video{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:100%;height:100%;min-width:100%;min-height:100%;object-fit:cover;
+  }
+  .polls-cover .pv-overlay{
+    position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg, rgba(4,6,12,.78) 0%, rgba(4,6,12,.86) 55%, rgba(4,6,12,.96) 100%);
+  }
+  .polls-cover .wrap{position:relative;z-index:2}
+
   .community{text-align:center}
   .community .lead{margin:0 auto}
   .socials{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:34px}
   .soc{
     display:flex;align-items:center;gap:12px;text-decoration:none;
     border:1px solid var(--line);background:var(--card);border-radius:18px;
-    padding:18px 30px;transition:.25s;min-width:220px;justify-content:center;
+    padding:18px 30px;transition:.25s;min-width:200px;justify-content:center;
   }
-  .soc:hover{transform:translateY(-4px);border-color:rgba(43,107,255,.58);box-shadow:0 0 28px rgba(43,107,255,.2)}
-  .soc svg{width:26px;height:26px}
+  .soc:hover{transform:translateY(-4px);border-color:rgba(43,107,255,.5);box-shadow:0 10px 24px rgba(0,0,0,.3)}
+  .soc svg{width:26px;height:26px;flex:none}
   .soc div{text-align:left}
   .soc b{display:block;color:#fff;font-size:16px}
   .soc small{color:#7f8fb8;font-size:12.5px}
+  .soc.telegram svg{fill:#5eb3ff}
+  .soc.x svg{fill:#e6ecf8}
+  .soc.tiktok svg{fill:#e6ecf8}
+  .soc.youtube svg{fill:#ff4d4d}
+  .soc.whitepaper svg{fill:#a855f7}
 
-  /* footer */
   footer{
     border-top:1px solid var(--line);padding:40px 22px 50px;text-align:center;
-    background:rgba(4,6,12,.88);position:relative;z-index:1;
+    position:relative;z-index:1;overflow:hidden;
   }
+  footer .f-bg{
+    position:absolute;inset:0;z-index:0;
+    background-image:url('bullr.webp');background-size:cover;background-position:center 50%;
+  }
+  footer .f-overlay{
+    position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg, rgba(4,6,12,.92) 0%, rgba(4,6,12,.94) 100%);
+  }
+  footer > *{position:relative;z-index:2}
   footer .f-logo{font-weight:900;letter-spacing:1px;color:#fff;font-size:18px}
   footer .f-logo span{color:var(--neon)}
   footer p{color:#6c7ba3;font-size:12.5px;line-height:1.7;max-width:680px;margin:14px auto 0}
@@ -442,7 +614,6 @@
   .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
   .reveal.on{opacity:1;transform:none}
 
-  /* chatbot widget */
   .chat-fab{
     position:fixed;right:22px;bottom:22px;z-index:200;
     width:60px;height:60px;border-radius:50%;
@@ -501,96 +672,182 @@
   .chat-typing span:nth-child(3){animation-delay:.3s}
   @keyframes typing{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
 
+  .visitor-toast{
+    position:fixed;left:18px;bottom:18px;z-index:190;
+    display:flex;align-items:center;gap:12px;
+    background:linear-gradient(180deg,rgba(8,14,28,.98),rgba(4,6,12,.98));
+    border:1px solid rgba(43,107,255,.32);border-radius:14px;
+    padding:12px 16px;box-shadow:0 10px 26px rgba(0,0,0,.4);
+    max-width:290px;pointer-events:none;
+    opacity:0;transform:translateY(14px) scale(.97);
+    transition:opacity .35s ease,transform .35s ease;
+  }
+  .visitor-toast.show{opacity:1;transform:translateY(0) scale(1)}
+  .visitor-toast .vt-flag{font-size:26px;line-height:1;flex:none}
+  .visitor-toast .vt-text b{color:#fff;font-size:12.5px;font-weight:700;display:block}
+  .visitor-toast .vt-text span{color:#8fa0c2;font-size:11px}
+  @media(max-width:860px){
+    .visitor-toast{left:12px;bottom:12px;max-width:240px;padding:10px 13px}
+  }
+
   @media(max-width:860px){
     .story{grid-template-columns:1fr}
     .cards{grid-template-columns:1fr}
     .buy-grid{grid-template-columns:1fr}
     .poll-grid{grid-template-columns:1fr}
-    .nav-links a.hide-m{display:none}
     header{padding-top:56px}
     .chat-panel{right:12px;bottom:84px;width:92vw}
     .chat-fab{right:16px;bottom:16px}
+  }
+
+  /* ================= LANGUAGE TRANSLATOR — isolated add-on =================
+     New widget only. Nothing above this block was touched: nav, menu, hero,
+     cards, events, buy grid, polls, live-tx feed and footer are unchanged. */
+  .lang-fab{
+    position:fixed;top:84px;right:22px;z-index:190;
+    width:52px;height:52px;border-radius:50%;
+    background:linear-gradient(180deg,#4d86ff,#2b6bff);color:#fff;border:none;
+    box-shadow:0 8px 22px rgba(43,107,255,.5),0 0 0 1px rgba(255,255,255,.15) inset;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;
+    overflow:visible;
+  }
+  .lang-fab:hover{transform:translateY(-2px) scale(1.03)}
+  .lang-fab-flag{
+    font-size:26px;line-height:1;display:block;
+    border-radius:50%;overflow:hidden;
+  }
+  .lang-fab-badge{
+    position:absolute;bottom:-4px;right:-4px;width:20px;height:20px;
+    background:var(--purple);border-radius:50%;padding:3px;box-sizing:border-box;
+    color:#fff;box-shadow:0 0 0 2px #060a17,0 2px 6px rgba(0,0,0,.4);
+  }
+  .lang-panel{
+    position:fixed;top:144px;right:22px;z-index:190;width:200px;
+    background:linear-gradient(180deg,rgba(8,14,28,.99),rgba(4,6,12,.99));
+    border:1px solid rgba(43,107,255,.4);border-radius:16px;
+    box-shadow:0 20px 50px rgba(0,0,0,.55),0 0 24px rgba(43,107,255,.12);
+    padding:10px;display:none;flex-direction:column;gap:2px;max-height:340px;overflow-y:auto;
+  }
+  .lang-panel.on{display:flex}
+  .lang-opt{
+    display:flex;align-items:center;gap:10px;
+    background:none;border:none;text-align:left;color:#dbe6ff;font-family:inherit;
+    font-size:13.5px;font-weight:600;padding:9px 12px;border-radius:10px;cursor:pointer;transition:.15s;
+    width:100%;
+  }
+  .lang-opt .lang-flag{font-size:18px;line-height:1;flex:none}
+  .lang-opt:hover{background:rgba(43,107,255,.14);color:#fff}
+  .lang-opt.active{background:rgba(168,85,247,.18);color:#fff}
+
+  /* Suppress Google Translate's own top banner/select so it never shifts
+     the sticky nav or shows its default UI — our custom fab/panel above
+     is the only visible control. */
+  .goog-te-banner-frame.skiptranslate{display:none !important;}
+  body{top:0 !important;}
+  #google_translate_element{display:none !important;}
+  .goog-tooltip, .goog-tooltip:hover{display:none !important;}
+  .goog-text-highlight{background:none !important;box-shadow:none !important;}
+
+  @media(max-width:860px){
+    .lang-fab{top:74px;right:16px}
+    .lang-panel{top:132px;right:16px;width:180px}
   }
 </style>
 </head>
 <body>
 <div class="ambient"></div>
-<div class="rain" id="rain"></div>
 
 <nav>
   <div class="nav-in">
     <a class="logo" href="#top">
       <img src="logo.png" alt="Meme Bull logo">
+      <b>MEME <span>BULL</span></b>
     </a>
     <span class="chip">$MEMEBULL</span>
-    <div class="nav-links">
-      <a class="hide-m" href="viewer.html?src=whitepaper.pdf&title=Whitepaper" target="_blank" rel="noopener">Whitepaper</a>
-      <a class="hide-m" href="viewer.html?src=roadmap.pdf&title=Roadmap" target="_blank" rel="noopener">Roadmap</a>
-      <a class="hide-m" href="#buy">How To Buy</a>
-      <a class="hide-m" href="#polls">Polls</a>
-      <a class="hide-m" href="#community">Platform</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="viewer.html?src=whitepaper.pdf&title=Whitepaper" target="_blank" rel="noopener">Whitepaper</a>
+      <a href="viewer.html?src=roadmap.pdf&title=Roadmap" target="_blank" rel="noopener">Roadmap</a>
+      <a href="#buy">How To Buy</a>
+      <a href="#events">Events</a>
+      <a href="#polls">Polls</a>
       <a class="btn btn-green btn-nav" href="#buy">Launch Platform</a>
     </div>
   </div>
 </nav>
 
-<header id="top" class="wrap">
-  <div class="mascot-tag"><span class="dot"></span> AI Trading Platform · Built on Solana</div>
-  <h1>Meme Bull</h1>
-  <div class="ticker-line">$MEMEBULL <span class="purple-bit">/ INTELLIGENCE ENGINE</span></div>
-  <div class="ca-box" id="cabox" title="Click to copy the contract address">
-    <span class="ca-label">CA</span>
-    <span class="ca-addr" id="caaddr">8xK3nQmR2vLpT9YwFhB4jZcD6sN1eGaU7iMoP5qXrWtV</span>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-    <span class="ca-copied" id="cacopied">Copied!</span>
+<header id="top">
+  <div class="hero-media" id="heroVideoWrap">
+    <video id="heroVideoEl" autoplay muted loop playsinline poster="hero-bg.webp">
+      <source id="heroVideoSource" src="space.mp4" type="video/mp4">
+    </video>
   </div>
-  <p class="sub">
-    Meet the bull that never sleeps. <b>Meme Bull ($MEMEBULL)</b> is an <b>AI-powered crypto
-    intelligence platform</b> on the <b>Solana network</b> — reading market data, social sentiment,
-    political narrative, and prediction markets, so you understand what is moving the market,
-    and why. <span class="purple">Real utility. Real roadmap. Real whitepaper.</span>
-  </p>
-  <div class="cta">
-    <a class="btn btn-green" href="viewer.html?src=whitepaper.pdf&title=Whitepaper" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
-      Read Whitepaper
-    </a>
-    <a class="btn btn-ghost" href="viewer.html?src=roadmap.pdf&title=Roadmap" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      View Roadmap
-    </a>
-    <a class="btn btn-blue" href="#buy">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      Launch Platform
-    </a>
+  <div class="hero-overlay"></div>
+
+  <div class="wrap hero-inner">
+    <div class="mascot-tag"><span class="dot"></span> AI Trading Platform · Built on Solana</div>
+    <h1>Meme Bull</h1>
+    <div class="ticker-line">$MEMEBULL <span class="purple-bit">/ INTELLIGENCE ENGINE</span></div>
+    <div class="ca-box" id="cabox" title="Click to copy the contract address">
+      <span class="ca-label">CA</span>
+      <span class="ca-addr" id="caaddr">8xK3nQmR2vLpT9YwFhB4jZcD6sN1eGaU7iMoP5qXrWtV</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+      <span class="ca-copied" id="cacopied">Copied!</span>
+    </div>
+    <div class="cta">
+      <a class="btn btn-green" href="viewer.html?src=whitepaper.pdf&title=Whitepaper" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+        Read Whitepaper
+      </a>
+      <a class="btn btn-ghost" href="viewer.html?src=roadmap.pdf&title=Roadmap" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        View Roadmap
+      </a>
+      <a class="btn btn-blue" href="#buy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Launch Platform
+      </a>
+    </div>
   </div>
 
-  <div class="hero-art reveal">
-    <img src="bull.jpeg" alt="Meme Bull AI crypto intelligence platform mascot on Solana">
-    <div class="hero-caption">One bull. One chain. <span>Infinite intelligence.</span></div>
-  </div>
+  <a class="hero-scroll-cue" href="#intro" aria-label="Scroll down">
+    Scroll
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+  </a>
 </header>
 
-<!-- ================= COUNTDOWN ================= -->
-<section class="countdown-section wrap">
-  <div class="cd-shell reveal">
-    <!-- Countdown state -->
-    <div id="cdCountingState">
-      <div class="cd-kicker">Platform Launch</div>
-      <div class="cd-title">The intelligence engine goes live <span>soon</span></div>
-      <div class="cd-grid" id="cdGrid">
-        <div class="cd-box"><div class="cd-num" id="cdDays">00</div><div class="cd-label">Days</div></div>
-        <div class="cd-box"><div class="cd-num" id="cdHours">00</div><div class="cd-label">Hours</div></div>
-        <div class="cd-box"><div class="cd-num" id="cdMins">00</div><div class="cd-label">Minutes</div></div>
-        <div class="cd-box"><div class="cd-num" id="cdSecs">00</div><div class="cd-label">Seconds</div></div>
+<section id="intro" class="intro-cover">
+  <div class="ic-bg"></div>
+  <div class="ic-overlay"></div>
+  <div class="wrap" style="position:relative;z-index:2;">
+    <p class="sub" style="margin:0 auto;">
+      Meet the bull that never sleeps. <b>Meme Bull ($MEMEBULL)</b> is an <b>AI-powered crypto
+      intelligence platform</b> on the <b>Solana network</b> — reading market data, social sentiment,
+      political narrative, and prediction markets, so you understand what is moving the market,
+      and why. <span class="purple">Real utility. Real roadmap. Real whitepaper.</span>
+    </p>
+  </div>
+
+  <div class="wrap countdown-section" style="position:relative;z-index:2;">
+    <div class="cd-shell reveal">
+      <div id="cdCountingState">
+        <div class="cd-kicker">Platform Launch</div>
+        <div class="cd-title">The intelligence engine goes live <span>soon</span></div>
+        <div class="cd-grid" id="cdGrid">
+          <div class="cd-box"><div class="cd-num" id="cdDays">00</div><div class="cd-label">Days</div></div>
+          <div class="cd-box"><div class="cd-num" id="cdHours">00</div><div class="cd-label">Hours</div></div>
+          <div class="cd-box"><div class="cd-num" id="cdMins">00</div><div class="cd-label">Minutes</div></div>
+          <div class="cd-box"><div class="cd-num" id="cdSecs">00</div><div class="cd-label">Seconds</div></div>
+        </div>
+        <div class="cd-note" id="cdNote">Countdown to public launch · times shown in your local timezone</div>
       </div>
-      <div class="cd-note" id="cdNote">Countdown to public launch · times shown in your local timezone</div>
-    </div>
-    <!-- Live state -->
-    <div class="live-shell" id="liveShell">
-      <div class="live-badge"><span class="live-dot"></span><b>We are live now</b></div>
-      <div class="cd-title" style="margin-bottom:6px;">Meme Bull is officially <span>live</span> on Solana</div>
-      <div class="cd-note" style="margin-top:4px;">The intelligence engine, staking, and the platform are all live. Jump in below.</div>
+      <div class="live-shell" id="liveShell">
+        <div class="live-badge"><span class="live-dot"></span><b>We are live now</b></div>
+        <div class="cd-title" style="margin-bottom:6px;">Meme Bull is officially <span>live</span> on Solana</div>
+        <div class="cd-note" style="margin-top:4px;">The intelligence engine, staking, and the platform are all live. Jump in below.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -684,6 +941,55 @@
   </div>
 </section>
 
+<section id="events" class="wrap">
+  <div class="reveal">
+    <div class="kicker">Get Involved</div>
+    <h2>Upcoming Events</h2>
+    <p class="lead">Webinars, AMAs and appearances where you can talk to the team directly, watch the engine demoed live, or just be in the room when something ships.</p>
+  </div>
+  <div class="events-grid">
+    <a class="event-card reveal" href="event-ai-webinar.html">
+      <div class="ev-bg" style="background-image:radial-gradient(circle at 25% 15%, rgba(94,55,225,.55), transparent 55%), radial-gradient(circle at 85% 85%, rgba(43,107,255,.4), transparent 50%), url('event-ai-webinar-bg.jpg'); background-color:#0b0f1f;"></div>
+      <div class="ev-overlay"></div>
+      <div class="ev-content">
+        <span class="event-tag">Webinar</span>
+        <div class="event-body">
+          <div class="event-date">OCT 22 · 5:00 PM UTC</div>
+          <div class="event-title">Meme Bull AI Engine — Live Walkthrough</div>
+          <div class="event-summary">A full live demo of the sentiment dashboard and narrative tracker alpha, straight from the team.</div>
+          <div class="event-link">View Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+      </div>
+    </a>
+    <a class="event-card reveal" href="event-tokenomics-ama.html">
+      <div class="ev-bg" style="background-image:radial-gradient(circle at 80% 20%, rgba(43,107,255,.5), transparent 55%), radial-gradient(circle at 20% 85%, rgba(94,55,225,.38), transparent 50%), url('event-tokenomics-ama-bg.jpg'); background-color:#0b0f1f;"></div>
+      <div class="ev-overlay"></div>
+      <div class="ev-content">
+        <span class="event-tag">AMA</span>
+        <div class="event-body">
+          <div class="event-date">OCT 29 · 6:00 PM UTC</div>
+          <div class="event-title">AMA: Tokenomics &amp; Fair Launch Mechanics</div>
+          <div class="event-summary">Open Q&amp;A on supply allocation, vesting, and exactly how the fair launch is locked down.</div>
+          <div class="event-link">View Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+      </div>
+    </a>
+    <a class="event-card reveal" href="event-staking-party.html">
+      <div class="ev-bg" style="background-image:radial-gradient(circle at 75% 75%, rgba(43,107,255,.5), transparent 55%), radial-gradient(circle at 15% 20%, rgba(94,55,225,.4), transparent 50%), url('event-staking-party-bg.jpg'); background-color:#0b0f1f;"></div>
+      <div class="ev-overlay"></div>
+      <div class="ev-content">
+        <span class="event-tag">Community</span>
+        <div class="event-body">
+          <div class="event-date">DEC 03 · 7:00 PM UTC</div>
+          <div class="event-title">Staking Launch Countdown Party</div>
+          <div class="event-summary">Live in Discord as staking flips on for every $MEMEBULL holder, with giveaways through the night.</div>
+          <div class="event-link">View Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
 <section id="buy" class="wrap">
   <div class="reveal">
     <div class="kicker">How To Buy</div>
@@ -729,16 +1035,16 @@
 
     <div class="buy-col reveal">
       <div class="buy-head">
-        <span class="buy-tag">BNB Chain</span>
-        <h3>PancakeSwap</h3>
+        <span class="buy-tag net-sol">Solana</span>
+        <h3>Phantom Wallet</h3>
       </div>
-      <p class="buy-sub">Only relevant if a bridged/wrapped $MEMEBULL is trading on BNB Chain.</p>
+      <p class="buy-sub">Buy directly inside the Phantom app — no separate DEX site needed.</p>
       <ul class="buy-steps">
-        <li><span class="n">1</span><p>Install <b>MetaMask</b> or <b>Trust Wallet</b> and switch the network to <b>BNB Chain</b>.</p></li>
-        <li><span class="n">2</span><p>Fund the wallet with <b>BNB</b> from an exchange or a bridge.</p></li>
-        <li><span class="n">3</span><p>Open <b>pancakeswap.finance</b>, connect wallet, and paste the verified CA.</p></li>
-        <li><span class="n">4</span><p>Set slippage for low-liquidity pairs, then swap BNB for $MEMEBULL.</p></li>
-        <li><span class="n">5</span><p>Bridge back to Solana if you want to stake for full platform access.</p></li>
+        <li><span class="n">1</span><p>Install the <b>Phantom</b> extension or mobile app and fund it with <b>SOL</b> from an exchange.</p></li>
+        <li><span class="n">2</span><p>Open the <b>Swap</b> tab inside Phantom.</p></li>
+        <li><span class="n">3</span><p>Paste the $MEMEBULL contract address into the token search field.</p></li>
+        <li><span class="n">4</span><p>Enter the amount of SOL to swap and review the rate and price impact.</p></li>
+        <li><span class="n">5</span><p>Confirm the swap right in Phantom — $MEMEBULL lands in the same wallet, ready to stake.</p></li>
       </ul>
     </div>
   </div>
@@ -752,47 +1058,122 @@
 </section>
 
 <!-- ================= POLLS ================= -->
-<section id="polls" class="wrap">
-  <div class="reveal">
-    <div class="kicker">Community Pulse</div>
-    <h2>Where Does The Herd Stand?</h2>
-    <p class="lead">
-      Meme Bull tracks political and social narrative as part of its intelligence engine. These
-      community polls are a small, live taste of that — cast your vote, see where the herd
-      leans, one vote per browser.
-    </p>
+<section id="polls" class="polls-cover">
+  <div class="pv-media" id="pollsVideoWrap">
+    <video id="pollsVideoEl" autoplay muted loop playsinline poster="hero-bg.webp">
+      <source id="pollsVideoSource" src="live.mp4" type="video/mp4">
+    </video>
   </div>
-  <div class="poll-grid" id="pollGrid"></div>
+  <div class="pv-overlay"></div>
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">Community Pulse</div>
+      <h2>Where Does The Herd Stand?</h2>
+      <p class="lead">
+        Meme Bull tracks political and social narrative as part of its intelligence engine. These
+        community polls are a small, live taste of that — cast your vote, see where the herd
+        leans, one vote per browser.
+      </p>
+    </div>
+    <div class="poll-grid" id="pollGrid"></div>
+  </div>
 </section>
 
-<section id="community" class="wrap community">
-  <div class="reveal">
-    <div class="kicker">Platform & Community</div>
-    <h2>Join The Intelligent Herd</h2>
-    <p class="lead">
-      Meme Bull is more than a token — it's a protocol, a platform, and a community of traders
-      and researchers who believe the market can be <b>read, not just guessed</b>. Connect with
-      the team, read the docs, and start staking.
-    </p>
-    <div class="socials">
-      <a class="soc" href="https://t.me/MemeBullSol" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="#5eb3ff"><path d="M9.04 15.51l-.38 5.34c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.65.25 1.91-.9L22.9 3.8c.31-1.43-.52-1.99-1.46-1.64L2.7 9.38c-1.4.54-1.38 1.32-.24 1.67l4.8 1.5 11.13-7.02c.52-.34 1-.15.6.19L9.04 15.51z"/></svg>
-        <div><b>Telegram</b><small>t.me/MemeBullSol</small></div>
-      </a>
-      <a class="soc" href="https://x.com/memebullsol" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="#e6ecf8"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.67l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23zm-1.16 17.52h1.83L7.08 4.13H5.12l11.96 15.64z"/></svg>
-        <div><b>X / Twitter</b><small>@memebullsol</small></div>
-      </a>
-      <a class="soc" href="viewer.html?src=whitepaper.pdf&title=Whitepaper" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="#a855f7" stroke="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="#060a17" stroke-width="1.5" fill="none"/></svg>
-        <div><b>Whitepaper</b><small>Full technical docs</small></div>
-      </a>
+<!-- ================= LIVE TRANSACTIONS ================= -->
+<section id="live-tx" class="live-tx-cover">
+  <div class="ltx-bg-media" id="ltxVideoWrap">
+    <video id="ltxVideoEl" autoplay muted loop playsinline poster="hero-bg.webp">
+      <source id="ltxVideoSource" src="blue.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="ltx-overlay"></div>
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;">
+      <div class="kicker">Live Activity</div>
+      <h2>Real-Time Purchases</h2>
+      <p class="lead" style="margin:0 auto;">
+        Watch the herd accumulate <b>$MEMEBULL</b> in real time. Every entry below is a recent
+        on-chain purchase — tracked live from the Solana network.
+      </p>
+    </div>
+
+    <div class="ltx-shell reveal">
+      <div class="ltx-header">
+        <div class="ltx-header-left">
+          <span class="ltx-live-dot"></span>
+          <b>Live</b>
+          <span>· Recent Buys</span>
+        </div>
+        <div class="ltx-totals">
+          <div class="ltx-total-item">
+            <div class="ltx-total-label">Total Buys</div>
+            <div class="ltx-total-val green" id="ltxTotalBuys">1,847</div>
+          </div>
+          <div class="ltx-total-item">
+            <div class="ltx-total-label">Volume</div>
+            <div class="ltx-total-val" id="ltxTotalVolume">$284,532</div>
+          </div>
+          <div class="ltx-total-item">
+            <div class="ltx-total-label">Buyers</div>
+            <div class="ltx-total-val" id="ltxTotalBuyers">1,203</div>
+          </div>
+        </div>
+      </div>
+      <div class="ltx-feed" id="ltxFeed">
+        <div class="ltx-feed-inner" id="ltxFeedInner"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="community" class="community-cover">
+  <div class="cc-bg"></div>
+  <div class="cc-overlay"></div>
+  <div class="wrap community">
+    <div class="reveal">
+      <div class="kicker">Platform & Community</div>
+      <h2>Join The Intelligent Herd</h2>
+      <p class="lead">
+        Meme Bull is more than a token — it's a protocol, a platform, and a community of traders
+        and researchers who believe the market can be <b>read, not just guessed</b>. Connect with
+        the team, read the docs, and start staking.
+      </p>
+      <div class="socials">
+        <a class="soc telegram" href="https://t.me/memebull_Token" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M9.04 15.51l-.38 5.34c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.65.25 1.91-.9L22.9 3.8c.31-1.43-.52-1.99-1.46-1.64L2.7 9.38c-1.4.54-1.38 1.32-.24 1.67l4.8 1.5 11.13-7.02c.52-.34 1-.15.6.19L9.04 15.51z"/></svg>
+          <div><b>Telegram</b><small>t.me/memebull_Token</small></div>
+        </a>
+        <a class="soc x" href="https://x.com/memebullsol" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.67l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23zm-1.16 17.52h1.83L7.08 4.13H5.12l11.96 15.64z"/></svg>
+          <div><b>X / Twitter</b><small>@memebullsol</small></div>
+        </a>
+        <a class="soc tiktok" href="https://www.tiktok.com/@memebull_?_r=1&_t=ZS-9942mwT5XPR" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3 0 .58.05.85.13V9.4a6.33 6.33 0 0 0-5.19 10.34 6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.18-.14z"/></svg>
+          <div><b>TikTok</b><small>@memebull_</small></div>
+        </a>
+        <a class="soc youtube" href="https://youtube.com/@memebull_ai?si=4h5Ios62Fj555AOa" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.2 31.55 31.55 0 0 0 0 12a31.55 31.55 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14A31.55 31.55 0 0 0 24 12a31.55 31.55 0 0 0-.5-5.8zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+          <div><b>YouTube</b><small>@memebull_ai</small></div>
+        </a>
+        <a class="soc whitepaper" href="viewer.html?src=whitepaper.pdf&title=Whitepaper" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+          <div><b>Whitepaper</b><small>Full technical docs</small></div>
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
 <footer>
+  <div class="f-bg"></div>
+  <div class="f-overlay"></div>
   <div class="f-logo">MEME <span>BULL</span> · $MEMEBULL · AI TRADING PLATFORM</div>
+  <div class="ca-box" id="cabox2" title="Click to copy the contract address" style="margin:22px auto 6px;">
+    <span class="ca-label">CA</span>
+    <span class="ca-addr" id="caaddr2">8xK3nQmR2vLpT9YwFhB4jZcD6sN1eGaU7iMoP5qXrWtV</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+    <span class="ca-copied" id="cacopied2">Copied!</span>
+  </div>
   <p>
     Meme Bull ($MEMEBULL) is the native utility token of the Meme Bull AI crypto intelligence
     platform on Solana. The platform uses machine learning models to analyze market data, social
@@ -802,7 +1183,11 @@
   </p>
 </footer>
 
-<!-- ================= CHATBOT WIDGET ================= -->
+<div class="visitor-toast" id="visitorToast" aria-live="polite">
+  <span class="vt-flag" id="vtFlag">🌍</span>
+  <span class="vt-text"><b id="vtLine1">Someone</b><span id="vtLine2">is browsing Meme Bull</span></span>
+</div>
+
 <button class="chat-fab" id="chatFab" aria-label="Open chat assistant">
   <span class="chat-dot"></span>
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -827,41 +1212,100 @@
   </div>
 </div>
 
+<!-- ================= LANGUAGE TRANSLATOR — isolated widget =================
+     Self-contained: its own button, its own panel, its own hidden Google
+     Translate mount, and its own script block below. Nothing here edits
+     the nav, the chat widget, the visitor toast, or any existing section. -->
+<button class="lang-fab" id="langFab" aria-label="Translate page" title="Translate page">
+  <span class="lang-fab-flag">🇬🇧</span>
+  <svg class="lang-fab-badge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+    <path d="M5 8h14"/><path d="M9 4h4"/><path d="M8 4c0 8 4 14 4 14"/><path d="M12 4c0 3-2.2 6.5-5 9"/>
+  </svg>
+</button>
+<div class="lang-panel" id="langPanel">
+  <button class="lang-opt active" data-lang="en"><span class="lang-flag">🇬🇧</span>English</button>
+  <button class="lang-opt" data-lang="es"><span class="lang-flag">🇪🇸</span>Español</button>
+  <button class="lang-opt" data-lang="pt"><span class="lang-flag">🇵🇹</span>Português</button>
+  <button class="lang-opt" data-lang="fr"><span class="lang-flag">🇫🇷</span>Français</button>
+  <button class="lang-opt" data-lang="de"><span class="lang-flag">🇩🇪</span>Deutsch</button>
+  <button class="lang-opt" data-lang="ru"><span class="lang-flag">🇷🇺</span>Русский</button>
+  <button class="lang-opt" data-lang="zh-CN"><span class="lang-flag">🇨🇳</span>中文</button>
+  <button class="lang-opt" data-lang="ja"><span class="lang-flag">🇯🇵</span>日本語</button>
+  <button class="lang-opt" data-lang="ko"><span class="lang-flag">🇰🇷</span>한국어</button>
+  <button class="lang-opt" data-lang="ar"><span class="lang-flag">🇸🇦</span>العربية</button>
+  <button class="lang-opt" data-lang="hi"><span class="lang-flag">🇮🇳</span>हिन्दी</button>
+  <button class="lang-opt" data-lang="tr"><span class="lang-flag">🇹🇷</span>Türkçe</button>
+</div>
+<div id="google_translate_element"></div>
+
 <script>
-  // rain drops
+  // ================= HERO BACKGROUND VIDEO =================
+  var HERO_VIDEO_FILE = "space.mp4";
   (function(){
-    var r=document.getElementById('rain');
-    for(var i=0;i<40;i++){
-      var d=document.createElement('div');
-      d.className='drop';
-      d.style.left=(i*2.5+((i*7)%5))+'%';
-      d.style.animationDuration=(1.6+((i*13)%10)/9)+'s';
-      d.style.animationDelay=((i*29)%20)/10+'s';
-      d.style.opacity=.25+((i*11)%10)/28;
-      r.appendChild(d);
+    var video = document.getElementById('heroVideoEl');
+    var source = document.getElementById('heroVideoSource');
+    var file = (HERO_VIDEO_FILE || '').trim();
+    if (file) {
+      source.src = file;
+      video.load();
+      video.play().catch(function(){});
     }
   })();
-  // duplicate marquee for seamless loop
+
+  // ================= POLLS BACKGROUND VIDEO =================
+  var POLLS_VIDEO_FILE = "";
+  (function(){
+    var video = document.getElementById('pollsVideoEl');
+    var source = document.getElementById('pollsVideoSource');
+    var file = (POLLS_VIDEO_FILE || '').trim();
+    if (file) {
+      source.src = file;
+      video.load();
+      video.play().catch(function(){});
+    }
+  })();
+
+  // ================= LIVE TX BACKGROUND VIDEO =================
+  var LIVE_TX_VIDEO_FILE = "blue.mp4";
+  (function(){
+    var video = document.getElementById('ltxVideoEl');
+    var source = document.getElementById('ltxVideoSource');
+    var file = (LIVE_TX_VIDEO_FILE || '').trim();
+    if (file) {
+      source.src = file;
+      video.load();
+      video.play().catch(function(){});
+    }
+  })();
+
+  // ================= MARQUEE =================
   (function(){
     var t=document.getElementById('mtrack');
     t.innerHTML+=t.innerHTML;
   })();
-  // copy contract address
+
+  // ================= COPY CONTRACT ADDRESS =================
   (function(){
-    var box=document.getElementById('cabox');
-    box.addEventListener('click',function(){
-      var ca=document.getElementById('caaddr').textContent.trim();
-      function done(){box.classList.add('copied');setTimeout(function(){box.classList.remove('copied')},1400);}
-      if(navigator.clipboard&&navigator.clipboard.writeText){
-        navigator.clipboard.writeText(ca).then(done).catch(function(){fallback();});
-      }else{fallback();}
-      function fallback(){
-        var t=document.createElement('textarea');t.value=ca;document.body.appendChild(t);
-        t.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(t);
-      }
-    });
+    function setupCopyBox(boxId, addrId){
+      var box=document.getElementById(boxId);
+      if(!box) return;
+      box.addEventListener('click',function(){
+        var ca=document.getElementById(addrId).textContent.trim();
+        function done(){box.classList.add('copied');setTimeout(function(){box.classList.remove('copied')},1400);}
+        if(navigator.clipboard&&navigator.clipboard.writeText){
+          navigator.clipboard.writeText(ca).then(done).catch(function(){fallback();});
+        }else{fallback();}
+        function fallback(){
+          var t=document.createElement('textarea');t.value=ca;document.body.appendChild(t);
+          t.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(t);
+        }
+      });
+    }
+    setupCopyBox('cabox','caaddr');
+    setupCopyBox('cabox2','caaddr2');
   })();
-  // scroll reveal
+
+  // ================= SCROLL REVEAL =================
   (function(){
     var io=new IntersectionObserver(function(es){
       es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});
@@ -869,39 +1313,29 @@
     document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
   })();
 
-  /* ================= STORAGE HELPERS =================
-     Uses Claude's artifact window.storage when available (so polls share
-     live vote counts across everyone viewing this page inside Claude).
-     Falls back to an in-memory object if window.storage isn't present,
-     e.g. once this file is deployed on your own domain — swap that
-     fallback for a real backend/API if you want true cross-visitor
-     shared counts in production. */
+  // ================= STORAGE HELPERS =================
   var memoryStore = {};
   async function storeGet(key, shared){
     try{
       if(window.storage){ var r = await window.storage.get(key, !!shared); return r ? r.value : null; }
-    }catch(e){ /* key not found or storage unavailable */ }
+    }catch(e){}
     return Object.prototype.hasOwnProperty.call(memoryStore,key) ? memoryStore[key] : null;
   }
   async function storeSet(key, value, shared){
     memoryStore[key]=value;
     try{
       if(window.storage){ await window.storage.set(key, value, !!shared); }
-    }catch(e){ /* best effort only */ }
+    }catch(e){}
   }
 
-  /* ================= COUNTDOWN ================= */
+  // ================= COUNTDOWN (7 days from now) =================
   (function(){
-    // SET YOUR REAL LAUNCH DATE/TIME HERE (local to the value you pick — ISO format with offset recommended)
-    var LAUNCH_DATE = new Date("2026-10-15T16:00:00Z").getTime();
-
+    var LAUNCH_DATE = Date.now() + 7*24*60*60*1000;
     var countingEl = document.getElementById('cdCountingState');
     var liveEl = document.getElementById('liveShell');
     var dEl=document.getElementById('cdDays'), hEl=document.getElementById('cdHours'),
         mEl=document.getElementById('cdMins'), sEl=document.getElementById('cdSecs');
-
     function pad(n){return String(n).padStart(2,'0');}
-
     function tick(){
       var now=Date.now();
       var diff=LAUNCH_DATE-now;
@@ -921,9 +1355,29 @@
     var timer=setInterval(tick,1000);
   })();
 
-  /* ================= CHATBOT ================= */
+  // ================= MOBILE NAV TOGGLE =================
+  (function(){
+    var toggle = document.getElementById('navToggle');
+    var links = document.getElementById('navLinks');
+    if(toggle && links){
+      toggle.addEventListener('click', function(){
+        links.classList.toggle('open');
+      });
+      // Close menu when a link is clicked
+      links.querySelectorAll('a').forEach(function(link){
+        link.addEventListener('click', function(){
+          if(window.innerWidth <= 860){
+            links.classList.remove('open');
+          }
+        });
+      });
+    }
+  })();
+
+  // ================= CHATBOT (with 10 additional Q&As) =================
   (function(){
     var FAQ = [
+      // Original entries
       {k:['what is','memebull','meme bull','about'], a:"Meme Bull ($MEMEBULL) is an AI-powered crypto intelligence platform on Solana. It reads market data, social sentiment, political narrative, and prediction markets to help you understand what is moving the market, and why."},
       {k:['buy','purchase','how do i get','where to buy'], a:"You can buy $MEMEBULL on Pump.fun at launch, or on Jupiter and Raydium once liquidity moves off the bonding curve. Full step-by-step is in the How To Buy section on this page."},
       {k:['contract','address',' ca ','ca?','ca.'], a:"The official contract address is in the CA box at the top of this page — tap it to copy. Always double-check it against our official Telegram or X before buying anywhere."},
@@ -935,19 +1389,27 @@
       {k:['governance','vote','dao'], a:"Meme Bull moves to full DAO governance in Phase 4, letting $MEMEBULL holders vote on treasury allocation and roadmap priorities."},
       {k:['telegram','discord','community','social','x.com','twitter'], a:"Join the community on Telegram and X — links are in the Platform & Community section below."},
       {k:['launch','live','countdown'], a:"Check the countdown near the top of this page — once it hits zero the banner switches to \"We are live now\" automatically."},
-      {k:['poll','vote on','political'], a:"Scroll to the Community Pulse section to vote on our live community polls — one vote per browser."}
+      {k:['poll','vote on','political'], a:"Scroll to the Community Pulse section to vote on our live community polls — one vote per browser."},
+
+      // =============== 10 ADDITIONAL Q&A PAIRS ===============
+      {k:['price prediction','price target','future price','worth'], a:"Price predictions are speculative. Meme Bull provides analytical intelligence, not financial advice. The market decides value based on utility, adoption, and market conditions. Always do your own research before investing."},
+      {k:['solana','blockchain','network','chain'], a:"Meme Bull runs on Solana, one of the fastest and lowest-cost Layer-1 blockchains. Solana's high throughput makes real-time AI-driven market intelligence possible at scale."},
+      {k:['liquidity','liquidity pool','liquidity locked'], a:"Liquidity is seeded on Jupiter and Raydium after the Pump.fun bonding curve fills. 40% of total supply is committed to locked liquidity, ensuring deep trading depth and reducing rug-pull risk."},
+      {k:['team','founder','developer','who made'], a:"The Meme Bull team is anonymous but publicly committed to full protocol transparency. The smart contract is open-source and audited, and the roadmap is community-verifiable. We believe in code over cult of personality."},
+      {k:['rewards','earn','passive income','incentive'], a:"$MEMEBULL holders earn staking rewards and a share of platform activity fees. The more you stake, the greater your share of rewards and the higher your governance voting weight."},
+      {k:['mobile app','app','ios','android'], a:"Mobile app development begins in Phase 3 of the roadmap. It will include live alerts, the sentiment dashboard, and staking controls, designed for both iOS and Android."},
+      {k:['listing','coinmarketcap','coingecko','exchange','tier 1'], a:"CoinMarketCap and CoinGecko listings are secured in Phase 2. Tier-1 centralized exchange applications are submitted in Phase 4. Community demand helps push exchanges to list."},
+      {k:['airdrop','free','giveaway','bounty'], a:"Meme Bull has no official airdrop. Beware of scams claiming otherwise. Legitimate community rewards come only through staking and verified community events."},
+      {k:['presale','ico','private sale','seed'], a:"There was no presale, ICO, or private seed round. Meme Bull launched fairly on Pump.fun, meaning everyone could buy at the same starting price — no insider advantages."},
+      {k:['risk','disclaimer','not financial','investment advice'], a:"Meme Bull provides analytical intelligence, not financial advice. Cryptocurrencies are highly volatile and you could lose your entire investment. Never invest more than you can afford to lose, and always do your own research."}
     ];
     var FALLBACK = "I don't have a canned answer for that one yet — ask in our Telegram and the team will help you directly.";
-
     var QUICK = ["What is $MEMEBULL?","How do I buy?","Is this safe?","What's the roadmap?","Tokenomics?"];
-
     var fab=document.getElementById('chatFab'), panel=document.getElementById('chatPanel'),
         closeBtn=document.getElementById('chatClose'), body=document.getElementById('chatBody'),
         quick=document.getElementById('chatQuick'), input=document.getElementById('chatInput'),
         sendBtn=document.getElementById('chatSend');
-
     var opened=false;
-
     function addMsg(text, who){
       var m=document.createElement('div');
       m.className='chat-msg '+who;
@@ -1012,43 +1474,38 @@
     closeBtn.addEventListener('click', function(){ panel.classList.remove('on'); });
     sendBtn.addEventListener('click', function(){ ask(input.value); });
     input.addEventListener('keydown', function(e){ if(e.key==='Enter'){ ask(input.value); } });
-
-    // allow the "Ask The Bull" style triggers elsewhere on the page if ever added
     window.openMemeBullChat = openChat;
   })();
 
-  /* ================= POLLS ================= */
+  // ================= POLLS =================
   (function(){
     var POLLS = [
-      {id:'p1', tag:'Crypto Policy', q:'Should cryptocurrency exchanges be regulated the same way as traditional banks?', opts:['Yes','No','Unsure'], base:[612,398,151]},
+      {
+        id:'brazil', 
+        tag:'Brazil Election', 
+        q:'Who will win the next Brazil presidential election?', 
+        opts:['Incumbent leftist President Luiz Inácio Lula da Silva', 'ex-President Jair Bolsonaro'], 
+        imgs:['https://www.thenation.com/wp-content/uploads/2021/03/lula-microphone.jpg', 'https://www.as-coa.org/sites/default/files/styles/article_hero_1026x576/public/field/image/Planalto_JairBolsonaro-1250px.jpg?h=6377f7ce&itok=EC_mEY3n'], 
+        base:[530, 470]
+      },
       {id:'p2', tag:'AI Policy', q:'Should AI companies pause advanced model development until stronger safety regulation exists?', opts:['Yes','No','Unsure'], base:[489,571,203]},
       {id:'p3', tag:'Economy', q:'Do you support a universal basic income funded by taxes on AI and automation?', opts:['Yes','No','Unsure'], base:[544,502,187]},
-      {id:'p4', tag:'Tech & Privacy', q:'Should social platforms be required to verify every user with a government ID?', opts:['Yes','No','Unsure'], base:[301,689,166]},
-      {id:'p5', tag:'Drug Policy', q:'Should marijuana be legalized at the federal level?', opts:['Yes','No','Unsure'], base:[758,264,109]},
-      {id:'p6', tag:'Taxation', q:'Should there be a mandatory wealth tax on billionaires?', opts:['Yes','No','Unsure'], base:[603,437,171]},
-      {id:'p7', tag:'Energy & Climate', q:'Should nuclear energy be expanded as a primary tool against climate change?', opts:['Yes','No','Unsure'], base:[712,231,143]},
-      {id:'p8', tag:'Democracy', q:'Should the voting age be lowered to 16?', opts:['Yes','No','Unsure'], base:[276,741,148]}
+      {id:'p7', tag:'Energy & Climate', q:'Should nuclear energy be expanded as a primary tool against climate change?', opts:['Yes','No','Unsure'], base:[301,689,166]}
     ];
-
     var grid = document.getElementById('pollGrid');
-
     function fmtTotal(n){
       if(n>=1000) return (n/1000).toFixed(1).replace('.0','')+'k';
       return String(n);
     }
-
     async function loadCounts(poll){
       var raw = await storeGet('poll_'+poll.id+'_counts', true);
-      if(raw){
-        try{ return JSON.parse(raw); }catch(e){}
-      }
+      if(raw){ try{ return JSON.parse(raw); }catch(e){} }
       return poll.base.slice();
     }
     async function loadVoted(poll){
       var raw = await storeGet('poll_'+poll.id+'_voted', false);
       return raw===null ? -1 : parseInt(raw,10);
     }
-
     function render(poll, counts, votedIdx, card){
       var total = counts.reduce(function(a,b){return a+b;},0) || 1;
       var optsWrap = card.querySelector('.poll-opts');
@@ -1059,7 +1516,9 @@
         btn.type='button';
         btn.className='poll-opt'+(votedIdx===i?' chosen':'');
         btn.disabled = votedIdx!==-1;
-        btn.innerHTML='<span class="poll-fill" style="width:'+(votedIdx!==-1?pct:0)+'%"></span>'+
+        var imgHtml = (poll.imgs && poll.imgs[i]) ? '<img class="poll-img" src="'+poll.imgs[i]+'" alt="">' : '';
+        btn.innerHTML = imgHtml +
+                       '<span class="poll-fill" style="width:'+(votedIdx!==-1?pct:0)+'%"></span>'+
                        '<span class="poll-row"><span>'+poll.opts[i]+'</span>'+
                        (votedIdx!==-1?'<span class="poll-pct">'+pct+'%</span>':'')+'</span>';
         if(votedIdx===-1){
@@ -1071,7 +1530,6 @@
       meta.innerHTML = '<span>'+fmtTotal(total)+' votes</span>'+
         (votedIdx!==-1?'<span class="poll-vote-tag">✓ You voted</span>':'<span>Tap an option to vote</span>');
     }
-
     async function vote(poll, idx, card){
       var counts = await loadCounts(poll);
       counts[idx] = (counts[idx]||0)+1;
@@ -1079,7 +1537,6 @@
       await storeSet('poll_'+poll.id+'_voted', String(idx), false);
       render(poll, counts, idx, card);
     }
-
     async function buildPoll(poll){
       var card=document.createElement('div');
       card.className='poll-card reveal';
@@ -1089,21 +1546,269 @@
         '<div class="poll-opts"><div style="color:#7f8fb8;font-size:12.5px;">Loading results…</div></div>'+
         '<div class="poll-meta"></div>';
       grid.appendChild(card);
-
       var io=new IntersectionObserver(function(es){
         es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});
       },{threshold:.1});
       io.observe(card);
-
       var counts = await loadCounts(poll);
       var votedIdx = await loadVoted(poll);
       render(poll, counts, votedIdx, card);
     }
-
     POLLS.forEach(function(p){ buildPoll(p); });
   })();
+
+  // ================= LIVE TRANSACTIONS FEED =================
+  (function(){
+    var BASE58_CHARS = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+    var POOL_SIZE = 200;
+    var VISIBLE_ROWS = 6;
+    var ROW_HEIGHT = 48;
+    var SCROLL_INTERVAL = 2000;
+    var TRANSITION_MS = 600;
+
+    function randBase58(len){
+      var s='';
+      for(var i=0;i<len;i++) s+=BASE58_CHARS[Math.floor(Math.random()*BASE58_CHARS.length)];
+      return s;
+    }
+    function randomSolAddress(){
+      return randBase58(32+Math.floor(Math.random()*12));
+    }
+    function truncateAddr(addr){
+      return addr.slice(0,4)+'…'+addr.slice(-4);
+    }
+    function randomAmount(){
+      return Math.floor(100 + Math.random()*49900);
+    }
+    function solEquivalent(bullAmount){
+      return bullAmount / 8500;
+    }
+    function randomTimeAgo(){
+      var secs = Math.floor(Math.random()*60) + 1;
+      return secs + 's ago';
+    }
+    function randomAvatarColor(){
+      var hues = [220, 260, 190, 280, 200, 240, 300, 170];
+      var h = hues[Math.floor(Math.random()*hues.length)];
+      return 'linear-gradient(135deg, hsl('+h+',80%,55%), hsl('+(h+40)+',70%,45%))';
+    }
+
+    var pool = [];
+    for(var i=0;i<POOL_SIZE;i++){
+      var bull = randomAmount();
+      var sol = solEquivalent(bull);
+      pool.push({
+        addr: randomSolAddress(),
+        bull: bull,
+        sol: sol,
+        time: randomTimeAgo(),
+        avatarBg: randomAvatarColor()
+      });
+    }
+    for(var j=pool.length-1;j>0;j--){
+      var k=Math.floor(Math.random()*(j+1));
+      var tmp=pool[j]; pool[j]=pool[k]; pool[k]=tmp;
+    }
+
+    var feedInner = document.getElementById('ltxFeedInner');
+    var totalBuysEl = document.getElementById('ltxTotalBuys');
+    var totalVolumeEl = document.getElementById('ltxTotalVolume');
+    var totalBuyersEl = document.getElementById('ltxTotalBuyers');
+    var currentOffset = 0;
+    var totalBuys = 1847;
+    var totalVolume = 284532;
+    var totalBuyers = 1203;
+
+    function formatBull(n){
+      if(n >= 10000) return (n/1000).toFixed(1) + 'k';
+      return n.toLocaleString();
+    }
+    function formatSol(n){
+      if(n >= 10) return n.toFixed(1);
+      if(n >= 1) return n.toFixed(2);
+      return n.toFixed(3);
+    }
+
+    function renderVisible(){
+      var html = '';
+      for(var i=0;i<VISIBLE_ROWS+4;i++){
+        var idx = (currentOffset + i) % pool.length;
+        var tx = pool[idx];
+        html += '<div class="ltx-row" style="height:'+ROW_HEIGHT+'px;">'+
+          '<div class="ltx-avatar" style="background:'+tx.avatarBg+'">'+tx.addr[0].toUpperCase()+'</div>'+
+          '<div class="ltx-info">'+
+            '<div class="ltx-wallet">'+truncateAddr(tx.addr)+'</div>'+
+            '<div class="ltx-time">'+tx.time+'</div>'+
+          '</div>'+
+          '<div class="ltx-amount">'+
+            '<div class="ltx-amount-bull">'+formatBull(tx.bull)+' $MEMEBULL</div>'+
+            '<div class="ltx-amount-sol">'+formatSol(tx.sol)+' SOL</div>'+
+          '</div>'+
+        '</div>';
+      }
+      feedInner.innerHTML = html;
+    }
+
+    function scrollStep(){
+      currentOffset = (currentOffset + 1) % pool.length;
+      var firstRow = feedInner.querySelector('.ltx-row');
+      if(firstRow){
+        firstRow.style.transition = 'transform '+TRANSITION_MS+'ms cubic-bezier(.4,0,.2,1), opacity '+TRANSITION_MS+'ms ease';
+        firstRow.style.transform = 'translateY(-'+ROW_HEIGHT+'px)';
+        firstRow.style.opacity = '0';
+      }
+      setTimeout(function(){
+        if(firstRow && firstRow.parentNode){
+          firstRow.parentNode.removeChild(firstRow);
+        }
+        var newIdx = (currentOffset + VISIBLE_ROWS + 3) % pool.length;
+        var tx = pool[newIdx];
+        var newRow = document.createElement('div');
+        newRow.className = 'ltx-row new';
+        newRow.style.height = ROW_HEIGHT+'px';
+        newRow.innerHTML =
+          '<div class="ltx-avatar" style="background:'+tx.avatarBg+'">'+tx.addr[0].toUpperCase()+'</div>'+
+          '<div class="ltx-info">'+
+            '<div class="ltx-wallet">'+truncateAddr(tx.addr)+'</div>'+
+            '<div class="ltx-time">'+tx.time+'</div>'+
+          '</div>'+
+          '<div class="ltx-amount">'+
+            '<div class="ltx-amount-bull">'+formatBull(tx.bull)+' $MEMEBULL</div>'+
+            '<div class="ltx-amount-sol">'+formatSol(tx.sol)+' SOL</div>'+
+          '</div>';
+        feedInner.appendChild(newRow);
+        totalBuys += 1;
+        totalVolume += Math.round(tx.sol * 145);
+        if(Math.random() < 0.65) totalBuyers += 1;
+        totalBuysEl.textContent = totalBuys.toLocaleString();
+        totalVolumeEl.textContent = '$' + totalVolume.toLocaleString();
+        totalBuyersEl.textContent = totalBuyers.toLocaleString();
+      }, TRANSITION_MS);
+    }
+
+    renderVisible();
+    setInterval(scrollStep, SCROLL_INTERVAL);
+    setInterval(function(){
+      var timeEls = feedInner.querySelectorAll('.ltx-time');
+      timeEls.forEach(function(el){
+        if(Math.random() < 0.15){
+          el.textContent = randomTimeAgo();
+        }
+      });
+    }, 5000);
+  })();
+
+  // ================= VISITOR POPUP =================
+  (function(){
+    var COUNTRIES = [["Afghanistan","AF"],["Albania","AL"],["Algeria","DZ"],["Argentina","AR"],["Armenia","AM"],["Australia","AU"],["Austria","AT"],["Azerbaijan","AZ"],["Bahrain","BH"],["Bangladesh","BD"],["Belarus","BY"],["Belgium","BE"],["Belize","BZ"],["Benin","BJ"],["Bhutan","BT"],["Bolivia","BO"],["Bosnia and Herzegovina","BA"],["Botswana","BW"],["Brazil","BR"],["Brunei","BN"],["Bulgaria","BG"],["Burkina Faso","BF"],["Cambodia","KH"],["Cameroon","CM"],["Canada","CA"],["Chile","CL"],["China","CN"],["Colombia","CO"],["Costa Rica","CR"],["Croatia","HR"],["Cuba","CU"],["Cyprus","CY"],["Czech Republic","CZ"],["Denmark","DK"],["Dominican Republic","DO"],["Ecuador","EC"],["Egypt","EG"],["El Salvador","SV"],["Estonia","EE"],["Ethiopia","ET"],["Finland","FI"],["France","FR"],["Georgia","GE"],["Germany","DE"],["Ghana","GH"],["Greece","GR"],["Guatemala","GT"],["Honduras","HN"],["Hong Kong","HK"],["Hungary","HU"],["Iceland","IS"],["India","IN"],["Indonesia","ID"],["Iraq","IQ"],["Ireland","IE"],["Israel","IL"],["Italy","IT"],["Ivory Coast","CI"],["Jamaica","JM"],["Japan","JP"],["Jordan","JO"],["Kazakhstan","KZ"],["Kenya","KE"],["Kuwait","KW"],["Kyrgyzstan","KG"],["Laos","LA"],["Latvia","LV"],["Lebanon","LB"],["Libya","LY"],["Liechtenstein","LI"],["Lithuania","LT"],["Luxembourg","LU"],["Madagascar","MG"],["Malaysia","MY"],["Maldives","MV"],["Mali","ML"],["Malta","MT"],["Mauritius","MU"],["Mexico","MX"],["Moldova","MD"],["Monaco","MC"],["Mongolia","MN"],["Montenegro","ME"],["Morocco","MA"],["Mozambique","MZ"],["Myanmar","MM"],["Namibia","NA"],["Nepal","NP"],["Netherlands","NL"],["New Zealand","NZ"],["Nicaragua","NI"],["Niger","NE"],["Nigeria","NG"],["North Macedonia","MK"],["Norway","NO"],["Oman","OM"],["Pakistan","PK"],["Panama","PA"],["Papua New Guinea","PG"],["Paraguay","PY"],["Peru","PE"],["Philippines","PH"],["Poland","PL"],["Portugal","PT"],["Qatar","QA"],["Romania","RO"],["Rwanda","RW"],["Saudi Arabia","SA"],["Senegal","SN"],["Serbia","RS"],["Singapore","SG"],["Slovakia","SK"],["Slovenia","SI"],["South Africa","ZA"],["South Korea","KR"],["Spain","ES"],["Sri Lanka","LK"],["Sweden","SE"],["Switzerland","CH"],["Taiwan","TW"],["Tajikistan","TJ"],["Tanzania","TZ"],["Thailand","TH"],["Togo","TG"],["Trinidad and Tobago","TT"],["Tunisia","TN"],["Turkey","TR"],["Turkmenistan","TM"],["Uganda","UG"],["Ukraine","UA"],["United Arab Emirates","AE"],["United Kingdom","GB"],["United States","US"],["Uruguay","UY"],["Uzbekistan","UZ"],["Venezuela","VE"],["Vietnam","VN"],["Yemen","YE"],["Zambia","ZM"],["Zimbabwe","ZW"]];
+    var ACTIONS = ["is exploring Meme Bull right now","just joined the herd","is reading the whitepaper","is checking the roadmap","just viewed the tokenomics","is browsing the platform"];
+    function flagEmoji(iso){
+      return iso.toUpperCase().replace(/./g, function(c){ return String.fromCodePoint(127397 + c.charCodeAt(0)); });
+    }
+    function shuffle(arr){
+      var a = arr.slice();
+      for(var i=a.length-1;i>0;i--){
+        var j = Math.floor(Math.random()*(i+1));
+        var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+      }
+      return a;
+    }
+    var QUEUE = [];
+    while(QUEUE.length < 300){ QUEUE = QUEUE.concat(shuffle(COUNTRIES)); }
+    QUEUE = QUEUE.slice(0, 300);
+    var toast = document.getElementById('visitorToast');
+    var flagEl = document.getElementById('vtFlag');
+    var line1El = document.getElementById('vtLine1');
+    var line2El = document.getElementById('vtLine2');
+    var idx = 0;
+    function showNext(){
+      var entry = QUEUE[idx % QUEUE.length];
+      var country = entry[0], iso = entry[1];
+      var action = ACTIONS[Math.floor(Math.random()*ACTIONS.length)];
+      toast.classList.remove('show');
+      setTimeout(function(){
+        flagEl.textContent = flagEmoji(iso);
+        line1El.textContent = "Visitor from " + country;
+        line2El.textContent = action;
+        toast.classList.add('show');
+      }, 220);
+      idx++;
+    }
+    setTimeout(showNext, 2000);
+    setInterval(showNext, 1500);
+  })();
 </script>
+
+<!-- ================= LANGUAGE TRANSLATOR SCRIPT — isolated =================
+     Everything below is new. It does not modify, wrap, or depend on any
+     function defined in the script block above. -->
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+
+  (function(){
+    var fab = document.getElementById('langFab');
+    var panel = document.getElementById('langPanel');
+    var opts = panel ? panel.querySelectorAll('.lang-opt') : [];
+
+    function closePanel(){ if(panel) panel.classList.remove('on'); }
+    function openPanel(){ if(panel) panel.classList.add('on'); }
+
+    if(fab && panel){
+      fab.addEventListener('click', function(e){
+        e.stopPropagation();
+        panel.classList.contains('on') ? closePanel() : openPanel();
+      });
+      document.addEventListener('click', function(e){
+        if(panel.classList.contains('on') && !panel.contains(e.target) && e.target !== fab){
+          closePanel();
+        }
+      });
+    }
+
+    function markActive(lang){
+      opts.forEach(function(o){
+        o.classList.toggle('active', o.getAttribute('data-lang') === lang);
+      });
+    }
+
+    function setLanguage(lang){
+      var tries = 0;
+      var iv = setInterval(function(){
+        var select = document.querySelector('#google_translate_element select.goog-te-combo');
+        tries++;
+        if(select){
+          clearInterval(iv);
+          select.value = lang;
+          select.dispatchEvent(new Event('change'));
+          markActive(lang);
+          closePanel();
+        } else if(tries > 40){
+          clearInterval(iv); // Google widget script did not load (e.g. blocked network) — fail quietly
+        }
+      }, 150);
+    }
+
+    opts.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var lang = btn.getAttribute('data-lang');
+        if(lang === 'en'){
+          // Reset to original English by clearing the translate cookie and reloading
+          document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+          document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + location.hostname;
+          location.reload();
+          return;
+        }
+        setLanguage(lang);
+      });
+    });
+  })();
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 
-
-</html>
+</html>i want the herobackground video to be video from youtube with automatic play
