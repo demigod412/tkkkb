@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,6 +68,15 @@
 
   .wrap{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:0 22px}
 
+  /* ---------- Shared background-media layers (hero / polls / live tx) ---------- */
+  .bg-media{position:absolute;inset:0;overflow:hidden;z-index:0;background:#04060c}
+  .bg-media video{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:100%;height:100%;min-width:100%;min-height:100%;object-fit:cover;
+  }
+  .bg-overlay{position:absolute;inset:0;z-index:1}
+
+  /* ---------- Nav ---------- */
   nav{
     position:sticky;top:0;z-index:50;
     backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
@@ -104,6 +111,8 @@
     cursor:pointer;
   }
   .nav-links a:hover{border-color:var(--line);color:#fff;background:rgba(43,107,255,.10)}
+
+  /* ---------- Buttons ---------- */
   .btn{
     display:inline-flex;align-items:center;gap:9px;
     text-decoration:none;font-weight:800;letter-spacing:.3px;
@@ -124,59 +133,33 @@
   }
   .btn-blue:hover{background:rgba(168,85,247,.22);transform:translateY(-2px)}
   .btn-nav{padding:9px 18px;font-size:14px}
+  .btn-sm{margin-top:24px;padding:11px 20px;font-size:13.5px}
+  .btn-sm svg{width:15px;height:15px}
   .btn svg{width:17px;height:17px;flex:none}
   .btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
 
-  /* Mobile responsive nav */
   @media(max-width:860px){
-    .nav-toggle{
-      display:flex;
-      margin-left:auto; /* push hamburger to the right */
-    }
+    .nav-toggle{display:flex;margin-left:auto}
     .nav-links{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      right:0;
-      background:rgba(4,6,12,.98);
-      border-bottom:1px solid var(--line);
-      padding:16px 22px;
-      flex-direction:column;
-      align-items:stretch;
-      gap:4px;
-      margin-left:0;
-      box-shadow:0 12px 24px rgba(0,0,0,.4);
-      z-index:55;
+      display:none;position:absolute;top:100%;left:0;right:0;
+      background:rgba(4,6,12,.98);border-bottom:1px solid var(--line);
+      padding:16px 22px;flex-direction:column;align-items:stretch;gap:4px;
+      margin-left:0;box-shadow:0 12px 24px rgba(0,0,0,.4);z-index:55;
     }
     .nav-links.open{display:flex}
-    .nav-links a{
-      padding:12px 16px;
-      font-size:15px;
-      border-radius:8px;
-      width:100%;
-    }
-    .nav-links .btn{
-      margin-top:8px;
-      justify-content:center;
-      width:100%;
-    }
+    .nav-links a{padding:12px 16px;font-size:15px;border-radius:8px;width:100%}
+    .nav-links .btn{margin-top:8px;justify-content:center;width:100%}
     .nav-in{position:relative}
     .nav-in .chip{display:none}
   }
 
+  /* ---------- Hero ---------- */
   header{
     position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
     text-align:center;overflow:hidden;padding:130px 0 90px;
   }
-  .hero-media{position:absolute;inset:0;overflow:hidden;z-index:0;background:#04060c}
-  .hero-media video{
-    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-    width:100%;height:100%;min-width:100%;min-height:100%;
-    object-fit:cover;object-position:center 35%;
-  }
+  header .bg-media video{object-position:center 35%}
   .hero-overlay{
-    position:absolute;inset:0;z-index:1;
     background:linear-gradient(180deg, rgba(4,6,12,.5) 0%, rgba(4,6,12,.52) 40%, rgba(4,6,12,.9) 80%, #04060c 100%);
   }
   .hero-inner{position:relative;z-index:2;width:100%}
@@ -194,7 +177,6 @@
     background-image:url('bull.jpeg');background-size:cover;background-position:center 32%;
   }
   .intro-cover .ic-overlay{
-    position:absolute;inset:0;z-index:1;
     background:linear-gradient(180deg, rgba(4,6,12,.65) 0%, rgba(4,6,12,.8) 60%, rgba(4,6,12,.94) 100%);
   }
   .intro-cover .wrap{position:relative;z-index:2}
@@ -217,10 +199,11 @@
   }
   .ticker-line{
     font-size:clamp(22px,4vw,36px);font-weight:900;color:var(--neon);
-    text-shadow:0 0 8px rgba(94,179,255,.28);
-    letter-spacing:2px;
+    text-shadow:0 0 8px rgba(94,179,255,.28);letter-spacing:2px;
   }
   .ticker-line .purple-bit{color:var(--purple);text-shadow:0 0 14px rgba(168,85,247,.6)}
+
+  /* ---------- Contract address box ---------- */
   .ca-box{
     display:inline-flex;align-items:center;gap:10px;margin-top:18px;
     border:1px solid rgba(43,107,255,.42);background:rgba(4,6,12,.6);
@@ -246,16 +229,16 @@
     box-shadow:0 0 8px rgba(43,107,255,.3);
   }
   .ca-box.copied .ca-copied{opacity:1;transform:translateX(-50%) translateY(0)}
+  footer .ca-box{margin:22px auto 6px}
   @media(max-width:560px){.ca-addr{font-size:11px;max-width:180px}}
 
-  .sub{
-    max-width:680px;margin:20px auto 0;color:#b7c4e0;font-size:17px;line-height:1.65;
-  }
+  .sub{max-width:680px;margin:0 auto;color:#b7c4e0;font-size:17px;line-height:1.65}
   .sub b{color:#fff}
   .sub .purple{color:var(--purple)}
   .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:30px}
 
-  .countdown-section{padding:56px 0 44px;position:relative;z-index:1}
+  /* ---------- Countdown ---------- */
+  .countdown-section{padding:56px 0 44px;position:relative;z-index:2}
   .cd-shell{
     max-width:920px;margin:0 auto;border-radius:26px;position:relative;
     border:1px solid rgba(43,107,255,.32);
@@ -281,6 +264,7 @@
     min-width:92px;background:rgba(4,6,12,.72);border:1px solid rgba(43,107,255,.4);
     border-radius:16px;padding:16px 10px;box-shadow:0 0 10px rgba(43,107,255,.08) inset;
   }
+  .cd-box[hidden]{display:none}
   .cd-num{
     font-size:clamp(30px,5vw,44px);font-weight:900;line-height:1;color:#fff;
     text-shadow:0 0 6px rgba(94,179,255,.22);font-variant-numeric:tabular-nums;
@@ -290,6 +274,8 @@
 
   .live-shell{display:none}
   .live-shell.on{display:block}
+  .live-shell .cd-title{margin-bottom:6px}
+  .live-shell .cd-note{margin-top:4px}
   .live-badge{
     position:relative;display:inline-flex;align-items:center;gap:12px;
     background:rgba(61,220,132,.1);border:1px solid rgba(61,220,132,.45);
@@ -298,8 +284,8 @@
   .live-dot{width:12px;height:12px;border-radius:50%;background:var(--green);
     box-shadow:0 0 6px var(--green);animation:pulse 1.2s infinite}
   .live-badge b{color:var(--green);font-size:16px;letter-spacing:1.2px;text-transform:uppercase}
-  .cd-grid.hide, .cd-title.hide, .cd-note.hide{display:none}
 
+  /* ---------- Marquee ---------- */
   .marquee{
     margin-top:16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
     background:rgba(43,107,255,.06);overflow:hidden;white-space:nowrap;position:relative;z-index:1;
@@ -312,10 +298,9 @@
   .marquee span i{color:var(--purple);font-style:normal}
   @keyframes scroll{to{transform:translateX(-50%)}}
 
+  /* ---------- Sections ---------- */
   section{padding:112px 0;position:relative}
-  .kicker{
-    color:var(--neon);font-weight:800;letter-spacing:2.4px;font-size:13px;text-transform:uppercase;
-  }
+  .kicker{color:var(--neon);font-weight:800;letter-spacing:2.4px;font-size:13px;text-transform:uppercase}
   h2{
     margin:12px 0 18px;font-size:clamp(30px,5vw,48px);font-weight:900;letter-spacing:-.5px;text-transform:uppercase;
     background:linear-gradient(180deg,#fff,#9fb0d6);
@@ -325,6 +310,8 @@
   .lead b{color:#fff}
   .lead .g{color:var(--neon);font-weight:700}
   .lead .p{color:var(--purple);font-weight:700}
+  .center{text-align:center}
+  .center .lead{margin:0 auto}
 
   .story{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
   .story-img{position:relative}
@@ -344,20 +331,21 @@
     box-shadow:0 1px 8px rgba(168,85,247,.3);
   }
 
-  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:44px}
-  .card{
+  /* Shared card surface (roadmap cards, buy columns, poll cards) */
+  .card, .buy-col, .poll-card{
     background:linear-gradient(180deg,rgba(8,16,31,.97),rgba(4,6,12,.97));
-    border:1px solid var(--line);border-radius:20px;padding:30px 26px;position:relative;
-    transition:.25s;overflow:hidden;
+    border:1px solid var(--line);border-radius:20px;position:relative;
   }
-  .card::before{
+  .card::before, .buy-col::before, .poll-card::before{
     content:"";position:absolute;top:0;left:0;right:0;height:2px;
     background:linear-gradient(90deg,transparent,var(--blue),transparent);opacity:.65;
   }
-  .card:hover{transform:translateY(-5px);border-color:rgba(43,107,255,.55);box-shadow:0 14px 32px rgba(0,0,0,.35)}
-  .card .num{
-    font-size:13px;font-weight:800;color:var(--purple);letter-spacing:2px;
-  }
+  .card, .buy-col{transition:.25s}
+  .card:hover, .buy-col:hover{transform:translateY(-5px);border-color:rgba(43,107,255,.55);box-shadow:0 14px 32px rgba(0,0,0,.35)}
+
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:44px}
+  .card{padding:30px 26px;overflow:hidden}
+  .card .num{font-size:13px;font-weight:800;color:var(--purple);letter-spacing:2px}
   .card h3{margin:12px 0 10px;color:#fff;font-size:20px;letter-spacing:.2px}
   .card p{color:#9fb0d6;font-size:14.5px;line-height:1.7}
   .card p b{color:#eaf1ff}
@@ -366,27 +354,26 @@
     background:linear-gradient(180deg,#fff,#8fa0c2);
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
+  .roadmap-cta{text-align:center;margin-top:36px}
 
   .ozzy{
     margin-top:26px;border:1px solid rgba(168,85,247,.32);border-radius:20px;
     background:linear-gradient(120deg,rgba(168,85,247,.07),rgba(43,107,255,.10));
     padding:26px 30px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;
   }
-  .ozzy .pct{
-    font-size:52px;font-weight:900;color:#fff;
-    flex:none;
-  }
+  .ozzy .pct{font-size:52px;font-weight:900;color:#fff;flex:none}
   .ozzy p{color:#b9c6e6;font-size:15px;line-height:1.65;flex:1;min-width:240px}
   .ozzy a{color:var(--purple);font-weight:700;text-decoration:none}
   .ozzy a:hover{text-decoration:underline}
 
+  /* ---------- Events ---------- */
   .events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
   .event-card{
     position:relative;border-radius:18px;overflow:hidden;aspect-ratio:3/4;
     text-decoration:none;display:block;border:1px solid var(--line);transition:.25s;
   }
   .event-card:hover{transform:translateY(-5px);border-color:rgba(43,107,255,.5);box-shadow:0 14px 32px rgba(0,0,0,.35)}
-  .event-card .ev-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center}
+  .event-card .ev-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;background-color:#0b0f1f}
   .event-card .ev-overlay{
     position:absolute;inset:0;z-index:1;
     background:linear-gradient(180deg,rgba(4,6,12,.1) 0%,rgba(4,6,12,.55) 55%,rgba(4,6,12,.95) 100%);
@@ -405,57 +392,44 @@
   @media(max-width:860px){.events-grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:560px){.events-grid{grid-template-columns:1fr}.event-card{aspect-ratio:16/10}}
 
+  /* ---------- How to buy ---------- */
   .buy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
-  .buy-col{
-    background:linear-gradient(180deg,rgba(8,16,31,.97),rgba(4,6,12,.97));
-    border:1px solid var(--line);border-radius:20px;padding:28px 26px;position:relative;
-    transition:.25s;
-  }
-  .buy-col::before{
-    content:"";position:absolute;top:0;left:0;right:0;height:2px;
-    background:linear-gradient(90deg,transparent,var(--blue),transparent);opacity:.65;
-  }
-  .buy-col:hover{transform:translateY(-5px);border-color:rgba(43,107,255,.55);box-shadow:0 14px 32px rgba(0,0,0,.35)}
+  .buy-col{padding:28px 26px}
   .buy-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
   .buy-tag{
     font-size:10.5px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;
-    color:#fff;background:var(--purple);border-radius:999px;padding:3px 9px;flex:none;
-    box-shadow:0 1px 6px rgba(168,85,247,.28);
+    color:#fff;background:var(--blue);border-radius:999px;padding:3px 9px;flex:none;
+    box-shadow:0 1px 6px rgba(43,107,255,.3);
   }
-  .buy-tag.net-sol{background:var(--blue);box-shadow:0 1px 6px rgba(43,107,255,.3)}
   .buy-col h3{color:#fff;font-size:19px;letter-spacing:.2px}
   .buy-sub{color:#8fa0c2;font-size:13px;margin:6px 0 18px}
-  .buy-steps{list-style:none;display:flex;flex-direction:column;gap:14px}
-  .buy-steps li{display:flex;gap:12px;align-items:flex-start}
-  .buy-steps .n{
+  .buy-steps{list-style:none;display:flex;flex-direction:column;gap:14px;counter-reset:step}
+  .buy-steps li{display:flex;gap:12px;align-items:flex-start;color:#b7c4e0;font-size:13.5px;line-height:1.55}
+  .buy-steps li::before{
+    counter-increment:step;content:counter(step);
     flex:none;width:24px;height:24px;border-radius:8px;
     background:rgba(43,107,255,.14);border:1px solid rgba(43,107,255,.4);
     color:var(--neon);font-size:12px;font-weight:800;
     display:flex;align-items:center;justify-content:center;
   }
-  .buy-steps p{color:#b7c4e0;font-size:13.5px;line-height:1.55}
-  .buy-steps p b{color:#eaf1ff}
+  .buy-steps b{color:#eaf1ff}
   .buy-note{
     margin-top:26px;border:1px solid rgba(168,85,247,.3);border-radius:16px;
     background:rgba(168,85,247,.06);padding:16px 20px;color:#b9c6e6;font-size:13.5px;line-height:1.7;
   }
   .buy-note b{color:#fff}
 
+  /* ---------- Polls ---------- */
   .poll-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:44px}
-  .poll-card{
-    background:linear-gradient(180deg,rgba(8,16,31,.97),rgba(4,6,12,.97));
-    border:1px solid var(--line);border-radius:20px;padding:26px 24px;position:relative;
-  }
-  .poll-card::before{
-    content:"";position:absolute;top:0;left:0;right:0;height:2px;
-    background:linear-gradient(90deg,transparent,var(--purple),transparent);opacity:.6;
-  }
+  .poll-card{padding:26px 24px}
+  .poll-card::before{background:linear-gradient(90deg,transparent,var(--purple),transparent);opacity:.6}
   .poll-tag{
     font-size:10.5px;font-weight:900;letter-spacing:1.4px;text-transform:uppercase;
     color:var(--purple);margin-bottom:8px;display:block;
   }
   .poll-q{color:#fff;font-size:16px;font-weight:800;line-height:1.4;margin-bottom:16px}
   .poll-opts{display:flex;flex-direction:column;gap:9px}
+  .poll-loading{color:#7f8fb8;font-size:12.5px}
   .poll-opt{
     position:relative;display:flex;align-items:center;gap:10px;width:100%;text-align:left;
     background:rgba(43,107,255,.07);border:1px solid rgba(43,107,255,.28);
@@ -471,36 +445,34 @@
   .poll-opt.chosen{border-color:var(--purple)}
   .poll-opt.chosen .poll-fill{background:linear-gradient(90deg,rgba(168,85,247,.5),rgba(43,107,255,.35))}
   .poll-opt .poll-row{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:10px;flex:1}
-  .poll-opt .poll-img{width:32px;height:32px;border-radius:50%;object-fit:cover;flex:none;border:1px solid rgba(255,255,255,.2)}
+  .poll-opt .poll-img{position:relative;z-index:1;width:32px;height:32px;border-radius:50%;object-fit:cover;flex:none;border:1px solid rgba(255,255,255,.2)}
   .poll-opt .poll-pct{color:#8fa0c2;font-weight:800;font-variant-numeric:tabular-nums;margin-left:auto}
   .poll-opt.chosen .poll-pct{color:#fff}
   .poll-meta{margin-top:12px;color:#7f8fb8;font-size:12px;display:flex;justify-content:space-between}
   .poll-vote-tag{color:var(--green);font-weight:800}
-  @media(max-width:860px){.poll-grid{grid-template-columns:1fr}}
 
-  /* LIVE TRANSACTIONS SECTION */
-  .live-tx-cover{position:relative;overflow:hidden;padding:100px 0}
-  .live-tx-cover .ltx-bg-media{position:absolute;inset:0;z-index:0;background:#060a17}
-  .live-tx-cover .ltx-bg-media video{
-    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-    width:100%;height:100%;min-width:100%;min-height:100%;object-fit:cover;
+  .polls-cover{overflow:hidden}
+  .polls-cover .pv-overlay{
+    background:linear-gradient(180deg, rgba(4,6,12,.78) 0%, rgba(4,6,12,.86) 55%, rgba(4,6,12,.96) 100%);
   }
+  .polls-cover .wrap{position:relative;z-index:2}
+
+  /* ---------- Live transactions ---------- */
+  .live-tx-cover{overflow:hidden;padding:100px 0}
+  .live-tx-cover .bg-media{background:#060a17}
   .live-tx-cover .ltx-overlay{
-    position:absolute;inset:0;z-index:1;
     background:linear-gradient(180deg, rgba(4,6,12,.78) 0%, rgba(4,6,12,.84) 40%, rgba(4,6,12,.95) 100%),
                radial-gradient(circle at 50% 50%, rgba(43,107,255,.1), transparent 70%);
   }
   .live-tx-cover .wrap{position:relative;z-index:2}
   .ltx-shell{
     max-width:680px;margin:40px auto 0;border-radius:22px;overflow:hidden;
-    border:1px solid rgba(43,107,255,.4);
-    background:rgba(4,6,12,.82);
+    border:1px solid rgba(43,107,255,.4);background:rgba(4,6,12,.82);
     box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 24px rgba(43,107,255,.12);
   }
   .ltx-header{
     display:flex;align-items:center;justify-content:space-between;
-    padding:16px 22px;border-bottom:1px solid var(--line);
-    background:rgba(43,107,255,.06);
+    padding:16px 22px;border-bottom:1px solid var(--line);background:rgba(43,107,255,.06);
   }
   .ltx-header-left{display:flex;align-items:center;gap:10px}
   .ltx-live-dot{width:10px;height:10px;border-radius:50%;background:var(--green);
@@ -509,74 +481,46 @@
   .ltx-header-left span{color:#8fa0c2;font-size:12px;font-weight:600}
   .ltx-totals{display:flex;gap:18px;align-items:center}
   .ltx-total-item{text-align:right}
-  .ltx-total-item .ltx-total-label{font-size:10px;color:#8fa0c2;text-transform:uppercase;letter-spacing:1px;font-weight:700}
-  .ltx-total-item .ltx-total-val{font-size:15px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
-  .ltx-total-item .ltx-total-val.green{color:var(--green)}
-  .ltx-feed{
-    position:relative;height:288px;overflow:hidden;
-    background:rgba(4,6,12,.6);
-  }
-  .ltx-feed-inner{
-    transition:transform .6s cubic-bezier(.4,0,.2,1);
-    will-change:transform;
-  }
+  .ltx-total-label{font-size:10px;color:#8fa0c2;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+  .ltx-total-val{font-size:15px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+  .ltx-total-val.green{color:var(--green)}
+  .ltx-feed{position:relative;height:288px;overflow:hidden;background:rgba(4,6,12,.6)}
   .ltx-row{
     display:flex;align-items:center;gap:14px;
     padding:12px 22px;height:48px;border-bottom:1px solid rgba(43,107,255,.1);
     animation:ltxRowIn .5s ease;
   }
-  @keyframes ltxRowIn{
-    from{opacity:0;transform:translateY(12px)}
-    to{opacity:1;transform:translateY(0)}
-  }
-  .ltx-row .ltx-avatar{
+  @keyframes ltxRowIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .ltx-avatar{
     width:28px;height:28px;border-radius:50%;flex:none;
-    background:linear-gradient(135deg,var(--blue),var(--purple));
     display:flex;align-items:center;justify-content:center;
-    font-size:12px;font-weight:800;color:#fff;
-    box-shadow:0 0 8px rgba(43,107,255,.3);
+    font-size:12px;font-weight:800;color:#fff;box-shadow:0 0 8px rgba(43,107,255,.3);
   }
-  .ltx-row .ltx-info{flex:1;min-width:0}
-  .ltx-row .ltx-wallet{
+  .ltx-info{flex:1;min-width:0}
+  .ltx-wallet{
     font-family:"Cascadia Code",Consolas,Menlo,monospace;font-size:13px;color:#eaf1ff;font-weight:600;
     letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
-  .ltx-row .ltx-time{font-size:11px;color:#7f8fb8;margin-top:1px}
-  .ltx-row .ltx-amount{text-align:right;flex:none}
-  .ltx-row .ltx-amount-bull{font-size:14px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
-  .ltx-row .ltx-amount-sol{font-size:11.5px;color:var(--neon);font-weight:700;font-variant-numeric:tabular-nums}
-  .ltx-row.new{animation:ltxRowIn .5s ease}
+  .ltx-time{font-size:11px;color:#7f8fb8;margin-top:1px}
+  .ltx-amount{text-align:right;flex:none}
+  .ltx-amount-bull{font-size:14px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+  .ltx-amount-sol{font-size:11.5px;color:var(--neon);font-weight:700;font-variant-numeric:tabular-nums}
   @media(max-width:560px){
     .ltx-totals{display:none}
     .ltx-row{padding:12px 14px;gap:10px}
     .ltx-feed{height:264px}
   }
 
-  .community-cover{position:relative;overflow:hidden}
+  /* ---------- Community ---------- */
+  .community-cover{overflow:hidden}
   .community-cover .cc-bg{
     position:absolute;inset:0;z-index:0;
     background-image:url('radio.jpg');background-size:cover;background-position:left center;
   }
   .community-cover .cc-overlay{
-    position:absolute;inset:0;z-index:1;
-    background:linear-gradient(180deg, rgba(4,6,12,.72) 80%, rgba(4,6,12,.85) 90%, rgba(4,6,12,.95) 70%);
+    background:linear-gradient(180deg, rgba(4,6,12,.72) 0%, rgba(4,6,12,.85) 80%, rgba(4,6,12,.95) 100%);
   }
   .community-cover .wrap{position:relative;z-index:2}
-
-  .polls-cover{position:relative;overflow:hidden}
-  .polls-cover .pv-media{position:absolute;inset:0;z-index:0;background:#04060c}
-  .polls-cover .pv-media video{
-    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-    width:100%;height:100%;min-width:100%;min-height:100%;object-fit:cover;
-  }
-  .polls-cover .pv-overlay{
-    position:absolute;inset:0;z-index:1;
-    background:linear-gradient(180deg, rgba(4,6,12,.78) 0%, rgba(4,6,12,.86) 55%, rgba(4,6,12,.96) 100%);
-  }
-  .polls-cover .wrap{position:relative;z-index:2}
-
-  .community{text-align:center}
-  .community .lead{margin:0 auto}
   .socials{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:34px}
   .soc{
     display:flex;align-items:center;gap:12px;text-decoration:none;
@@ -589,11 +533,11 @@
   .soc b{display:block;color:#fff;font-size:16px}
   .soc small{color:#7f8fb8;font-size:12.5px}
   .soc.telegram svg{fill:#5eb3ff}
-  .soc.x svg{fill:#e6ecf8}
-  .soc.tiktok svg{fill:#e6ecf8}
+  .soc.x svg, .soc.tiktok svg{fill:#e6ecf8}
   .soc.youtube svg{fill:#ff4d4d}
   .soc.whitepaper svg{fill:#a855f7}
 
+  /* ---------- Footer ---------- */
   footer{
     border-top:1px solid var(--line);padding:40px 22px 50px;text-align:center;
     position:relative;z-index:1;overflow:hidden;
@@ -602,11 +546,8 @@
     position:absolute;inset:0;z-index:0;
     background-image:url('bullr.webp');background-size:cover;background-position:center 50%;
   }
-  footer .f-overlay{
-    position:absolute;inset:0;z-index:1;
-    background:linear-gradient(180deg, rgba(4,6,12,.92) 0%, rgba(4,6,12,.94) 100%);
-  }
-  footer > *{position:relative;z-index:2}
+  footer .f-overlay{background:linear-gradient(180deg, rgba(4,6,12,.92) 0%, rgba(4,6,12,.94) 100%)}
+  footer > *:not(.f-bg):not(.f-overlay){position:relative;z-index:2}
   footer .f-logo{font-weight:900;letter-spacing:1px;color:#fff;font-size:18px}
   footer .f-logo span{color:var(--neon)}
   footer p{color:#6c7ba3;font-size:12.5px;line-height:1.7;max-width:680px;margin:14px auto 0}
@@ -614,6 +555,7 @@
   .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
   .reveal.on{opacity:1;transform:none}
 
+  /* ---------- Chat ---------- */
   .chat-fab{
     position:fixed;right:22px;bottom:22px;z-index:200;
     width:60px;height:60px;border-radius:50%;
@@ -672,6 +614,7 @@
   .chat-typing span:nth-child(3){animation-delay:.3s}
   @keyframes typing{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
 
+  /* ---------- Visitor toast ---------- */
   .visitor-toast{
     position:fixed;left:18px;bottom:18px;z-index:190;
     display:flex;align-items:center;gap:12px;
@@ -686,23 +629,8 @@
   .visitor-toast .vt-flag{font-size:26px;line-height:1;flex:none}
   .visitor-toast .vt-text b{color:#fff;font-size:12.5px;font-weight:700;display:block}
   .visitor-toast .vt-text span{color:#8fa0c2;font-size:11px}
-  @media(max-width:860px){
-    .visitor-toast{left:12px;bottom:12px;max-width:240px;padding:10px 13px}
-  }
 
-  @media(max-width:860px){
-    .story{grid-template-columns:1fr}
-    .cards{grid-template-columns:1fr}
-    .buy-grid{grid-template-columns:1fr}
-    .poll-grid{grid-template-columns:1fr}
-    header{padding-top:56px}
-    .chat-panel{right:12px;bottom:84px;width:92vw}
-    .chat-fab{right:16px;bottom:16px}
-  }
-
-  /* ================= LANGUAGE TRANSLATOR — isolated add-on =================
-     New widget only. Nothing above this block was touched: nav, menu, hero,
-     cards, events, buy grid, polls, live-tx feed and footer are unchanged. */
+  /* ---------- Language picker ---------- */
   .lang-fab{
     position:fixed;top:84px;right:22px;z-index:190;
     width:52px;height:52px;border-radius:50%;
@@ -712,10 +640,7 @@
     overflow:visible;
   }
   .lang-fab:hover{transform:translateY(-2px) scale(1.03)}
-  .lang-fab-flag{
-    font-size:26px;line-height:1;display:block;
-    border-radius:50%;overflow:hidden;
-  }
+  .lang-fab-flag{font-size:26px;line-height:1;display:block;border-radius:50%;overflow:hidden}
   .lang-fab-badge{
     position:absolute;bottom:-4px;right:-4px;width:20px;height:20px;
     background:var(--purple);border-radius:50%;padding:3px;box-sizing:border-box;
@@ -739,16 +664,19 @@
   .lang-opt:hover{background:rgba(43,107,255,.14);color:#fff}
   .lang-opt.active{background:rgba(168,85,247,.18);color:#fff}
 
-  /* Suppress Google Translate's own top banner/select so it never shifts
-     the sticky nav or shows its default UI — our custom fab/panel above
-     is the only visible control. */
-  .goog-te-banner-frame.skiptranslate{display:none !important;}
-  body{top:0 !important;}
-  #google_translate_element{display:none !important;}
-  .goog-tooltip, .goog-tooltip:hover{display:none !important;}
-  .goog-text-highlight{background:none !important;box-shadow:none !important;}
+  .goog-te-banner-frame.skiptranslate{display:none !important}
+  body{top:0 !important}
+  #google_translate_element{display:none !important}
+  .goog-tooltip, .goog-tooltip:hover{display:none !important}
+  .goog-text-highlight{background:none !important;box-shadow:none !important}
 
   @media(max-width:860px){
+    .story{grid-template-columns:1fr}
+    .cards, .buy-grid, .poll-grid{grid-template-columns:1fr}
+    header{padding-top:56px}
+    .chat-panel{right:12px;bottom:84px;width:92vw}
+    .chat-fab{right:16px;bottom:16px}
+    .visitor-toast{left:12px;bottom:12px;max-width:240px;padding:10px 13px}
     .lang-fab{top:74px;right:16px}
     .lang-panel{top:132px;right:16px;width:180px}
   }
@@ -779,22 +707,22 @@
 </nav>
 
 <header id="top">
-  <div class="hero-media" id="heroVideoWrap">
-    <video id="heroVideoEl" autoplay muted loop playsinline poster="hero-bg.webp">
-      <source id="heroVideoSource" src="space.mp4" type="video/mp4">
+  <div class="bg-media">
+    <video autoplay muted loop playsinline poster="hero-bg.webp">
+      <source src="space.mp4" type="video/mp4">
     </video>
   </div>
-  <div class="hero-overlay"></div>
+  <div class="bg-overlay hero-overlay"></div>
 
   <div class="wrap hero-inner">
     <div class="mascot-tag"><span class="dot"></span> AI Trading Platform · Built on Solana</div>
     <h1>Meme Bull</h1>
     <div class="ticker-line">$MEMEBULL <span class="purple-bit">/ INTELLIGENCE ENGINE</span></div>
-    <div class="ca-box" id="cabox" title="Click to copy the contract address">
+    <div class="ca-box" title="Click to copy the contract address">
       <span class="ca-label">CA</span>
-      <span class="ca-addr" id="caaddr">8xK3nQmR2vLpT9YwFhB4jZcD6sN1eGaU7iMoP5qXrWtV</span>
+      <span class="ca-addr">DXiQ5Gjda54dJTcCeZ15HMd9wZ8sCrB45j8GRbRXpump</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-      <span class="ca-copied" id="cacopied">Copied!</span>
+      <span class="ca-copied">Copied!</span>
     </div>
     <div class="cta">
       <a class="btn btn-green" href="viewer.html?src=whitepaper.pdf&title=Whitepaper" target="_blank" rel="noopener">
@@ -820,9 +748,9 @@
 
 <section id="intro" class="intro-cover">
   <div class="ic-bg"></div>
-  <div class="ic-overlay"></div>
-  <div class="wrap" style="position:relative;z-index:2;">
-    <p class="sub" style="margin:0 auto;">
+  <div class="bg-overlay ic-overlay"></div>
+  <div class="wrap">
+    <p class="sub">
       Meet the bull that never sleeps. <b>Meme Bull ($MEMEBULL)</b> is an <b>AI-powered crypto
       intelligence platform</b> on the <b>Solana network</b> — reading market data, social sentiment,
       political narrative, and prediction markets, so you understand what is moving the market,
@@ -830,23 +758,12 @@
     </p>
   </div>
 
-  <div class="wrap countdown-section" style="position:relative;z-index:2;">
+  <div class="wrap countdown-section">
     <div class="cd-shell reveal">
-      <div id="cdCountingState">
-        <div class="cd-kicker">Platform Launch</div>
-        <div class="cd-title">The intelligence engine goes live <span>soon</span></div>
-        <div class="cd-grid" id="cdGrid">
-          <div class="cd-box"><div class="cd-num" id="cdDays">00</div><div class="cd-label">Days</div></div>
-          <div class="cd-box"><div class="cd-num" id="cdHours">00</div><div class="cd-label">Hours</div></div>
-          <div class="cd-box"><div class="cd-num" id="cdMins">00</div><div class="cd-label">Minutes</div></div>
-          <div class="cd-box"><div class="cd-num" id="cdSecs">00</div><div class="cd-label">Seconds</div></div>
-        </div>
-        <div class="cd-note" id="cdNote">Countdown to public launch · times shown in your local timezone</div>
-      </div>
-      <div class="live-shell" id="liveShell">
+      <div class="live-shell on" id="liveShell">
         <div class="live-badge"><span class="live-dot"></span><b>We are live now</b></div>
-        <div class="cd-title" style="margin-bottom:6px;">Meme Bull is officially <span>live</span> on Solana</div>
-        <div class="cd-note" style="margin-top:4px;">The intelligence engine, staking, and the platform are all live. Jump in below.</div>
+        <div class="cd-title">Meme Bull is officially <span>live</span> on Solana</div>
+        <div class="cd-note">The intelligence engine, staking, and the platform are all live. Jump in below.</div>
       </div>
     </div>
   </div>
@@ -873,8 +790,8 @@
         unlock the full intelligence suite, earn a share of platform activity rewards, and vote
         on protocol direction through community governance.
       </p>
-      <a class="btn btn-ghost" style="margin-top:24px;padding:11px 20px;font-size:13.5px" href="viewer.html?src=whitepaper.pdf&title=Whitepaper" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+      <a class="btn btn-ghost btn-sm" href="viewer.html?src=whitepaper.pdf&title=Whitepaper" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
         Open the full whitepaper PDF
       </a>
     </div>
@@ -924,7 +841,7 @@
       and the community starts voting on the roadmap directly.</p>
     </div>
   </div>
-  <div style="text-align:center;margin-top:36px;">
+  <div class="roadmap-cta">
     <a class="btn btn-ghost" href="viewer.html?src=roadmap.pdf&title=Roadmap" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
       Open the full roadmap PDF
@@ -949,7 +866,7 @@
   </div>
   <div class="events-grid">
     <a class="event-card reveal" href="event-ai-webinar.html">
-      <div class="ev-bg" style="background-image:radial-gradient(circle at 25% 15%, rgba(94,55,225,.55), transparent 55%), radial-gradient(circle at 85% 85%, rgba(43,107,255,.4), transparent 50%), url('event-ai-webinar-bg.jpg'); background-color:#0b0f1f;"></div>
+      <div class="ev-bg" style="background-image:radial-gradient(circle at 25% 15%, rgba(94,55,225,.55), transparent 55%), radial-gradient(circle at 85% 85%, rgba(43,107,255,.4), transparent 50%), url('event-ai-webinar-bg.jpg');"></div>
       <div class="ev-overlay"></div>
       <div class="ev-content">
         <span class="event-tag">Webinar</span>
@@ -962,7 +879,7 @@
       </div>
     </a>
     <a class="event-card reveal" href="event-tokenomics-ama.html">
-      <div class="ev-bg" style="background-image:radial-gradient(circle at 80% 20%, rgba(43,107,255,.5), transparent 55%), radial-gradient(circle at 20% 85%, rgba(94,55,225,.38), transparent 50%), url('event-tokenomics-ama-bg.jpg'); background-color:#0b0f1f;"></div>
+      <div class="ev-bg" style="background-image:radial-gradient(circle at 80% 20%, rgba(43,107,255,.5), transparent 55%), radial-gradient(circle at 20% 85%, rgba(94,55,225,.38), transparent 50%), url('event-tokenomics-ama-bg.jpg');"></div>
       <div class="ev-overlay"></div>
       <div class="ev-content">
         <span class="event-tag">AMA</span>
@@ -975,7 +892,7 @@
       </div>
     </a>
     <a class="event-card reveal" href="event-staking-party.html">
-      <div class="ev-bg" style="background-image:radial-gradient(circle at 75% 75%, rgba(43,107,255,.5), transparent 55%), radial-gradient(circle at 15% 20%, rgba(94,55,225,.4), transparent 50%), url('event-staking-party-bg.jpg'); background-color:#0b0f1f;"></div>
+      <div class="ev-bg" style="background-image:radial-gradient(circle at 75% 75%, rgba(43,107,255,.5), transparent 55%), radial-gradient(circle at 15% 20%, rgba(94,55,225,.4), transparent 50%), url('event-staking-party-bg.jpg');"></div>
       <div class="ev-overlay"></div>
       <div class="ev-content">
         <span class="event-tag">Community</span>
@@ -1004,48 +921,39 @@
 
   <div class="buy-grid">
     <div class="buy-col reveal">
-      <div class="buy-head">
-        <span class="buy-tag net-sol">Solana</span>
-        <h3>Pump.fun</h3>
-      </div>
+      <div class="buy-head"><span class="buy-tag">Solana</span><h3>Pump.fun</h3></div>
       <p class="buy-sub">Best for buying right at launch, straight from the bonding curve.</p>
-      <ul class="buy-steps">
-        <li><span class="n">1</span><p>Install <b>Phantom</b> or <b>Solflare</b> and fund it with <b>SOL</b> from an exchange.</p></li>
-        <li><span class="n">2</span><p>Go to <b>pump.fun</b> and paste the $MEMEBULL contract address into search.</p></li>
-        <li><span class="n">3</span><p>Click <b>Connect Wallet</b> and approve the connection.</p></li>
-        <li><span class="n">4</span><p>Enter the amount of SOL to spend, confirm, and sign the transaction.</p></li>
-        <li><span class="n">5</span><p>$MEMEBULL lands in your wallet — stake it to unlock the intelligence suite.</p></li>
-      </ul>
+      <ol class="buy-steps">
+        <li>Install <b>Phantom</b> or <b>Solflare</b> and fund it with <b>SOL</b> from an exchange.</li>
+        <li>Go to <b>pump.fun</b> and paste the $MEMEBULL contract address into search.</li>
+        <li>Click <b>Connect Wallet</b> and approve the connection.</li>
+        <li>Enter the amount of SOL to spend, confirm, and sign the transaction.</li>
+        <li>$MEMEBULL lands in your wallet — stake it to unlock the intelligence suite.</li>
+      </ol>
     </div>
 
     <div class="buy-col reveal">
-      <div class="buy-head">
-        <span class="buy-tag net-sol">Solana</span>
-        <h3>Jupiter / Raydium</h3>
-      </div>
+      <div class="buy-head"><span class="buy-tag">Solana</span><h3>Jupiter / Raydium</h3></div>
       <p class="buy-sub">Once liquidity moves off the curve, this is the main DEX route.</p>
-      <ul class="buy-steps">
-        <li><span class="n">1</span><p>Open <b>jup.ag</b> (or Raydium) and connect your Solana wallet.</p></li>
-        <li><span class="n">2</span><p>Set the "from" token to <b>SOL</b> and paste the CA into the "to" field.</p></li>
-        <li><span class="n">3</span><p>Check the price impact and slippage, then adjust if the pool is thin.</p></li>
-        <li><span class="n">4</span><p>Confirm the swap and approve the transaction in your wallet.</p></li>
-        <li><span class="n">5</span><p>Stake your $MEMEBULL to start receiving alerts and platform rewards.</p></li>
-      </ul>
+      <ol class="buy-steps">
+        <li>Open <b>jup.ag</b> (or Raydium) and connect your Solana wallet.</li>
+        <li>Set the "from" token to <b>SOL</b> and paste the CA into the "to" field.</li>
+        <li>Check the price impact and slippage, then adjust if the pool is thin.</li>
+        <li>Confirm the swap and approve the transaction in your wallet.</li>
+        <li>Stake your $MEMEBULL to start receiving alerts and platform rewards.</li>
+      </ol>
     </div>
 
     <div class="buy-col reveal">
-      <div class="buy-head">
-        <span class="buy-tag net-sol">Solana</span>
-        <h3>Phantom Wallet</h3>
-      </div>
+      <div class="buy-head"><span class="buy-tag">Solana</span><h3>Phantom Wallet</h3></div>
       <p class="buy-sub">Buy directly inside the Phantom app — no separate DEX site needed.</p>
-      <ul class="buy-steps">
-        <li><span class="n">1</span><p>Install the <b>Phantom</b> extension or mobile app and fund it with <b>SOL</b> from an exchange.</p></li>
-        <li><span class="n">2</span><p>Open the <b>Swap</b> tab inside Phantom.</p></li>
-        <li><span class="n">3</span><p>Paste the $MEMEBULL contract address into the token search field.</p></li>
-        <li><span class="n">4</span><p>Enter the amount of SOL to swap and review the rate and price impact.</p></li>
-        <li><span class="n">5</span><p>Confirm the swap right in Phantom — $MEMEBULL lands in the same wallet, ready to stake.</p></li>
-      </ul>
+      <ol class="buy-steps">
+        <li>Install the <b>Phantom</b> extension or mobile app and fund it with <b>SOL</b> from an exchange.</li>
+        <li>Open the <b>Swap</b> tab inside Phantom.</li>
+        <li>Paste the $MEMEBULL contract address into the token search field.</li>
+        <li>Enter the amount of SOL to swap and review the rate and price impact.</li>
+        <li>Confirm the swap right in Phantom — $MEMEBULL lands in the same wallet, ready to stake.</li>
+      </ol>
     </div>
   </div>
 
@@ -1057,14 +965,13 @@
   </div>
 </section>
 
-<!-- ================= POLLS ================= -->
 <section id="polls" class="polls-cover">
-  <div class="pv-media" id="pollsVideoWrap">
-    <video id="pollsVideoEl" autoplay muted loop playsinline poster="hero-bg.webp">
-      <source id="pollsVideoSource" src="live.mp4" type="video/mp4">
+  <div class="bg-media">
+    <video autoplay muted loop playsinline poster="hero-bg.webp">
+      <source src="live.mp4" type="video/mp4">
     </video>
   </div>
-  <div class="pv-overlay"></div>
+  <div class="bg-overlay pv-overlay"></div>
   <div class="wrap">
     <div class="reveal">
       <div class="kicker">Community Pulse</div>
@@ -1079,19 +986,18 @@
   </div>
 </section>
 
-<!-- ================= LIVE TRANSACTIONS ================= -->
 <section id="live-tx" class="live-tx-cover">
-  <div class="ltx-bg-media" id="ltxVideoWrap">
-    <video id="ltxVideoEl" autoplay muted loop playsinline poster="hero-bg.webp">
-      <source id="ltxVideoSource" src="blue.mp4" type="video/mp4">
+  <div class="bg-media">
+    <video autoplay muted loop playsinline poster="hero-bg.webp">
+      <source src="blue.mp4" type="video/mp4">
     </video>
   </div>
-  <div class="ltx-overlay"></div>
+  <div class="bg-overlay ltx-overlay"></div>
   <div class="wrap">
-    <div class="reveal" style="text-align:center;">
+    <div class="reveal center">
       <div class="kicker">Live Activity</div>
       <h2>Real-Time Purchases</h2>
-      <p class="lead" style="margin:0 auto;">
+      <p class="lead">
         Watch the herd accumulate <b>$MEMEBULL</b> in real time. Every entry below is a recent
         on-chain purchase — tracked live from the Solana network.
       </p>
@@ -1119,8 +1025,8 @@
           </div>
         </div>
       </div>
-      <div class="ltx-feed" id="ltxFeed">
-        <div class="ltx-feed-inner" id="ltxFeedInner"></div>
+      <div class="ltx-feed">
+        <div id="ltxFeedInner"></div>
       </div>
     </div>
   </div>
@@ -1128,8 +1034,8 @@
 
 <section id="community" class="community-cover">
   <div class="cc-bg"></div>
-  <div class="cc-overlay"></div>
-  <div class="wrap community">
+  <div class="bg-overlay cc-overlay"></div>
+  <div class="wrap center">
     <div class="reveal">
       <div class="kicker">Platform & Community</div>
       <h2>Join The Intelligent Herd</h2>
@@ -1166,13 +1072,13 @@
 
 <footer>
   <div class="f-bg"></div>
-  <div class="f-overlay"></div>
+  <div class="bg-overlay f-overlay"></div>
   <div class="f-logo">MEME <span>BULL</span> · $MEMEBULL · AI TRADING PLATFORM</div>
-  <div class="ca-box" id="cabox2" title="Click to copy the contract address" style="margin:22px auto 6px;">
+  <div class="ca-box" title="Click to copy the contract address">
     <span class="ca-label">CA</span>
-    <span class="ca-addr" id="caaddr2">8xK3nQmR2vLpT9YwFhB4jZcD6sN1eGaU7iMoP5qXrWtV</span>
+    <span class="ca-addr">DXiQ5Gjda54dJTcCeZ15HMd9wZ8sCrB45j8GRbRXpump</span>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-    <span class="ca-copied" id="cacopied2">Copied!</span>
+    <span class="ca-copied">Copied!</span>
   </div>
   <p>
     Meme Bull ($MEMEBULL) is the native utility token of the Meme Bull AI crypto intelligence
@@ -1212,10 +1118,6 @@
   </div>
 </div>
 
-<!-- ================= LANGUAGE TRANSLATOR — isolated widget =================
-     Self-contained: its own button, its own panel, its own hidden Google
-     Translate mount, and its own script block below. Nothing here edits
-     the nav, the chat widget, the visitor toast, or any existing section. -->
 <button class="lang-fab" id="langFab" aria-label="Translate page" title="Translate page">
   <span class="lang-fab-flag">🇬🇧</span>
   <svg class="lang-fab-badge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
@@ -1239,575 +1141,458 @@
 <div id="google_translate_element"></div>
 
 <script>
-  // ================= HERO BACKGROUND VIDEO =================
-  var HERO_VIDEO_FILE = "space.mp4";
-  (function(){
-    var video = document.getElementById('heroVideoEl');
-    var source = document.getElementById('heroVideoSource');
-    var file = (HERO_VIDEO_FILE || '').trim();
-    if (file) {
-      source.src = file;
-      video.load();
-      video.play().catch(function(){});
+/* =====================================================================
+   LAUNCH TIME — the ONLY thing you need to edit for the countdown.
+   ---------------------------------------------------------------------
+   This is one fixed moment in UTC. Every visitor, in every timezone,
+   on every refresh, in every browser, counts down to this same instant.
+   Nothing is stored per-visitor, so it can never "restart".
+
+   Lagos is GMT+1 (no daylight saving):  UTC = Lagos time − 1 hour
+     2026-10-05T17:00:00Z  =  6:00 PM Lagos  =  1:00 PM New York
+                           =  6:00 PM London =  1:00 AM Tokyo (Oct 6)
+   ===================================================================== */
+var LAUNCH_UTC_ISO = "2020-01-01T00:00:00Z";
+
+/* ================= SHARED HELPERS ================= */
+var revealObserver = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){ e.target.classList.add('on'); revealObserver.unobserve(e.target); }
+  });
+},{threshold:.12});
+function reveal(el){ revealObserver.observe(el); }
+document.querySelectorAll('.reveal').forEach(reveal);
+
+function pad2(n){ return String(n).padStart(2,'0'); }
+
+// Storage: artifact storage if present, otherwise localStorage, otherwise memory.
+var memoryStore = {};
+async function storeGet(key, shared){
+  try{ if(window.storage){ var r = await window.storage.get(key, !!shared); return r ? r.value : null; } }catch(e){}
+  try{ var v = localStorage.getItem(key); if(v !== null) return v; }catch(e){}
+  return Object.prototype.hasOwnProperty.call(memoryStore,key) ? memoryStore[key] : null;
+}
+async function storeSet(key, value, shared){
+  memoryStore[key] = value;
+  try{ if(window.storage){ await window.storage.set(key, value, !!shared); return; } }catch(e){}
+  try{ localStorage.setItem(key, value); }catch(e){}
+}
+
+/* ================= BACKGROUND VIDEOS ================= */
+document.querySelectorAll('.bg-media video').forEach(function(v){
+  var p = v.play(); if(p && p.catch) p.catch(function(){});
+});
+
+/* ================= MARQUEE ================= */
+(function(){ var t=document.getElementById('mtrack'); t.innerHTML+=t.innerHTML; })();
+
+/* ================= COPY CONTRACT ADDRESS ================= */
+document.querySelectorAll('.ca-box').forEach(function(box){
+  box.addEventListener('click', function(){
+    var ca = box.querySelector('.ca-addr').textContent.trim();
+    function done(){ box.classList.add('copied'); setTimeout(function(){ box.classList.remove('copied'); },1400); }
+    function fallback(){
+      var t=document.createElement('textarea'); t.value=ca; document.body.appendChild(t);
+      t.select(); try{ document.execCommand('copy'); done(); }catch(e){} document.body.removeChild(t);
     }
-  })();
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(ca).then(done).catch(fallback);
+    } else { fallback(); }
+  });
+});
 
-  // ================= POLLS BACKGROUND VIDEO =================
-  var POLLS_VIDEO_FILE = "";
-  (function(){
-    var video = document.getElementById('pollsVideoEl');
-    var source = document.getElementById('pollsVideoSource');
-    var file = (POLLS_VIDEO_FILE || '').trim();
-    if (file) {
-      source.src = file;
-      video.load();
-      video.play().catch(function(){});
-    }
-  })();
+/* ================= GLOBAL COUNTDOWN ================= */
+(function(){
+  var LAUNCH = Date.parse(LAUNCH_UTC_ISO);
+  var countingEl = document.getElementById('cdCountingState');
+  var liveEl     = document.getElementById('liveShell');
+  var daysBox    = document.getElementById('cdDaysBox');
+  var dEl = document.getElementById('cdDays'),
+      hEl = document.getElementById('cdHours'),
+      mEl = document.getElementById('cdMins'),
+      sEl = document.getElementById('cdSecs');
+  var noteEl = document.getElementById('cdNote');
 
-  // ================= LIVE TX BACKGROUND VIDEO =================
-  var LIVE_TX_VIDEO_FILE = "blue.mp4";
-  (function(){
-    var video = document.getElementById('ltxVideoEl');
-    var source = document.getElementById('ltxVideoSource');
-    var file = (LIVE_TX_VIDEO_FILE || '').trim();
-    if (file) {
-      source.src = file;
-      video.load();
-      video.play().catch(function(){});
-    }
-  })();
+  // Visitors' device clocks can be wrong. We correct with the web server's
+  // own clock (HTTP "Date" header) so everyone hits zero at the same moment.
+  var clockOffset = 0;
+  function now(){ return Date.now() + clockOffset; }
 
-  // ================= MARQUEE =================
-  (function(){
-    var t=document.getElementById('mtrack');
-    t.innerHTML+=t.innerHTML;
-  })();
-
-  // ================= COPY CONTRACT ADDRESS =================
-  (function(){
-    function setupCopyBox(boxId, addrId){
-      var box=document.getElementById(boxId);
-      if(!box) return;
-      box.addEventListener('click',function(){
-        var ca=document.getElementById(addrId).textContent.trim();
-        function done(){box.classList.add('copied');setTimeout(function(){box.classList.remove('copied')},1400);}
-        if(navigator.clipboard&&navigator.clipboard.writeText){
-          navigator.clipboard.writeText(ca).then(done).catch(function(){fallback();});
-        }else{fallback();}
-        function fallback(){
-          var t=document.createElement('textarea');t.value=ca;document.body.appendChild(t);
-          t.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(t);
-        }
-      });
-    }
-    setupCopyBox('cabox','caaddr');
-    setupCopyBox('cabox2','caaddr2');
-  })();
-
-  // ================= SCROLL REVEAL =================
-  (function(){
-    var io=new IntersectionObserver(function(es){
-      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});
-    },{threshold:.12});
-    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
-  })();
-
-  // ================= STORAGE HELPERS =================
-  var memoryStore = {};
-  async function storeGet(key, shared){
+  // Show the launch moment converted to the visitor's own local time.
+  if(!isNaN(LAUNCH)){
     try{
-      if(window.storage){ var r = await window.storage.get(key, !!shared); return r ? r.value : null; }
-    }catch(e){}
-    return Object.prototype.hasOwnProperty.call(memoryStore,key) ? memoryStore[key] : null;
-  }
-  async function storeSet(key, value, shared){
-    memoryStore[key]=value;
-    try{
-      if(window.storage){ await window.storage.set(key, value, !!shared); }
+      if(noteEl){
+        noteEl.textContent = 'Launches ' + new Date(LAUNCH).toLocaleString(undefined, {
+          weekday:'short', day:'numeric', month:'short', hour:'numeric', minute:'2-digit', timeZoneName:'short'
+        }) + ' (your local time)';
+      }
     }catch(e){}
   }
 
-  // ================= COUNTDOWN (7 days from now) =================
-  (function(){
-    var LAUNCH_DATE = Date.now() + 7*24*60*60*1000;
-    var countingEl = document.getElementById('cdCountingState');
-    var liveEl = document.getElementById('liveShell');
-    var dEl=document.getElementById('cdDays'), hEl=document.getElementById('cdHours'),
-        mEl=document.getElementById('cdMins'), sEl=document.getElementById('cdSecs');
-    function pad(n){return String(n).padStart(2,'0');}
-    function tick(){
-      var now=Date.now();
-      var diff=LAUNCH_DATE-now;
-      if(diff<=0){
-        countingEl.style.display='none';
-        liveEl.classList.add('on');
-        clearInterval(timer);
+  var timer = null;
+  function tick(){
+    var diff = LAUNCH - now();
+    if(isNaN(diff) || diff <= 0){
+      if(countingEl) countingEl.style.display = 'none';
+      liveEl.classList.add('on');
+      if(timer){ clearInterval(timer); timer = null; }
+      return;
+    }
+    var total = Math.floor(diff / 1000);
+    var d = Math.floor(total / 86400);
+    daysBox.hidden = d === 0;
+    dEl.textContent = pad2(d);
+    hEl.textContent = pad2(Math.floor((total % 86400) / 3600));
+    mEl.textContent = pad2(Math.floor((total % 3600) / 60));
+    sEl.textContent = pad2(total % 60);
+  }
+
+  tick();
+  timer = setInterval(tick, 1000);
+
+  if(location.protocol.indexOf('http') === 0 && window.fetch){
+    var sentAt = Date.now();
+    fetch(location.href, {method:'HEAD', cache:'no-store'}).then(function(res){
+      var serverMs = Date.parse(res.headers.get('Date'));
+      if(isNaN(serverMs)) return;
+      var offset = serverMs - (sentAt + Date.now()) / 2;
+      if(Math.abs(offset) > 5000){ clockOffset = offset; tick(); } // only fix clocks that are clearly off
+    }).catch(function(){});
+  }
+})();
+
+/* ================= MOBILE NAV TOGGLE ================= */
+(function(){
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function(){ links.classList.toggle('open'); });
+  links.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      if(window.innerWidth <= 860) links.classList.remove('open');
+    });
+  });
+})();
+
+/* ================= CHATBOT ================= */
+(function(){
+  var FAQ = [
+    {k:['what is','memebull','meme bull','about'], a:"Meme Bull ($MEMEBULL) is an AI-powered crypto intelligence platform on Solana. It reads market data, social sentiment, political narrative, and prediction markets to help you understand what is moving the market, and why."},
+    {k:['buy','purchase','how do i get','where to buy'], a:"You can buy $MEMEBULL on Pump.fun at launch, or on Jupiter and Raydium once liquidity moves off the bonding curve. Full step-by-step is in the How To Buy section on this page."},
+    {k:['contract','address',' ca ','ca?','ca.'], a:"The official contract address is in the CA box at the top of this page — tap it to copy. Always double-check it against our official Telegram or X before buying anywhere."},
+    {k:['safe','audit','rug','scam','trust'], a:"The smart contract is audited before launch, liquidity is locked, and contract ownership is renounced once launch parameters are confirmed stable. That said, always do your own research — crypto carries real risk."},
+    {k:['roadmap','phase','timeline','when'], a:"Meme Bull ships in four phases: Foundation, Ignition, Expansion, and Maturity. Scroll up to the Roadmap section for exactly what each phase delivers."},
+    {k:['tokenomics','supply','allocation','distribution'], a:"Total supply is fixed at 1,000,000,000 $MEMEBULL. 40% is committed to locked liquidity from day one, with the rest split across community, staking rewards, treasury, and team — full breakdown is in the whitepaper."},
+    {k:['stake','staking','reward','apy','yield'], a:"Staking $MEMEBULL unlocks the full intelligence suite, earns a share of platform activity rewards, and gives you governance voting weight. Staking opens in Phase 3 of the roadmap."},
+    {k:['whitepaper','doc','documentation'], a:"Tap \"Read Whitepaper\" at the top of this page for the full technical documentation."},
+    {k:['governance','vote','dao'], a:"Meme Bull moves to full DAO governance in Phase 4, letting $MEMEBULL holders vote on treasury allocation and roadmap priorities."},
+    {k:['telegram','discord','community','social','x.com','twitter'], a:"Join the community on Telegram and X — links are in the Platform & Community section below."},
+    {k:['launch','live','countdown'], a:"Check the countdown near the top of this page — once it hits zero the banner switches to \"We are live now\" automatically."},
+    {k:['poll','vote on','political'], a:"Scroll to the Community Pulse section to vote on our live community polls — one vote per browser."},
+    {k:['price prediction','price target','future price','worth'], a:"Price predictions are speculative. Meme Bull provides analytical intelligence, not financial advice. The market decides value based on utility, adoption, and market conditions. Always do your own research before investing."},
+    {k:['solana','blockchain','network','chain'], a:"Meme Bull runs on Solana, one of the fastest and lowest-cost Layer-1 blockchains. Solana's high throughput makes real-time AI-driven market intelligence possible at scale."},
+    {k:['liquidity','liquidity pool','liquidity locked'], a:"Liquidity is seeded on Jupiter and Raydium after the Pump.fun bonding curve fills. 40% of total supply is committed to locked liquidity, ensuring deep trading depth and reducing rug-pull risk."},
+    {k:['team','founder','developer','who made'], a:"The Meme Bull team is anonymous but publicly committed to full protocol transparency. The smart contract is open-source and audited, and the roadmap is community-verifiable. We believe in code over cult of personality."},
+    {k:['rewards','earn','passive income','incentive'], a:"$MEMEBULL holders earn staking rewards and a share of platform activity fees. The more you stake, the greater your share of rewards and the higher your governance voting weight."},
+    {k:['mobile app','app','ios','android'], a:"Mobile app development begins in Phase 3 of the roadmap. It will include live alerts, the sentiment dashboard, and staking controls, designed for both iOS and Android."},
+    {k:['listing','coinmarketcap','coingecko','exchange','tier 1'], a:"CoinMarketCap and CoinGecko listings are secured in Phase 2. Tier-1 centralized exchange applications are submitted in Phase 4. Community demand helps push exchanges to list."},
+    {k:['airdrop','free','giveaway','bounty'], a:"Meme Bull has no official airdrop. Beware of scams claiming otherwise. Legitimate community rewards come only through staking and verified community events."},
+    {k:['presale','ico','private sale','seed'], a:"There was no presale, ICO, or private seed round. Meme Bull launched fairly on Pump.fun, meaning everyone could buy at the same starting price — no insider advantages."},
+    {k:['risk','disclaimer','not financial','investment advice'], a:"Meme Bull provides analytical intelligence, not financial advice. Cryptocurrencies are highly volatile and you could lose your entire investment. Never invest more than you can afford to lose, and always do your own research."}
+  ];
+  var FALLBACK = "I don't have a canned answer for that one yet — ask in our Telegram and the team will help you directly.";
+  var QUICK = ["What is $MEMEBULL?","How do I buy?","Is this safe?","What's the roadmap?","Tokenomics?"];
+
+  var fab=document.getElementById('chatFab'), panel=document.getElementById('chatPanel'),
+      closeBtn=document.getElementById('chatClose'), body=document.getElementById('chatBody'),
+      quick=document.getElementById('chatQuick'), input=document.getElementById('chatInput'),
+      sendBtn=document.getElementById('chatSend');
+  var opened=false;
+
+  function addMsg(text, who){
+    var m=document.createElement('div'); m.className='chat-msg '+who; m.textContent=text;
+    body.appendChild(m); body.scrollTop=body.scrollHeight;
+  }
+  function showTyping(){
+    var t=document.createElement('div'); t.className='chat-typing'; t.id='typingIndicator';
+    t.innerHTML='<span></span><span></span><span></span>';
+    body.appendChild(t); body.scrollTop=body.scrollHeight;
+  }
+  function hideTyping(){ var t=document.getElementById('typingIndicator'); if(t) t.remove(); }
+  function answerFor(text){
+    var low=text.toLowerCase();
+    for(var i=0;i<FAQ.length;i++){
+      if(FAQ[i].k.some(function(k){ return low.indexOf(k)!==-1; })) return FAQ[i].a;
+    }
+    return FALLBACK;
+  }
+  function ask(text){
+    if(!text || !text.trim()) return;
+    addMsg(text,'user'); input.value=''; showTyping();
+    setTimeout(function(){ hideTyping(); addMsg(answerFor(text),'bot'); }, 450+Math.random()*350);
+  }
+  function openChat(){
+    panel.classList.add('on');
+    if(opened) return;
+    opened=true;
+    addMsg("Hey, I'm the Meme Bull assistant. Ask me about the token, how to buy, staking, the roadmap, or tap a quick question below.",'bot');
+    QUICK.forEach(function(q){
+      var c=document.createElement('button');
+      c.className='chat-chip'; c.type='button'; c.textContent=q;
+      c.addEventListener('click',function(){ ask(q); });
+      quick.appendChild(c);
+    });
+  }
+  fab.addEventListener('click', function(){
+    if(panel.classList.contains('on')) panel.classList.remove('on'); else openChat();
+  });
+  closeBtn.addEventListener('click', function(){ panel.classList.remove('on'); });
+  sendBtn.addEventListener('click', function(){ ask(input.value); });
+  input.addEventListener('keydown', function(e){ if(e.key==='Enter') ask(input.value); });
+  window.openMemeBullChat = openChat;
+})();
+
+/* ================= POLLS ================= */
+(function(){
+  var POLLS = [
+    {
+      id:'brazil', tag:'Brazil Election',
+      q:'Who will win the next Brazil presidential election?',
+      opts:['Incumbent leftist President Luiz Inácio Lula da Silva', 'ex-President Jair Bolsonaro'],
+      imgs:['https://www.thenation.com/wp-content/uploads/2021/03/lula-microphone.jpg', 'https://www.as-coa.org/sites/default/files/styles/article_hero_1026x576/public/field/image/Planalto_JairBolsonaro-1250px.jpg?h=6377f7ce&itok=EC_mEY3n'],
+      base:[530, 470]
+    },
+    {id:'p2', tag:'AI Policy', q:'Should AI companies pause advanced model development until stronger safety regulation exists?', opts:['Yes','No','Unsure'], base:[489,571,203]},
+    {id:'p3', tag:'Economy', q:'Do you support a universal basic income funded by taxes on AI and automation?', opts:['Yes','No','Unsure'], base:[544,502,187]},
+    {id:'p7', tag:'Energy & Climate', q:'Should nuclear energy be expanded as a primary tool against climate change?', opts:['Yes','No','Unsure'], base:[301,689,166]}
+  ];
+  var grid = document.getElementById('pollGrid');
+
+  function fmtTotal(n){ return n>=1000 ? (n/1000).toFixed(1).replace('.0','')+'k' : String(n); }
+  async function loadCounts(poll){
+    var raw = await storeGet('poll_'+poll.id+'_counts', true);
+    if(raw){ try{ return JSON.parse(raw); }catch(e){} }
+    return poll.base.slice();
+  }
+  async function loadVoted(poll){
+    var raw = await storeGet('poll_'+poll.id+'_voted', false);
+    return raw===null ? -1 : parseInt(raw,10);
+  }
+
+  function render(poll, counts, votedIdx, card){
+    var voted = votedIdx !== -1;
+    var total = counts.reduce(function(a,b){ return a+b; },0) || 1;
+    var optsWrap = card.querySelector('.poll-opts');
+    optsWrap.innerHTML='';
+    counts.forEach(function(c,i){
+      var pct = Math.round((c/total)*100);
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'poll-opt'+(votedIdx===i?' chosen':'');
+      btn.disabled = voted;
+      btn.innerHTML =
+        ((poll.imgs && poll.imgs[i]) ? '<img class="poll-img" src="'+poll.imgs[i]+'" alt="">' : '') +
+        '<span class="poll-fill" style="width:'+(voted?pct:0)+'%"></span>'+
+        '<span class="poll-row"><span>'+poll.opts[i]+'</span>'+
+        (voted?'<span class="poll-pct">'+pct+'%</span>':'')+'</span>';
+      if(!voted) btn.addEventListener('click', function(){ vote(poll, i, card); });
+      optsWrap.appendChild(btn);
+    });
+    card.querySelector('.poll-meta').innerHTML = '<span>'+fmtTotal(total)+' votes</span>'+
+      (voted?'<span class="poll-vote-tag">✓ You voted</span>':'<span>Tap an option to vote</span>');
+  }
+
+  async function vote(poll, idx, card){
+    var counts = await loadCounts(poll);
+    counts[idx] = (counts[idx]||0)+1;
+    await storeSet('poll_'+poll.id+'_counts', JSON.stringify(counts), true);
+    await storeSet('poll_'+poll.id+'_voted', String(idx), false);
+    render(poll, counts, idx, card);
+  }
+
+  POLLS.forEach(async function(poll){
+    var card = document.createElement('div');
+    card.className = 'poll-card reveal';
+    card.innerHTML =
+      '<span class="poll-tag">'+poll.tag+'</span>'+
+      '<div class="poll-q">'+poll.q+'</div>'+
+      '<div class="poll-opts"><div class="poll-loading">Loading results…</div></div>'+
+      '<div class="poll-meta"></div>';
+    grid.appendChild(card);
+    reveal(card);
+    render(poll, await loadCounts(poll), await loadVoted(poll), card);
+  });
+})();
+
+/* ================= LIVE TRANSACTIONS FEED ================= */
+(function(){
+  var BASE58_CHARS = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+  var POOL_SIZE = 200;
+  var VISIBLE_ROWS = 6;
+  var ROW_HEIGHT = 48;
+  var SCROLL_INTERVAL = 2000;
+  var TRANSITION_MS = 600;
+
+  function randBase58(len){ var s=''; for(var i=0;i<len;i++) s+=BASE58_CHARS[Math.floor(Math.random()*BASE58_CHARS.length)]; return s; }
+  function randomSolAddress(){ return randBase58(32+Math.floor(Math.random()*12)); }
+  function truncateAddr(addr){ return addr.slice(0,4)+'…'+addr.slice(-4); }
+  function randomAmount(){ return Math.floor(100 + Math.random()*49900); }
+  function solEquivalent(bullAmount){ return bullAmount / 8500; }
+  function randomTimeAgo(){ var secs = Math.floor(Math.random()*60) + 1; return secs + 's ago'; }
+  function randomAvatarColor(){
+    var hues = [220, 260, 190, 280, 200, 240, 300, 170];
+    var h = hues[Math.floor(Math.random()*hues.length)];
+    return 'linear-gradient(135deg, hsl('+h+',80%,55%), hsl('+(h+40)+',70%,45%))';
+  }
+
+  var pool = [];
+  for(var i=0;i<POOL_SIZE;i++){
+    var bull = randomAmount();
+    pool.push({addr: randomSolAddress(), bull: bull, sol: solEquivalent(bull), time: randomTimeAgo(), avatarBg: randomAvatarColor()});
+  }
+  for(var j=pool.length-1;j>0;j--){
+    var k=Math.floor(Math.random()*(j+1));
+    var tmp=pool[j]; pool[j]=pool[k]; pool[k]=tmp;
+  }
+
+  var feedInner = document.getElementById('ltxFeedInner');
+  var totalBuysEl = document.getElementById('ltxTotalBuys');
+  var totalVolumeEl = document.getElementById('ltxTotalVolume');
+  var totalBuyersEl = document.getElementById('ltxTotalBuyers');
+  var currentOffset = 0;
+  var totalBuys = 1847;
+  var totalVolume = 284532;
+  var totalBuyers = 1203;
+
+  function formatBull(n){ return n >= 10000 ? (n/1000).toFixed(1) + 'k' : n.toLocaleString(); }
+  function formatSol(n){ return n >= 10 ? n.toFixed(1) : n >= 1 ? n.toFixed(2) : n.toFixed(3); }
+  function rowInner(tx){
+    return '<div class="ltx-avatar" style="background:'+tx.avatarBg+'">'+tx.addr[0].toUpperCase()+'</div>'+
+      '<div class="ltx-info"><div class="ltx-wallet">'+truncateAddr(tx.addr)+'</div><div class="ltx-time">'+tx.time+'</div></div>'+
+      '<div class="ltx-amount"><div class="ltx-amount-bull">'+formatBull(tx.bull)+' $MEMEBULL</div><div class="ltx-amount-sol">'+formatSol(tx.sol)+' SOL</div></div>';
+  }
+
+  var html = '';
+  for(var r=0;r<VISIBLE_ROWS+4;r++){
+    html += '<div class="ltx-row">'+rowInner(pool[r % pool.length])+'</div>';
+  }
+  feedInner.innerHTML = html;
+
+  function scrollStep(){
+    currentOffset = (currentOffset + 1) % pool.length;
+    var firstRow = feedInner.querySelector('.ltx-row');
+    if(firstRow){
+      firstRow.style.transition = 'transform '+TRANSITION_MS+'ms cubic-bezier(.4,0,.2,1), opacity '+TRANSITION_MS+'ms ease';
+      firstRow.style.transform = 'translateY(-'+ROW_HEIGHT+'px)';
+      firstRow.style.opacity = '0';
+    }
+    setTimeout(function(){
+      if(firstRow && firstRow.parentNode) firstRow.parentNode.removeChild(firstRow);
+      var tx = pool[(currentOffset + VISIBLE_ROWS + 3) % pool.length];
+      var newRow = document.createElement('div');
+      newRow.className = 'ltx-row';
+      newRow.innerHTML = rowInner(tx);
+      feedInner.appendChild(newRow);
+      totalBuys += 1;
+      totalVolume += Math.round(tx.sol * 145);
+      if(Math.random() < 0.65) totalBuyers += 1;
+      totalBuysEl.textContent = totalBuys.toLocaleString();
+      totalVolumeEl.textContent = '$' + totalVolume.toLocaleString();
+      totalBuyersEl.textContent = totalBuyers.toLocaleString();
+    }, TRANSITION_MS);
+  }
+
+  setInterval(scrollStep, SCROLL_INTERVAL);
+  setInterval(function(){
+    feedInner.querySelectorAll('.ltx-time').forEach(function(el){
+      if(Math.random() < 0.15) el.textContent = randomTimeAgo();
+    });
+  }, 5000);
+})();
+
+/* ================= VISITOR POPUP ================= */
+(function(){
+  var COUNTRIES = [["Afghanistan","AF"],["Albania","AL"],["Algeria","DZ"],["Argentina","AR"],["Armenia","AM"],["Australia","AU"],["Austria","AT"],["Azerbaijan","AZ"],["Bahrain","BH"],["Bangladesh","BD"],["Belarus","BY"],["Belgium","BE"],["Belize","BZ"],["Benin","BJ"],["Bhutan","BT"],["Bolivia","BO"],["Bosnia and Herzegovina","BA"],["Botswana","BW"],["Brazil","BR"],["Brunei","BN"],["Bulgaria","BG"],["Burkina Faso","BF"],["Cambodia","KH"],["Cameroon","CM"],["Canada","CA"],["Chile","CL"],["China","CN"],["Colombia","CO"],["Costa Rica","CR"],["Croatia","HR"],["Cuba","CU"],["Cyprus","CY"],["Czech Republic","CZ"],["Denmark","DK"],["Dominican Republic","DO"],["Ecuador","EC"],["Egypt","EG"],["El Salvador","SV"],["Estonia","EE"],["Ethiopia","ET"],["Finland","FI"],["France","FR"],["Georgia","GE"],["Germany","DE"],["Ghana","GH"],["Greece","GR"],["Guatemala","GT"],["Honduras","HN"],["Hong Kong","HK"],["Hungary","HU"],["Iceland","IS"],["India","IN"],["Indonesia","ID"],["Iraq","IQ"],["Ireland","IE"],["Israel","IL"],["Italy","IT"],["Ivory Coast","CI"],["Jamaica","JM"],["Japan","JP"],["Jordan","JO"],["Kazakhstan","KZ"],["Kenya","KE"],["Kuwait","KW"],["Kyrgyzstan","KG"],["Laos","LA"],["Latvia","LV"],["Lebanon","LB"],["Libya","LY"],["Liechtenstein","LI"],["Lithuania","LT"],["Luxembourg","LU"],["Madagascar","MG"],["Malaysia","MY"],["Maldives","MV"],["Mali","ML"],["Malta","MT"],["Mauritius","MU"],["Mexico","MX"],["Moldova","MD"],["Monaco","MC"],["Mongolia","MN"],["Montenegro","ME"],["Morocco","MA"],["Mozambique","MZ"],["Myanmar","MM"],["Namibia","NA"],["Nepal","NP"],["Netherlands","NL"],["New Zealand","NZ"],["Nicaragua","NI"],["Niger","NE"],["Nigeria","NG"],["North Macedonia","MK"],["Norway","NO"],["Oman","OM"],["Pakistan","PK"],["Panama","PA"],["Papua New Guinea","PG"],["Paraguay","PY"],["Peru","PE"],["Philippines","PH"],["Poland","PL"],["Portugal","PT"],["Qatar","QA"],["Romania","RO"],["Rwanda","RW"],["Saudi Arabia","SA"],["Senegal","SN"],["Serbia","RS"],["Singapore","SG"],["Slovakia","SK"],["Slovenia","SI"],["South Africa","ZA"],["South Korea","KR"],["Spain","ES"],["Sri Lanka","LK"],["Sweden","SE"],["Switzerland","CH"],["Taiwan","TW"],["Tajikistan","TJ"],["Tanzania","TZ"],["Thailand","TH"],["Togo","TG"],["Trinidad and Tobago","TT"],["Tunisia","TN"],["Turkey","TR"],["Turkmenistan","TM"],["Uganda","UG"],["Ukraine","UA"],["United Arab Emirates","AE"],["United Kingdom","GB"],["United States","US"],["Uruguay","UY"],["Uzbekistan","UZ"],["Venezuela","VE"],["Vietnam","VN"],["Yemen","YE"],["Zambia","ZM"],["Zimbabwe","ZW"]];
+  var ACTIONS = ["is exploring Meme Bull right now","just joined the herd","is reading the whitepaper","is checking the roadmap","just viewed the tokenomics","is browsing the platform"];
+  function flagEmoji(iso){
+    return iso.toUpperCase().replace(/./g, function(c){ return String.fromCodePoint(127397 + c.charCodeAt(0)); });
+  }
+  function shuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){ var j = Math.floor(Math.random()*(i+1)); var tmp=a[i]; a[i]=a[j]; a[j]=tmp; }
+    return a;
+  }
+  var QUEUE = [];
+  while(QUEUE.length < 300) QUEUE = QUEUE.concat(shuffle(COUNTRIES));
+  QUEUE = QUEUE.slice(0, 300);
+
+  var toast = document.getElementById('visitorToast');
+  var flagEl = document.getElementById('vtFlag');
+  var line1El = document.getElementById('vtLine1');
+  var line2El = document.getElementById('vtLine2');
+  var idx = 0;
+  function showNext(){
+    var entry = QUEUE[idx++ % QUEUE.length];
+    var action = ACTIONS[Math.floor(Math.random()*ACTIONS.length)];
+    toast.classList.remove('show');
+    setTimeout(function(){
+      flagEl.textContent = flagEmoji(entry[1]);
+      line1El.textContent = "Visitor from " + entry[0];
+      line2El.textContent = action;
+      toast.classList.add('show');
+    }, 220);
+  }
+  setTimeout(showNext, 2000);
+  setInterval(showNext, 1500);
+})();
+
+/* ================= TRANSLATE ================= */
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement({ pageLanguage: 'en', autoDisplay: false }, 'google_translate_element');
+}
+(function(){
+  var fab = document.getElementById('langFab');
+  var panel = document.getElementById('langPanel');
+  var opts = panel.querySelectorAll('.lang-opt');
+
+  fab.addEventListener('click', function(e){
+    e.stopPropagation();
+    panel.classList.toggle('on');
+  });
+  document.addEventListener('click', function(e){
+    if(panel.classList.contains('on') && !panel.contains(e.target) && e.target !== fab) panel.classList.remove('on');
+  });
+
+  function markActive(lang){
+    opts.forEach(function(o){ o.classList.toggle('active', o.getAttribute('data-lang') === lang); });
+  }
+  function setLanguage(lang){
+    var tries = 0;
+    var iv = setInterval(function(){
+      var select = document.querySelector('#google_translate_element select.goog-te-combo');
+      tries++;
+      if(select){
+        clearInterval(iv);
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+        markActive(lang);
+        panel.classList.remove('on');
+      } else if(tries > 40){ clearInterval(iv); }
+    }, 150);
+  }
+  opts.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var lang = btn.getAttribute('data-lang');
+      if(lang === 'en'){
+        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + location.hostname;
+        location.reload();
         return;
       }
-      var d=Math.floor(diff/86400000);
-      var h=Math.floor((diff%86400000)/3600000);
-      var m=Math.floor((diff%3600000)/60000);
-      var s=Math.floor((diff%60000)/1000);
-      dEl.textContent=pad(d); hEl.textContent=pad(h); mEl.textContent=pad(m); sEl.textContent=pad(s);
-    }
-    tick();
-    var timer=setInterval(tick,1000);
-  })();
-
-  // ================= MOBILE NAV TOGGLE =================
-  (function(){
-    var toggle = document.getElementById('navToggle');
-    var links = document.getElementById('navLinks');
-    if(toggle && links){
-      toggle.addEventListener('click', function(){
-        links.classList.toggle('open');
-      });
-      // Close menu when a link is clicked
-      links.querySelectorAll('a').forEach(function(link){
-        link.addEventListener('click', function(){
-          if(window.innerWidth <= 860){
-            links.classList.remove('open');
-          }
-        });
-      });
-    }
-  })();
-
-  // ================= CHATBOT (with 10 additional Q&As) =================
-  (function(){
-    var FAQ = [
-      // Original entries
-      {k:['what is','memebull','meme bull','about'], a:"Meme Bull ($MEMEBULL) is an AI-powered crypto intelligence platform on Solana. It reads market data, social sentiment, political narrative, and prediction markets to help you understand what is moving the market, and why."},
-      {k:['buy','purchase','how do i get','where to buy'], a:"You can buy $MEMEBULL on Pump.fun at launch, or on Jupiter and Raydium once liquidity moves off the bonding curve. Full step-by-step is in the How To Buy section on this page."},
-      {k:['contract','address',' ca ','ca?','ca.'], a:"The official contract address is in the CA box at the top of this page — tap it to copy. Always double-check it against our official Telegram or X before buying anywhere."},
-      {k:['safe','audit','rug','scam','trust'], a:"The smart contract is audited before launch, liquidity is locked, and contract ownership is renounced once launch parameters are confirmed stable. That said, always do your own research — crypto carries real risk."},
-      {k:['roadmap','phase','timeline','when'], a:"Meme Bull ships in four phases: Foundation, Ignition, Expansion, and Maturity. Scroll up to the Roadmap section for exactly what each phase delivers."},
-      {k:['tokenomics','supply','allocation','distribution'], a:"Total supply is fixed at 1,000,000,000 $MEMEBULL. 40% is committed to locked liquidity from day one, with the rest split across community, staking rewards, treasury, and team — full breakdown is in the whitepaper."},
-      {k:['stake','staking','reward','apy','yield'], a:"Staking $MEMEBULL unlocks the full intelligence suite, earns a share of platform activity rewards, and gives you governance voting weight. Staking opens in Phase 3 of the roadmap."},
-      {k:['whitepaper','doc','documentation'], a:"Tap \"Read Whitepaper\" at the top of this page for the full technical documentation."},
-      {k:['governance','vote','dao'], a:"Meme Bull moves to full DAO governance in Phase 4, letting $MEMEBULL holders vote on treasury allocation and roadmap priorities."},
-      {k:['telegram','discord','community','social','x.com','twitter'], a:"Join the community on Telegram and X — links are in the Platform & Community section below."},
-      {k:['launch','live','countdown'], a:"Check the countdown near the top of this page — once it hits zero the banner switches to \"We are live now\" automatically."},
-      {k:['poll','vote on','political'], a:"Scroll to the Community Pulse section to vote on our live community polls — one vote per browser."},
-
-      // =============== 10 ADDITIONAL Q&A PAIRS ===============
-      {k:['price prediction','price target','future price','worth'], a:"Price predictions are speculative. Meme Bull provides analytical intelligence, not financial advice. The market decides value based on utility, adoption, and market conditions. Always do your own research before investing."},
-      {k:['solana','blockchain','network','chain'], a:"Meme Bull runs on Solana, one of the fastest and lowest-cost Layer-1 blockchains. Solana's high throughput makes real-time AI-driven market intelligence possible at scale."},
-      {k:['liquidity','liquidity pool','liquidity locked'], a:"Liquidity is seeded on Jupiter and Raydium after the Pump.fun bonding curve fills. 40% of total supply is committed to locked liquidity, ensuring deep trading depth and reducing rug-pull risk."},
-      {k:['team','founder','developer','who made'], a:"The Meme Bull team is anonymous but publicly committed to full protocol transparency. The smart contract is open-source and audited, and the roadmap is community-verifiable. We believe in code over cult of personality."},
-      {k:['rewards','earn','passive income','incentive'], a:"$MEMEBULL holders earn staking rewards and a share of platform activity fees. The more you stake, the greater your share of rewards and the higher your governance voting weight."},
-      {k:['mobile app','app','ios','android'], a:"Mobile app development begins in Phase 3 of the roadmap. It will include live alerts, the sentiment dashboard, and staking controls, designed for both iOS and Android."},
-      {k:['listing','coinmarketcap','coingecko','exchange','tier 1'], a:"CoinMarketCap and CoinGecko listings are secured in Phase 2. Tier-1 centralized exchange applications are submitted in Phase 4. Community demand helps push exchanges to list."},
-      {k:['airdrop','free','giveaway','bounty'], a:"Meme Bull has no official airdrop. Beware of scams claiming otherwise. Legitimate community rewards come only through staking and verified community events."},
-      {k:['presale','ico','private sale','seed'], a:"There was no presale, ICO, or private seed round. Meme Bull launched fairly on Pump.fun, meaning everyone could buy at the same starting price — no insider advantages."},
-      {k:['risk','disclaimer','not financial','investment advice'], a:"Meme Bull provides analytical intelligence, not financial advice. Cryptocurrencies are highly volatile and you could lose your entire investment. Never invest more than you can afford to lose, and always do your own research."}
-    ];
-    var FALLBACK = "I don't have a canned answer for that one yet — ask in our Telegram and the team will help you directly.";
-    var QUICK = ["What is $MEMEBULL?","How do I buy?","Is this safe?","What's the roadmap?","Tokenomics?"];
-    var fab=document.getElementById('chatFab'), panel=document.getElementById('chatPanel'),
-        closeBtn=document.getElementById('chatClose'), body=document.getElementById('chatBody'),
-        quick=document.getElementById('chatQuick'), input=document.getElementById('chatInput'),
-        sendBtn=document.getElementById('chatSend');
-    var opened=false;
-    function addMsg(text, who){
-      var m=document.createElement('div');
-      m.className='chat-msg '+who;
-      m.textContent=text;
-      body.appendChild(m);
-      body.scrollTop=body.scrollHeight;
-    }
-    function showTyping(){
-      var t=document.createElement('div');
-      t.className='chat-typing';
-      t.id='typingIndicator';
-      t.innerHTML='<span></span><span></span><span></span>';
-      body.appendChild(t);
-      body.scrollTop=body.scrollHeight;
-    }
-    function hideTyping(){
-      var t=document.getElementById('typingIndicator');
-      if(t) t.remove();
-    }
-    function answerFor(text){
-      var low=text.toLowerCase();
-      for(var i=0;i<FAQ.length;i++){
-        for(var j=0;j<FAQ[i].k.length;j++){
-          if(low.indexOf(FAQ[i].k[j])!==-1) return FAQ[i].a;
-        }
-      }
-      return FALLBACK;
-    }
-    function ask(text){
-      if(!text || !text.trim()) return;
-      addMsg(text,'user');
-      input.value='';
-      showTyping();
-      setTimeout(function(){
-        hideTyping();
-        addMsg(answerFor(text),'bot');
-      }, 450+Math.random()*350);
-    }
-    function buildQuick(){
-      quick.innerHTML='';
-      QUICK.forEach(function(q){
-        var c=document.createElement('button');
-        c.className='chat-chip';
-        c.type='button';
-        c.textContent=q;
-        c.addEventListener('click',function(){ ask(q); });
-        quick.appendChild(c);
-      });
-    }
-    function openChat(){
-      panel.classList.add('on');
-      if(!opened){
-        opened=true;
-        addMsg("Hey, I'm the Meme Bull assistant. Ask me about the token, how to buy, staking, the roadmap, or tap a quick question below.",'bot');
-        buildQuick();
-      }
-    }
-    fab.addEventListener('click', function(){
-      if(panel.classList.contains('on')){ panel.classList.remove('on'); }
-      else{ openChat(); }
+      setLanguage(lang);
     });
-    closeBtn.addEventListener('click', function(){ panel.classList.remove('on'); });
-    sendBtn.addEventListener('click', function(){ ask(input.value); });
-    input.addEventListener('keydown', function(e){ if(e.key==='Enter'){ ask(input.value); } });
-    window.openMemeBullChat = openChat;
-  })();
-
-  // ================= POLLS =================
-  (function(){
-    var POLLS = [
-      {
-        id:'brazil', 
-        tag:'Brazil Election', 
-        q:'Who will win the next Brazil presidential election?', 
-        opts:['Incumbent leftist President Luiz Inácio Lula da Silva', 'ex-President Jair Bolsonaro'], 
-        imgs:['https://www.thenation.com/wp-content/uploads/2021/03/lula-microphone.jpg', 'https://www.as-coa.org/sites/default/files/styles/article_hero_1026x576/public/field/image/Planalto_JairBolsonaro-1250px.jpg?h=6377f7ce&itok=EC_mEY3n'], 
-        base:[530, 470]
-      },
-      {id:'p2', tag:'AI Policy', q:'Should AI companies pause advanced model development until stronger safety regulation exists?', opts:['Yes','No','Unsure'], base:[489,571,203]},
-      {id:'p3', tag:'Economy', q:'Do you support a universal basic income funded by taxes on AI and automation?', opts:['Yes','No','Unsure'], base:[544,502,187]},
-      {id:'p7', tag:'Energy & Climate', q:'Should nuclear energy be expanded as a primary tool against climate change?', opts:['Yes','No','Unsure'], base:[301,689,166]}
-    ];
-    var grid = document.getElementById('pollGrid');
-    function fmtTotal(n){
-      if(n>=1000) return (n/1000).toFixed(1).replace('.0','')+'k';
-      return String(n);
-    }
-    async function loadCounts(poll){
-      var raw = await storeGet('poll_'+poll.id+'_counts', true);
-      if(raw){ try{ return JSON.parse(raw); }catch(e){} }
-      return poll.base.slice();
-    }
-    async function loadVoted(poll){
-      var raw = await storeGet('poll_'+poll.id+'_voted', false);
-      return raw===null ? -1 : parseInt(raw,10);
-    }
-    function render(poll, counts, votedIdx, card){
-      var total = counts.reduce(function(a,b){return a+b;},0) || 1;
-      var optsWrap = card.querySelector('.poll-opts');
-      optsWrap.innerHTML='';
-      counts.forEach(function(c,i){
-        var pct = Math.round((c/total)*100);
-        var btn=document.createElement('button');
-        btn.type='button';
-        btn.className='poll-opt'+(votedIdx===i?' chosen':'');
-        btn.disabled = votedIdx!==-1;
-        var imgHtml = (poll.imgs && poll.imgs[i]) ? '<img class="poll-img" src="'+poll.imgs[i]+'" alt="">' : '';
-        btn.innerHTML = imgHtml +
-                       '<span class="poll-fill" style="width:'+(votedIdx!==-1?pct:0)+'%"></span>'+
-                       '<span class="poll-row"><span>'+poll.opts[i]+'</span>'+
-                       (votedIdx!==-1?'<span class="poll-pct">'+pct+'%</span>':'')+'</span>';
-        if(votedIdx===-1){
-          btn.addEventListener('click', function(){ vote(poll, i, card); });
-        }
-        optsWrap.appendChild(btn);
-      });
-      var meta = card.querySelector('.poll-meta');
-      meta.innerHTML = '<span>'+fmtTotal(total)+' votes</span>'+
-        (votedIdx!==-1?'<span class="poll-vote-tag">✓ You voted</span>':'<span>Tap an option to vote</span>');
-    }
-    async function vote(poll, idx, card){
-      var counts = await loadCounts(poll);
-      counts[idx] = (counts[idx]||0)+1;
-      await storeSet('poll_'+poll.id+'_counts', JSON.stringify(counts), true);
-      await storeSet('poll_'+poll.id+'_voted', String(idx), false);
-      render(poll, counts, idx, card);
-    }
-    async function buildPoll(poll){
-      var card=document.createElement('div');
-      card.className='poll-card reveal';
-      card.innerHTML =
-        '<span class="poll-tag">'+poll.tag+'</span>'+
-        '<div class="poll-q">'+poll.q+'</div>'+
-        '<div class="poll-opts"><div style="color:#7f8fb8;font-size:12.5px;">Loading results…</div></div>'+
-        '<div class="poll-meta"></div>';
-      grid.appendChild(card);
-      var io=new IntersectionObserver(function(es){
-        es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});
-      },{threshold:.1});
-      io.observe(card);
-      var counts = await loadCounts(poll);
-      var votedIdx = await loadVoted(poll);
-      render(poll, counts, votedIdx, card);
-    }
-    POLLS.forEach(function(p){ buildPoll(p); });
-  })();
-
-  // ================= LIVE TRANSACTIONS FEED =================
-  (function(){
-    var BASE58_CHARS = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-    var POOL_SIZE = 200;
-    var VISIBLE_ROWS = 6;
-    var ROW_HEIGHT = 48;
-    var SCROLL_INTERVAL = 2000;
-    var TRANSITION_MS = 600;
-
-    function randBase58(len){
-      var s='';
-      for(var i=0;i<len;i++) s+=BASE58_CHARS[Math.floor(Math.random()*BASE58_CHARS.length)];
-      return s;
-    }
-    function randomSolAddress(){
-      return randBase58(32+Math.floor(Math.random()*12));
-    }
-    function truncateAddr(addr){
-      return addr.slice(0,4)+'…'+addr.slice(-4);
-    }
-    function randomAmount(){
-      return Math.floor(100 + Math.random()*49900);
-    }
-    function solEquivalent(bullAmount){
-      return bullAmount / 8500;
-    }
-    function randomTimeAgo(){
-      var secs = Math.floor(Math.random()*60) + 1;
-      return secs + 's ago';
-    }
-    function randomAvatarColor(){
-      var hues = [220, 260, 190, 280, 200, 240, 300, 170];
-      var h = hues[Math.floor(Math.random()*hues.length)];
-      return 'linear-gradient(135deg, hsl('+h+',80%,55%), hsl('+(h+40)+',70%,45%))';
-    }
-
-    var pool = [];
-    for(var i=0;i<POOL_SIZE;i++){
-      var bull = randomAmount();
-      var sol = solEquivalent(bull);
-      pool.push({
-        addr: randomSolAddress(),
-        bull: bull,
-        sol: sol,
-        time: randomTimeAgo(),
-        avatarBg: randomAvatarColor()
-      });
-    }
-    for(var j=pool.length-1;j>0;j--){
-      var k=Math.floor(Math.random()*(j+1));
-      var tmp=pool[j]; pool[j]=pool[k]; pool[k]=tmp;
-    }
-
-    var feedInner = document.getElementById('ltxFeedInner');
-    var totalBuysEl = document.getElementById('ltxTotalBuys');
-    var totalVolumeEl = document.getElementById('ltxTotalVolume');
-    var totalBuyersEl = document.getElementById('ltxTotalBuyers');
-    var currentOffset = 0;
-    var totalBuys = 1847;
-    var totalVolume = 284532;
-    var totalBuyers = 1203;
-
-    function formatBull(n){
-      if(n >= 10000) return (n/1000).toFixed(1) + 'k';
-      return n.toLocaleString();
-    }
-    function formatSol(n){
-      if(n >= 10) return n.toFixed(1);
-      if(n >= 1) return n.toFixed(2);
-      return n.toFixed(3);
-    }
-
-    function renderVisible(){
-      var html = '';
-      for(var i=0;i<VISIBLE_ROWS+4;i++){
-        var idx = (currentOffset + i) % pool.length;
-        var tx = pool[idx];
-        html += '<div class="ltx-row" style="height:'+ROW_HEIGHT+'px;">'+
-          '<div class="ltx-avatar" style="background:'+tx.avatarBg+'">'+tx.addr[0].toUpperCase()+'</div>'+
-          '<div class="ltx-info">'+
-            '<div class="ltx-wallet">'+truncateAddr(tx.addr)+'</div>'+
-            '<div class="ltx-time">'+tx.time+'</div>'+
-          '</div>'+
-          '<div class="ltx-amount">'+
-            '<div class="ltx-amount-bull">'+formatBull(tx.bull)+' $MEMEBULL</div>'+
-            '<div class="ltx-amount-sol">'+formatSol(tx.sol)+' SOL</div>'+
-          '</div>'+
-        '</div>';
-      }
-      feedInner.innerHTML = html;
-    }
-
-    function scrollStep(){
-      currentOffset = (currentOffset + 1) % pool.length;
-      var firstRow = feedInner.querySelector('.ltx-row');
-      if(firstRow){
-        firstRow.style.transition = 'transform '+TRANSITION_MS+'ms cubic-bezier(.4,0,.2,1), opacity '+TRANSITION_MS+'ms ease';
-        firstRow.style.transform = 'translateY(-'+ROW_HEIGHT+'px)';
-        firstRow.style.opacity = '0';
-      }
-      setTimeout(function(){
-        if(firstRow && firstRow.parentNode){
-          firstRow.parentNode.removeChild(firstRow);
-        }
-        var newIdx = (currentOffset + VISIBLE_ROWS + 3) % pool.length;
-        var tx = pool[newIdx];
-        var newRow = document.createElement('div');
-        newRow.className = 'ltx-row new';
-        newRow.style.height = ROW_HEIGHT+'px';
-        newRow.innerHTML =
-          '<div class="ltx-avatar" style="background:'+tx.avatarBg+'">'+tx.addr[0].toUpperCase()+'</div>'+
-          '<div class="ltx-info">'+
-            '<div class="ltx-wallet">'+truncateAddr(tx.addr)+'</div>'+
-            '<div class="ltx-time">'+tx.time+'</div>'+
-          '</div>'+
-          '<div class="ltx-amount">'+
-            '<div class="ltx-amount-bull">'+formatBull(tx.bull)+' $MEMEBULL</div>'+
-            '<div class="ltx-amount-sol">'+formatSol(tx.sol)+' SOL</div>'+
-          '</div>';
-        feedInner.appendChild(newRow);
-        totalBuys += 1;
-        totalVolume += Math.round(tx.sol * 145);
-        if(Math.random() < 0.65) totalBuyers += 1;
-        totalBuysEl.textContent = totalBuys.toLocaleString();
-        totalVolumeEl.textContent = '$' + totalVolume.toLocaleString();
-        totalBuyersEl.textContent = totalBuyers.toLocaleString();
-      }, TRANSITION_MS);
-    }
-
-    renderVisible();
-    setInterval(scrollStep, SCROLL_INTERVAL);
-    setInterval(function(){
-      var timeEls = feedInner.querySelectorAll('.ltx-time');
-      timeEls.forEach(function(el){
-        if(Math.random() < 0.15){
-          el.textContent = randomTimeAgo();
-        }
-      });
-    }, 5000);
-  })();
-
-  // ================= VISITOR POPUP =================
-  (function(){
-    var COUNTRIES = [["Afghanistan","AF"],["Albania","AL"],["Algeria","DZ"],["Argentina","AR"],["Armenia","AM"],["Australia","AU"],["Austria","AT"],["Azerbaijan","AZ"],["Bahrain","BH"],["Bangladesh","BD"],["Belarus","BY"],["Belgium","BE"],["Belize","BZ"],["Benin","BJ"],["Bhutan","BT"],["Bolivia","BO"],["Bosnia and Herzegovina","BA"],["Botswana","BW"],["Brazil","BR"],["Brunei","BN"],["Bulgaria","BG"],["Burkina Faso","BF"],["Cambodia","KH"],["Cameroon","CM"],["Canada","CA"],["Chile","CL"],["China","CN"],["Colombia","CO"],["Costa Rica","CR"],["Croatia","HR"],["Cuba","CU"],["Cyprus","CY"],["Czech Republic","CZ"],["Denmark","DK"],["Dominican Republic","DO"],["Ecuador","EC"],["Egypt","EG"],["El Salvador","SV"],["Estonia","EE"],["Ethiopia","ET"],["Finland","FI"],["France","FR"],["Georgia","GE"],["Germany","DE"],["Ghana","GH"],["Greece","GR"],["Guatemala","GT"],["Honduras","HN"],["Hong Kong","HK"],["Hungary","HU"],["Iceland","IS"],["India","IN"],["Indonesia","ID"],["Iraq","IQ"],["Ireland","IE"],["Israel","IL"],["Italy","IT"],["Ivory Coast","CI"],["Jamaica","JM"],["Japan","JP"],["Jordan","JO"],["Kazakhstan","KZ"],["Kenya","KE"],["Kuwait","KW"],["Kyrgyzstan","KG"],["Laos","LA"],["Latvia","LV"],["Lebanon","LB"],["Libya","LY"],["Liechtenstein","LI"],["Lithuania","LT"],["Luxembourg","LU"],["Madagascar","MG"],["Malaysia","MY"],["Maldives","MV"],["Mali","ML"],["Malta","MT"],["Mauritius","MU"],["Mexico","MX"],["Moldova","MD"],["Monaco","MC"],["Mongolia","MN"],["Montenegro","ME"],["Morocco","MA"],["Mozambique","MZ"],["Myanmar","MM"],["Namibia","NA"],["Nepal","NP"],["Netherlands","NL"],["New Zealand","NZ"],["Nicaragua","NI"],["Niger","NE"],["Nigeria","NG"],["North Macedonia","MK"],["Norway","NO"],["Oman","OM"],["Pakistan","PK"],["Panama","PA"],["Papua New Guinea","PG"],["Paraguay","PY"],["Peru","PE"],["Philippines","PH"],["Poland","PL"],["Portugal","PT"],["Qatar","QA"],["Romania","RO"],["Rwanda","RW"],["Saudi Arabia","SA"],["Senegal","SN"],["Serbia","RS"],["Singapore","SG"],["Slovakia","SK"],["Slovenia","SI"],["South Africa","ZA"],["South Korea","KR"],["Spain","ES"],["Sri Lanka","LK"],["Sweden","SE"],["Switzerland","CH"],["Taiwan","TW"],["Tajikistan","TJ"],["Tanzania","TZ"],["Thailand","TH"],["Togo","TG"],["Trinidad and Tobago","TT"],["Tunisia","TN"],["Turkey","TR"],["Turkmenistan","TM"],["Uganda","UG"],["Ukraine","UA"],["United Arab Emirates","AE"],["United Kingdom","GB"],["United States","US"],["Uruguay","UY"],["Uzbekistan","UZ"],["Venezuela","VE"],["Vietnam","VN"],["Yemen","YE"],["Zambia","ZM"],["Zimbabwe","ZW"]];
-    var ACTIONS = ["is exploring Meme Bull right now","just joined the herd","is reading the whitepaper","is checking the roadmap","just viewed the tokenomics","is browsing the platform"];
-    function flagEmoji(iso){
-      return iso.toUpperCase().replace(/./g, function(c){ return String.fromCodePoint(127397 + c.charCodeAt(0)); });
-    }
-    function shuffle(arr){
-      var a = arr.slice();
-      for(var i=a.length-1;i>0;i--){
-        var j = Math.floor(Math.random()*(i+1));
-        var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
-      }
-      return a;
-    }
-    var QUEUE = [];
-    while(QUEUE.length < 300){ QUEUE = QUEUE.concat(shuffle(COUNTRIES)); }
-    QUEUE = QUEUE.slice(0, 300);
-    var toast = document.getElementById('visitorToast');
-    var flagEl = document.getElementById('vtFlag');
-    var line1El = document.getElementById('vtLine1');
-    var line2El = document.getElementById('vtLine2');
-    var idx = 0;
-    function showNext(){
-      var entry = QUEUE[idx % QUEUE.length];
-      var country = entry[0], iso = entry[1];
-      var action = ACTIONS[Math.floor(Math.random()*ACTIONS.length)];
-      toast.classList.remove('show');
-      setTimeout(function(){
-        flagEl.textContent = flagEmoji(iso);
-        line1El.textContent = "Visitor from " + country;
-        line2El.textContent = action;
-        toast.classList.add('show');
-      }, 220);
-      idx++;
-    }
-    setTimeout(showNext, 2000);
-    setInterval(showNext, 1500);
-  })();
-</script>
-
-<!-- ================= LANGUAGE TRANSLATOR SCRIPT — isolated =================
-     Everything below is new. It does not modify, wrap, or depend on any
-     function defined in the script block above. -->
-<script>
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'en',
-      autoDisplay: false
-    }, 'google_translate_element');
-  }
-
-  (function(){
-    var fab = document.getElementById('langFab');
-    var panel = document.getElementById('langPanel');
-    var opts = panel ? panel.querySelectorAll('.lang-opt') : [];
-
-    function closePanel(){ if(panel) panel.classList.remove('on'); }
-    function openPanel(){ if(panel) panel.classList.add('on'); }
-
-    if(fab && panel){
-      fab.addEventListener('click', function(e){
-        e.stopPropagation();
-        panel.classList.contains('on') ? closePanel() : openPanel();
-      });
-      document.addEventListener('click', function(e){
-        if(panel.classList.contains('on') && !panel.contains(e.target) && e.target !== fab){
-          closePanel();
-        }
-      });
-    }
-
-    function markActive(lang){
-      opts.forEach(function(o){
-        o.classList.toggle('active', o.getAttribute('data-lang') === lang);
-      });
-    }
-
-    function setLanguage(lang){
-      var tries = 0;
-      var iv = setInterval(function(){
-        var select = document.querySelector('#google_translate_element select.goog-te-combo');
-        tries++;
-        if(select){
-          clearInterval(iv);
-          select.value = lang;
-          select.dispatchEvent(new Event('change'));
-          markActive(lang);
-          closePanel();
-        } else if(tries > 40){
-          clearInterval(iv); // Google widget script did not load (e.g. blocked network) — fail quietly
-        }
-      }, 150);
-    }
-
-    opts.forEach(function(btn){
-      btn.addEventListener('click', function(){
-        var lang = btn.getAttribute('data-lang');
-        if(lang === 'en'){
-          // Reset to original English by clearing the translate cookie and reloading
-          document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-          document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + location.hostname;
-          location.reload();
-          return;
-        }
-        setLanguage(lang);
-      });
-    });
-  })();
+  });
+})();
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
-
+</html>
